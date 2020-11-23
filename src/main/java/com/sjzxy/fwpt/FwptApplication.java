@@ -3,6 +3,9 @@ package com.sjzxy.fwpt;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author scz
+ */
 @SpringBootApplication
 public class FwptApplication {
 
