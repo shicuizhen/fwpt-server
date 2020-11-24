@@ -17,6 +17,7 @@ public class LoginUser implements UserDetails {
 
     /**
      * 用户信息,作为一个变量存放在UserDetails类型的LoginUser中
+     * 此处涉及到了设计模式。
      */
     private User user;
 
