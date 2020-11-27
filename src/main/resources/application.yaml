@@ -11,3 +11,9 @@ spring:
     password: 123456
 server:
   port: 8080
+
+# 日志配置
+logging:
+  level:
+    com.monitor.wisdom_monitor: debug
+    org.springframework: warn
