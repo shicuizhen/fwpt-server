@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 //设置不需要认证的路径
-                .antMatchers("/login","/home").permitAll()
+                .antMatchers("/login","/home","/doc.html").permitAll()
                 //设置用户权限，只有该角色才能访问该路径
                 .and().authorizeRequests().antMatchers("/login").hasRole("vip")
                 .and().authorizeRequests().antMatchers("/admin").hasRole("admin")
@@ -66,7 +66,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 //设置退出页面
                 .logoutSuccessUrl("/home");
+
     }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        //忽略对swagger的拦截
+        web.ignoring().antMatchers(
+                "/swagger-ui.html",
+                "/v2/api-docs", // swagger api json
+                "/swagger-resources/configuration/ui", // 用来获取支持的动作
+                "/swagger-resources", // 用来获取api-docs的URI
+                "/swagger-resources/configuration/security", // 安全选项
+                "/swagger-resources/**",
+                //补充路径，近期在搭建swagger接口文档时，通过浏览器控制台发现该/webjars路径下的文件被拦截，故加上此过滤条件即可。(2020-10-23)
+                "/webjars/**"
+        );
+    }
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

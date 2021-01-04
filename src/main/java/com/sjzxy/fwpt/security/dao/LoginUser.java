@@ -1,6 +1,6 @@
 package com.sjzxy.fwpt.security.dao;
 
-import com.sjzxy.fwpt.doamin.User;
+import com.sjzxy.fwpt.domain.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -19,9 +19,9 @@ public class LoginUser implements UserDetails {
      * 用户信息,作为一个变量存放在UserDetails类型的LoginUser中
      * 此处涉及到了设计模式。
      */
-    private User user;
+    private Users user;
 
-    public LoginUser(User user) {
+    public LoginUser(Users user) {
         this.user = user;
     }
 
@@ -37,7 +37,7 @@ public class LoginUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return user.getName();
     }
 
     @Override
