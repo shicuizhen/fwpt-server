@@ -1,6 +1,6 @@
 package com.sjzxy.fwpt.security.dao;
 
-import com.sjzxy.fwpt.domain.Users;
+import com.sjzxy.fwpt.entity.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

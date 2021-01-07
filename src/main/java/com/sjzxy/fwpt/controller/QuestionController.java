@@ -1,5 +1,6 @@
 package com.sjzxy.fwpt.controller;
 
+import com.sjzxy.fwpt.entity.QuesSort;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,10 +19,17 @@ public class QuestionController {
     /**
      * 轮播展示分类
      */
-    @ApiOperation(value = "根据模块id查询全部子分类信息")
-    @PostMapping("/sort")
-    public void getAllSortByModuleId(){
 
+    /**
+     * 查询全部子分类id
+     * 如果父分类pid为空，则返回该子分类信息
+     *
+     */
+    @ApiOperation(value = "查询全部子分类信息")
+    @PostMapping("/sort")
+    public QuesSort getAllSort(){
+        QuesSort quesSort = null;
+        return null;
     }
 
     @ApiOperation(value = "根据分类id查询该分类下的问题数、讨论数、讨论人数")
