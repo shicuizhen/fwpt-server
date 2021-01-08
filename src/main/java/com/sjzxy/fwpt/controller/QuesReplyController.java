@@ -27,6 +27,7 @@ public class QuesReplyController {
     @PostMapping
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
     public BaseResponse addQuesReply(@ApiParam("实体对象") @Valid @RequestBody QuesReply quesReply){
+        quesReply.setCreateTime(new Date());
         QuesReply obj = quesReplyService.addQuesReply(quesReply);
         if (Objects.isNull(obj)){
             throw new BusinessException(ResultCodeEnum.AddDataError);

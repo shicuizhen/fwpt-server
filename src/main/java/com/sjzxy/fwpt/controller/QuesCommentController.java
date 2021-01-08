@@ -27,6 +27,7 @@ public class QuesCommentController {
     @PostMapping
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
     public BaseResponse addQuesComment(@ApiParam("实体对象") @Valid @RequestBody QuesComment quesComment){
+        quesComment.setCreateTime(new Date());
         QuesComment obj = quesCommentService.addQuesComment(quesComment);
         if (Objects.isNull(obj)){
             throw new BusinessException(ResultCodeEnum.AddDataError);

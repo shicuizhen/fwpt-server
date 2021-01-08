@@ -27,6 +27,7 @@ public class QuesSortController {
     @PostMapping
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
     public BaseResponse addQuesSort(@ApiParam("实体对象") @Valid @RequestBody QuesSort quesSort){
+        quesSort.setCreateTime(new Date());
         QuesSort obj = quesSortService.addQuesSort(quesSort);
         if (Objects.isNull(obj)){
             throw new BusinessException(ResultCodeEnum.AddDataError);

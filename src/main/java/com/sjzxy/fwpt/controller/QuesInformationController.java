@@ -27,6 +27,7 @@ public class QuesInformationController {
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
     public BaseResponse addQuesInformation(@ApiParam("实体对象") @Valid @RequestBody QuesInformation quesInformation){
         quesInformation.setCreateTime(new Date());
+        quesInformation.setCreateTime(new Date());
         QuesInformation obj = quesInformationService.addQuesInformation(quesInformation);
         if (Objects.isNull(obj)){
             throw new BusinessException(ResultCodeEnum.AddDataError);

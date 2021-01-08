@@ -27,6 +27,7 @@ public class LostInformationController {
     @PostMapping
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
     public BaseResponse addLostInformation(@ApiParam("实体对象") @Valid @RequestBody LostInformation lostInformation){
+        lostInformation.setCreateTime(new Date());
         LostInformation obj = lostInformationService.addLostInformation(lostInformation);
         if (Objects.isNull(obj)){
             throw new BusinessException(ResultCodeEnum.AddDataError);

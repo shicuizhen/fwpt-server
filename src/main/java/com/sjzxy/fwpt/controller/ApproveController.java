@@ -27,6 +27,7 @@ public class ApproveController {
     @PostMapping
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
     public BaseResponse addApprove(@ApiParam("实体对象") @Valid @RequestBody Approve approve){
+        approve.setCreateTime(new Date());
         Approve obj = approveService.addApprove(approve);
         if (Objects.isNull(obj)){
             throw new BusinessException(ResultCodeEnum.AddDataError);

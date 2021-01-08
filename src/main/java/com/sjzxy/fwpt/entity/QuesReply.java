@@ -27,9 +27,9 @@ public class QuesReply implements Serializable {
     @ApiModelProperty(value = "回答创建者" )
     private Integer createBy;
 
-    @Column(name = "cerate_time" )
+    @Column(name = "create_time" )
     @ApiModelProperty(value = "创建时间" )
-    private Date cerateTime;
+    private Date createTime;
 
     @Column(name = "content" )
     @ApiModelProperty(value = "具体内容" )

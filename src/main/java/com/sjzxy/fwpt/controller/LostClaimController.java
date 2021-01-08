@@ -27,6 +27,7 @@ public class LostClaimController {
     @PostMapping
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
     public BaseResponse addLostClaim(@ApiParam("实体对象") @Valid @RequestBody LostClaim lostClaim){
+        lostClaim.setCreateTime(new Date());
         LostClaim obj = lostClaimService.addLostClaim(lostClaim);
         if (Objects.isNull(obj)){
             throw new BusinessException(ResultCodeEnum.AddDataError);
