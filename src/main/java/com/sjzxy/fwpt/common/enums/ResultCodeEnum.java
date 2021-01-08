@@ -12,7 +12,8 @@ public enum ResultCodeEnum {
     // 2数据库增删改查出现的问题
     AddDataError(-20001, "添加数据异常"),
     DelDataError(-20002, "删除数据异常"),
-    UpdateDataError(-20002, "删除数据异常"),
+    UpdateDataError(-20002, "更新数据异常"),
+    FindDataError(-20002, "查找数据异常"),
     // 3开头是持久层方面的
     DATA_ACCESS_EXCEPTION(-30001, "数据访问异常: "),
     ;

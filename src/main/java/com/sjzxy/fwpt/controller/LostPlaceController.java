@@ -52,9 +52,12 @@ public class LostPlaceController {
     }
 
     @ApiOperation(value = "查询全部数据")
-    @GetMapping("/datas")    public BaseResponse findAllLostPlace(){
+    @GetMapping("/datas")
+    public BaseResponse findAllLostPlace(){
         List<LostPlace> lists = lostPlaceService.findAllLostPlace();
+        if (Objects.isNull(lists)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
         return BaseResponse.ok().data(lists);
-
     }
 }

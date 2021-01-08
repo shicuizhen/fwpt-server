@@ -24,12 +24,12 @@ lost_information
 lost_kind
 lost_place
 ques_comment
-ques_information
 ques_like
 ques_reply
 ques_report
 ques_sort
 users
+ques_information
      */
 
 

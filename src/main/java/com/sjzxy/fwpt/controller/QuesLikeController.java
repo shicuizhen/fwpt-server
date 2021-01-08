@@ -52,9 +52,12 @@ public class QuesLikeController {
     }
 
     @ApiOperation(value = "查询全部数据")
-    @GetMapping("/datas")    public BaseResponse findAllQuesLike(){
+    @GetMapping("/datas")
+    public BaseResponse findAllQuesLike(){
         List<QuesLike> lists = quesLikeService.findAllQuesLike();
+        if (Objects.isNull(lists)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
         return BaseResponse.ok().data(lists);
-
     }
 }

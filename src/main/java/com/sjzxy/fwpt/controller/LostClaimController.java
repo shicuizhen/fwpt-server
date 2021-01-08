@@ -52,9 +52,12 @@ public class LostClaimController {
     }
 
     @ApiOperation(value = "查询全部数据")
-    @GetMapping("/datas")    public BaseResponse findAllLostClaim(){
+    @GetMapping("/datas")
+    public BaseResponse findAllLostClaim(){
         List<LostClaim> lists = lostClaimService.findAllLostClaim();
+        if (Objects.isNull(lists)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
         return BaseResponse.ok().data(lists);
-
     }
 }

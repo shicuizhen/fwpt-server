@@ -52,9 +52,12 @@ public class LostKindController {
     }
 
     @ApiOperation(value = "查询全部数据")
-    @GetMapping("/datas")    public BaseResponse findAllLostKind(){
+    @GetMapping("/datas")
+    public BaseResponse findAllLostKind(){
         List<LostKind> lists = lostKindService.findAllLostKind();
+        if (Objects.isNull(lists)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
         return BaseResponse.ok().data(lists);
-
     }
 }

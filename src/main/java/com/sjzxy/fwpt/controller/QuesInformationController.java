@@ -55,6 +55,9 @@ public class QuesInformationController {
     @GetMapping("/datas")
     public BaseResponse findAllQuesInformation(){
         List<QuesInformation> lists = quesInformationService.findAllQuesInformation();
+        if (Objects.isNull(lists)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
         return BaseResponse.ok().data(lists);
 
     }

@@ -52,9 +52,12 @@ public class QuesSortController {
     }
 
     @ApiOperation(value = "查询全部数据")
-    @GetMapping("/datas")    public BaseResponse findAllQuesSort(){
+    @GetMapping("/datas")
+    public BaseResponse findAllQuesSort(){
         List<QuesSort> lists = quesSortService.findAllQuesSort();
+        if (Objects.isNull(lists)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
         return BaseResponse.ok().data(lists);
-
     }
 }

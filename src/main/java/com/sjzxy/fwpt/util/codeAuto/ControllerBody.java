@@ -44,11 +44,13 @@ public class ControllerBody {
                         "    }\n" +
                         "\n" +
                         "    @ApiOperation(value = \"查询全部数据\")\n" +
-                        "    @GetMapping(\"/datas\")" +
+                        "    @GetMapping(\"/datas\")\n" +
                         "    public BaseResponse findAll" + tableName1 + "(){\n" +
                         "        List<"+tableName1+"> lists = "+tableName2+"Service.findAll"+tableName1+"();\n" +
+                        "        if (Objects.isNull(lists)){\n" +
+                        "            throw new BusinessException(ResultCodeEnum.FindDataError);\n" +
+                        "        }\n" +
                         "        return BaseResponse.ok().data(lists);\n" +
-                        "\n" +
                         "    }"
         );
         return stringBuffer;

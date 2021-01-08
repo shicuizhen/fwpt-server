@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class QuesReply implements Serializable {
 
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id" )
     @ApiModelProperty(value = "回答id" )
     private Integer id;

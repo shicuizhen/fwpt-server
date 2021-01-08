@@ -52,9 +52,12 @@ public class QuesCommentController {
     }
 
     @ApiOperation(value = "查询全部数据")
-    @GetMapping("/datas")    public BaseResponse findAllQuesComment(){
+    @GetMapping("/datas")
+    public BaseResponse findAllQuesComment(){
         List<QuesComment> lists = quesCommentService.findAllQuesComment();
+        if (Objects.isNull(lists)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
         return BaseResponse.ok().data(lists);
-
     }
 }

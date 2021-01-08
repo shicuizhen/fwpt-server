@@ -52,9 +52,12 @@ public class ApproveController {
     }
 
     @ApiOperation(value = "查询全部数据")
-    @GetMapping("/datas")    public BaseResponse findAllApprove(){
+    @GetMapping("/datas")
+    public BaseResponse findAllApprove(){
         List<Approve> lists = approveService.findAllApprove();
+        if (Objects.isNull(lists)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
         return BaseResponse.ok().data(lists);
-
     }
 }

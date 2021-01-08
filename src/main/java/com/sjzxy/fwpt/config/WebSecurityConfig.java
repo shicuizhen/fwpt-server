@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 
 /**
  * @data 2020-11-23 10:46:20
@@ -76,10 +75,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //忽略对swagger的拦截
         web.ignoring().antMatchers(
                 "/swagger-ui.html",
-                "/v2/api-docs", // swagger api json
-                "/swagger-resources/configuration/ui", // 用来获取支持的动作
-                "/swagger-resources", // 用来获取api-docs的URI
-                "/swagger-resources/configuration/security", // 安全选项
+                // swagger api json
+                "/v2/api-docs",
+                // 用来获取支持的动作
+                "/swagger-resources/configuration/ui",
+                // 用来获取api-docs的URI
+                "/swagger-resources",
+                // 安全选项
+                "/swagger-resources/configuration/security",
                 "/swagger-resources/**",
                 //补充路径，近期在搭建swagger接口文档时，通过浏览器控制台发现该/webjars路径下的文件被拦截，故加上此过滤条件即可。(2020-10-23)
                 "/webjars/**"

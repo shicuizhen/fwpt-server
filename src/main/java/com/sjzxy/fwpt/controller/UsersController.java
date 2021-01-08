@@ -52,9 +52,12 @@ public class UsersController {
     }
 
     @ApiOperation(value = "查询全部数据")
-    @GetMapping("/datas")    public BaseResponse findAllUsers(){
+    @GetMapping("/datas")
+    public BaseResponse findAllUsers(){
         List<Users> lists = usersService.findAllUsers();
+        if (Objects.isNull(lists)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
         return BaseResponse.ok().data(lists);
-
     }
 }

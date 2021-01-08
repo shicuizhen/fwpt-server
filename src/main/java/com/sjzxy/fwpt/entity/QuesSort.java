@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class QuesSort implements Serializable {
 
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id" )
     @ApiModelProperty(value = "类别id" )
     private Integer id;

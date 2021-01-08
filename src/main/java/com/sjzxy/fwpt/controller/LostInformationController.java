@@ -52,9 +52,12 @@ public class LostInformationController {
     }
 
     @ApiOperation(value = "查询全部数据")
-    @GetMapping("/datas")    public BaseResponse findAllLostInformation(){
+    @GetMapping("/datas")
+    public BaseResponse findAllLostInformation(){
         List<LostInformation> lists = lostInformationService.findAllLostInformation();
+        if (Objects.isNull(lists)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
         return BaseResponse.ok().data(lists);
-
     }
 }
