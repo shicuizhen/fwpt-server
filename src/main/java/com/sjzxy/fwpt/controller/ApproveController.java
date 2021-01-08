@@ -17,7 +17,7 @@ import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
 
 @RestController
-@RequestMapping("/fwpt/approve/")
+@RequestMapping("/approve")
 public class ApproveController {
 
     @Autowired
@@ -27,7 +27,6 @@ public class ApproveController {
     @PostMapping
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
     public BaseResponse addApprove(@ApiParam("实体对象") @Valid @RequestBody Approve approve){
-        approve.setCreateTime(new Date());
         Approve obj = approveService.addApprove(approve);
         if (Objects.isNull(obj)){
             throw new BusinessException(ResultCodeEnum.AddDataError);
@@ -53,8 +52,7 @@ public class ApproveController {
     }
 
     @ApiOperation(value = "查询全部数据")
-    @GetMapping("/")
-    public BaseResponse findAllApprove(){
+    @GetMapping("/datas")    public BaseResponse findAllApprove(){
         List<Approve> lists = approveService.findAllApprove();
         return BaseResponse.ok().data(lists);
 

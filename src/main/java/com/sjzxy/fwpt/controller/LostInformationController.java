@@ -17,7 +17,7 @@ import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
 
 @RestController
-@RequestMapping("/fwpt/lostInformation/")
+@RequestMapping("/lostInformation")
 public class LostInformationController {
 
     @Autowired
@@ -27,7 +27,6 @@ public class LostInformationController {
     @PostMapping
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
     public BaseResponse addLostInformation(@ApiParam("实体对象") @Valid @RequestBody LostInformation lostInformation){
-        lostInformation.setCreateTime(new Date());
         LostInformation obj = lostInformationService.addLostInformation(lostInformation);
         if (Objects.isNull(obj)){
             throw new BusinessException(ResultCodeEnum.AddDataError);
@@ -53,8 +52,7 @@ public class LostInformationController {
     }
 
     @ApiOperation(value = "查询全部数据")
-    @GetMapping("/")
-    public BaseResponse findAllLostInformation(){
+    @GetMapping("/datas")    public BaseResponse findAllLostInformation(){
         List<LostInformation> lists = lostInformationService.findAllLostInformation();
         return BaseResponse.ok().data(lists);
 

@@ -17,7 +17,7 @@ import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
 
 @RestController
-@RequestMapping("/fwpt/quesSort/")
+@RequestMapping("/quesSort")
 public class QuesSortController {
 
     @Autowired
@@ -27,7 +27,6 @@ public class QuesSortController {
     @PostMapping
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
     public BaseResponse addQuesSort(@ApiParam("实体对象") @Valid @RequestBody QuesSort quesSort){
-        quesSort.setCreateTime(new Date());
         QuesSort obj = quesSortService.addQuesSort(quesSort);
         if (Objects.isNull(obj)){
             throw new BusinessException(ResultCodeEnum.AddDataError);
@@ -53,8 +52,7 @@ public class QuesSortController {
     }
 
     @ApiOperation(value = "查询全部数据")
-    @GetMapping("/")
-    public BaseResponse findAllQuesSort(){
+    @GetMapping("/datas")    public BaseResponse findAllQuesSort(){
         List<QuesSort> lists = quesSortService.findAllQuesSort();
         return BaseResponse.ok().data(lists);
 

@@ -17,7 +17,7 @@ import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
 
 @RestController
-@RequestMapping("/fwpt/users/")
+@RequestMapping("/users")
 public class UsersController {
 
     @Autowired
@@ -27,7 +27,6 @@ public class UsersController {
     @PostMapping
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
     public BaseResponse addUsers(@ApiParam("实体对象") @Valid @RequestBody Users users){
-        users.setCreateTime(new Date());
         Users obj = usersService.addUsers(users);
         if (Objects.isNull(obj)){
             throw new BusinessException(ResultCodeEnum.AddDataError);
@@ -53,8 +52,7 @@ public class UsersController {
     }
 
     @ApiOperation(value = "查询全部数据")
-    @GetMapping("/")
-    public BaseResponse findAllUsers(){
+    @GetMapping("/datas")    public BaseResponse findAllUsers(){
         List<Users> lists = usersService.findAllUsers();
         return BaseResponse.ok().data(lists);
 

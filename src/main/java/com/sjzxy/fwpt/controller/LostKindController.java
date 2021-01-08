@@ -17,7 +17,7 @@ import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
 
 @RestController
-@RequestMapping("/fwpt/lostKind/")
+@RequestMapping("/lostKind")
 public class LostKindController {
 
     @Autowired
@@ -27,7 +27,6 @@ public class LostKindController {
     @PostMapping
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
     public BaseResponse addLostKind(@ApiParam("实体对象") @Valid @RequestBody LostKind lostKind){
-        lostKind.setCreateTime(new Date());
         LostKind obj = lostKindService.addLostKind(lostKind);
         if (Objects.isNull(obj)){
             throw new BusinessException(ResultCodeEnum.AddDataError);
@@ -53,8 +52,7 @@ public class LostKindController {
     }
 
     @ApiOperation(value = "查询全部数据")
-    @GetMapping("/")
-    public BaseResponse findAllLostKind(){
+    @GetMapping("/datas")    public BaseResponse findAllLostKind(){
         List<LostKind> lists = lostKindService.findAllLostKind();
         return BaseResponse.ok().data(lists);
 

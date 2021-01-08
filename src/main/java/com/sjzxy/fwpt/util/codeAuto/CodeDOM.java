@@ -1,6 +1,8 @@
 package com.sjzxy.fwpt.util.codeAuto;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -221,7 +223,7 @@ users
 
         stringBuffer.append(
                 "@RestController\n" +
-                        "@RequestMapping(\"/fwpt/" + StringUtil.camelCaseName(tableName) + "/\")\n"+
+                         "@RequestMapping(\"/" + StringUtil.camelCaseName(tableName) + "\")\n" +
                 "public class " + StringUtil.captureName(StringUtil.camelCaseName(tableName)) + "Controller" + " {" + "\n"
         );
 

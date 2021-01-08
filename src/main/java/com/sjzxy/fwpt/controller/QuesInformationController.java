@@ -52,7 +52,7 @@ public class QuesInformationController {
     }
 
     @ApiOperation(value = "查询全部数据")
-    @GetMapping("/QuesInfos")
+    @GetMapping("/datas")
     public BaseResponse findAllQuesInformation(){
         List<QuesInformation> lists = quesInformationService.findAllQuesInformation();
         return BaseResponse.ok().data(lists);

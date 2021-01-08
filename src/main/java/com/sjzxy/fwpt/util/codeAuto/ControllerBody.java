@@ -19,7 +19,6 @@ public class ControllerBody {
                         "    @PostMapping\n" +
                         "    @ApiResponse(code = 200, message = \"ok\", response = BaseResponse.class)\n" +
                         "    public BaseResponse add" + tableName1 + "(@ApiParam(\"实体对象\") @Valid @RequestBody "+ tableName1 +" "+ tableName2 +"){\n" +
-                        "        "+ tableName2 +".setCreateTime(new Date());\n" +
                         "        "+ tableName1 +" obj = "+ tableName2 +"Service.add" + tableName1+"("+ tableName2 +");\n" +
                         "        if (Objects.isNull(obj)){\n" +
                         "            throw new BusinessException(ResultCodeEnum.AddDataError);\n" +
@@ -45,7 +44,7 @@ public class ControllerBody {
                         "    }\n" +
                         "\n" +
                         "    @ApiOperation(value = \"查询全部数据\")\n" +
-                        "    @GetMapping(\"/\")\n" +
+                        "    @GetMapping(\"/datas\")" +
                         "    public BaseResponse findAll" + tableName1 + "(){\n" +
                         "        List<"+tableName1+"> lists = "+tableName2+"Service.findAll"+tableName1+"();\n" +
                         "        return BaseResponse.ok().data(lists);\n" +

@@ -17,7 +17,7 @@ import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
 
 @RestController
-@RequestMapping("/fwpt/lostClaim/")
+@RequestMapping("/lostClaim")
 public class LostClaimController {
 
     @Autowired
@@ -27,7 +27,6 @@ public class LostClaimController {
     @PostMapping
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
     public BaseResponse addLostClaim(@ApiParam("实体对象") @Valid @RequestBody LostClaim lostClaim){
-        lostClaim.setCreateTime(new Date());
         LostClaim obj = lostClaimService.addLostClaim(lostClaim);
         if (Objects.isNull(obj)){
             throw new BusinessException(ResultCodeEnum.AddDataError);
@@ -53,8 +52,7 @@ public class LostClaimController {
     }
 
     @ApiOperation(value = "查询全部数据")
-    @GetMapping("/")
-    public BaseResponse findAllLostClaim(){
+    @GetMapping("/datas")    public BaseResponse findAllLostClaim(){
         List<LostClaim> lists = lostClaimService.findAllLostClaim();
         return BaseResponse.ok().data(lists);
 
