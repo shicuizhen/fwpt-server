@@ -11,7 +11,7 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 08/01/2021 09:40:17
+ Date: 11/01/2021 17:42:49
 */
 
 SET NAMES utf8mb4;
@@ -30,7 +30,7 @@ CREATE TABLE `approve`  (
   `major` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '专业',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '提交审批信息时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of approve
@@ -50,7 +50,7 @@ CREATE TABLE `lost_claim`  (
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '记录生成时间',
   `sid` int(0) NULL DEFAULT NULL COMMENT '当前请求状态（0认领中，1认领成功，3认领失效）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of lost_claim
@@ -77,7 +77,7 @@ CREATE TABLE `lost_information`  (
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '登记时间',
   `state_id` int(0) NULL DEFAULT NULL COMMENT '物品当前状态（0未完成，1认领成功）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of lost_information
@@ -92,12 +92,14 @@ CREATE TABLE `lost_kind`  (
   `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '物品类型id',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '物品种类名称',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of lost_kind
 -- ----------------------------
-INSERT INTO `lost_kind` VALUES (1, '1');
+INSERT INTO `lost_kind` VALUES (1, '8');
+INSERT INTO `lost_kind` VALUES (2, '6');
+INSERT INTO `lost_kind` VALUES (3, '8');
 
 -- ----------------------------
 -- Table structure for lost_place
@@ -107,7 +109,7 @@ CREATE TABLE `lost_place`  (
   `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '地点id',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '学校地点名称',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of lost_place
@@ -126,11 +128,12 @@ CREATE TABLE `ques_comment`  (
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '具体内容',
   `at` int(0) NULL DEFAULT NULL COMMENT '安特的用户id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ques_comment
 -- ----------------------------
+INSERT INTO `ques_comment` VALUES (1, 1, 5, '2020-12-30 17:13:53', '我是评论的内容', 3);
 
 -- ----------------------------
 -- Table structure for ques_information
@@ -145,16 +148,19 @@ CREATE TABLE `ques_information`  (
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '问题具体内容',
   `is_finish` int(0) NULL DEFAULT NULL COMMENT '问题是否被解决',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ques_information
 -- ----------------------------
-INSERT INTO `ques_information` VALUES (1, 1, 1, '2020-12-29 19:41:10', '111', '111', 1);
-INSERT INTO `ques_information` VALUES (2, 2, 2, '2020-12-28 19:42:39', '111', '111', 0);
-INSERT INTO `ques_information` VALUES (3, 0, 0, '2021-01-07 09:23:22', '', '132222', 0);
-INSERT INTO `ques_information` VALUES (9, 0, 0, NULL, '', '=======2', 0);
-INSERT INTO `ques_information` VALUES (10, 0, 0, '2021-01-08 01:24:18', '', '132222', 0);
+INSERT INTO `ques_information` VALUES (1, 3, 1, '2020-12-29 19:41:10', '找合租', '想找个合租', 1);
+INSERT INTO `ques_information` VALUES (2, 4, 2, '2020-12-28 19:42:39', '出二手衣服', '二手衣服，九成新', 0);
+INSERT INTO `ques_information` VALUES (3, 5, 3, '2021-01-07 09:23:22', '解答高数问题', '帮我解答高数题啊', 0);
+INSERT INTO `ques_information` VALUES (4, 4, 1, '2021-01-20 11:56:20', '出二手粉底液', '八成新，可小刀', 0);
+INSERT INTO `ques_information` VALUES (5, 5, 2, '2021-01-08 01:24:18', '离散题', '数学离散问题，求解答', 0);
+INSERT INTO `ques_information` VALUES (11, 4, 2, NULL, '', '这是一个信息', 0);
+INSERT INTO `ques_information` VALUES (12, 4, 2, '2021-01-11 03:17:47', '', '这是一个信息', 0);
+INSERT INTO `ques_information` VALUES (13, 4, 4, '2021-01-11 07:54:33', '', '这是一个问题', 0);
 
 -- ----------------------------
 -- Table structure for ques_like
@@ -166,14 +172,29 @@ CREATE TABLE `ques_like`  (
   `rid` int(0) NULL DEFAULT NULL COMMENT '回答id',
   `cid` int(0) NULL DEFAULT NULL COMMENT '评论id',
   `uid` int(0) NULL DEFAULT NULL COMMENT '点赞的用户id',
-  `state` int(0) NULL DEFAULT NULL COMMENT '点赞状态（当前该信息是否被该用户赞）',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '点赞时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ques_like
 -- ----------------------------
-INSERT INTO `ques_like` VALUES (1, 1, 1, 1, 1, 1);
+INSERT INTO `ques_like` VALUES (1, 1, NULL, NULL, 1, NULL);
+INSERT INTO `ques_like` VALUES (2, 1, NULL, NULL, 4, NULL);
+INSERT INTO `ques_like` VALUES (3, 1, NULL, NULL, 5, NULL);
+INSERT INTO `ques_like` VALUES (4, 3, NULL, NULL, 4, NULL);
+INSERT INTO `ques_like` VALUES (5, 5, NULL, NULL, 2, NULL);
+INSERT INTO `ques_like` VALUES (6, 5, NULL, NULL, 3, NULL);
+INSERT INTO `ques_like` VALUES (7, NULL, 1, NULL, 2, NULL);
+INSERT INTO `ques_like` VALUES (8, NULL, 2, NULL, 3, NULL);
+INSERT INTO `ques_like` VALUES (9, NULL, 3, NULL, 1, NULL);
+INSERT INTO `ques_like` VALUES (10, NULL, NULL, 1, 5, NULL);
+INSERT INTO `ques_like` VALUES (11, 2, NULL, NULL, 3, NULL);
+INSERT INTO `ques_like` VALUES (12, NULL, NULL, 2, 5, NULL);
+INSERT INTO `ques_like` VALUES (13, NULL, 1, NULL, 1, NULL);
+INSERT INTO `ques_like` VALUES (14, NULL, 1, NULL, 5, NULL);
+INSERT INTO `ques_like` VALUES (15, NULL, NULL, 21, 21, '2021-01-11 03:45:41');
+INSERT INTO `ques_like` VALUES (16, 3, NULL, NULL, 2, '2021-01-11 08:22:38');
 
 -- ----------------------------
 -- Table structure for ques_reply
@@ -183,15 +204,20 @@ CREATE TABLE `ques_reply`  (
   `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '回答id',
   `qid` int(0) NULL DEFAULT NULL COMMENT '回答对应的问题id',
   `create_by` int(0) NULL DEFAULT NULL COMMENT '回答创建者',
-  `cerate_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '具体内容',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ques_reply
 -- ----------------------------
-INSERT INTO `ques_reply` VALUES (1, 1, 1, '2020-12-28 19:45:04', '1');
+INSERT INTO `ques_reply` VALUES (1, 1, 1, '2020-12-28 19:45:04', '我可以合租');
+INSERT INTO `ques_reply` VALUES (2, 1, 5, '2021-01-01 14:25:08', '我也能租');
+INSERT INTO `ques_reply` VALUES (3, 2, 4, '2021-01-29 14:25:11', '我想买衣服');
+INSERT INTO `ques_reply` VALUES (4, 3, 1, '2021-01-29 14:25:14', '高数题我会');
+INSERT INTO `ques_reply` VALUES (5, 4, 2, '2021-01-07 14:25:17', '刀20可否');
+INSERT INTO `ques_reply` VALUES (6, 5, 3, '2021-01-21 14:25:20', '我会离散题');
 
 -- ----------------------------
 -- Table structure for ques_report
@@ -203,13 +229,24 @@ CREATE TABLE `ques_report`  (
   `rid` int(0) NULL DEFAULT NULL COMMENT '回答id',
   `cid` int(0) NULL DEFAULT NULL COMMENT '评论id',
   `uid` int(0) NULL DEFAULT NULL COMMENT '举报人id',
+  `create_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ques_report
 -- ----------------------------
-INSERT INTO `ques_report` VALUES (1, 1, 1, 1, 1);
+INSERT INTO `ques_report` VALUES (1, 1, NULL, NULL, 1, NULL);
+INSERT INTO `ques_report` VALUES (2, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `ques_report` VALUES (3, NULL, 2, NULL, NULL, NULL);
+INSERT INTO `ques_report` VALUES (4, 5, NULL, NULL, NULL, NULL);
+INSERT INTO `ques_report` VALUES (5, 4, NULL, NULL, NULL, NULL);
+INSERT INTO `ques_report` VALUES (6, NULL, NULL, 2, NULL, NULL);
+INSERT INTO `ques_report` VALUES (7, NULL, NULL, 1, NULL, NULL);
+INSERT INTO `ques_report` VALUES (8, NULL, 1, NULL, NULL, NULL);
+INSERT INTO `ques_report` VALUES (9, 1, NULL, NULL, 5, NULL);
+INSERT INTO `ques_report` VALUES (10, NULL, 3, NULL, 2, '2021-01-11 03:20:38');
+INSERT INTO `ques_report` VALUES (11, NULL, NULL, 1, 2, '2021-01-11 03:20:46');
 
 -- ----------------------------
 -- Table structure for ques_sort
@@ -222,13 +259,16 @@ CREATE TABLE `ques_sort`  (
   `depression` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类别详情介绍',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ques_sort
 -- ----------------------------
-INSERT INTO `ques_sort` VALUES (1, 1, '1', '1', '2020-12-28 19:45:18');
-INSERT INTO `ques_sort` VALUES (2, 0, '32131', '', NULL);
+INSERT INTO `ques_sort` VALUES (1, 0, '生活', '生活类问题', '2020-12-28 19:45:18');
+INSERT INTO `ques_sort` VALUES (2, 0, '学习', '学习类问题', '2020-12-28 19:45:18');
+INSERT INTO `ques_sort` VALUES (3, 1, '合租', '找人共同合租', '2020-12-28 19:45:18');
+INSERT INTO `ques_sort` VALUES (4, 1, '出二手物品', '出售二手商品', '2020-12-28 19:45:18');
+INSERT INTO `ques_sort` VALUES (5, 2, '数学题', '求解答数学题', '2020-12-28 19:45:18');
 
 -- ----------------------------
 -- Table structure for users
@@ -252,12 +292,15 @@ CREATE TABLE `users`  (
   `update_by` int(0) NULL DEFAULT NULL COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, '1', '张三', '123', '张张', 1, '2020-11-11 19:37:05', '21', 1, '1', '1', '1', 1, '2020-11-04 19:37:23', 1, '2020-12-23 19:37:30');
-INSERT INTO `users` VALUES (2, '2', '李四', '123', 'lili', 0, '2020-12-16 19:39:30', '2', 2, '2', '2', '2', 2, '2020-12-16 19:40:02', 2, '2020-12-01 19:40:09');
+INSERT INTO `users` VALUES (1, '20171308001', '张三', '123', '张张', 1, '2020-11-11 19:37:05', 'F:\\图片\\8180.jpg', 17, '软件工程', '15613358962', '17695842635@163.com', NULL, '2020-11-04 19:37:23', NULL, '2020-12-23 19:37:30');
+INSERT INTO `users` VALUES (2, '20171308002', '李四', '123', 'lili', 0, '2020-12-16 19:39:30', 'F:\\图片\\8180.jpg', 17, '市场营销', '15613358962', '17695842635@163.com', NULL, '2020-12-16 19:40:02', NULL, '2020-12-01 19:40:09');
+INSERT INTO `users` VALUES (3, '20171308003', '王五', '123', '望望', 1, '2021-01-13 11:57:46', 'F:\\图片\\8180.jpg', 17, '专业英语', '15613358962', '17695842635@163.com', NULL, '2020-12-28 11:57:59', NULL, '2020-12-28 11:58:04');
+INSERT INTO `users` VALUES (4, '20171308004', '刘六', '123', '柳柳', 1, '2021-01-13 11:57:46', 'F:\\图片\\8180.jpg', 17, '网络', '15613358962', '17695842635@163.com', 0, '2020-12-28 11:57:59', NULL, '2020-12-28 11:58:04');
+INSERT INTO `users` VALUES (5, '20171308005', '齐琪', '123', '琪琪', 1, '2021-01-13 11:57:46', 'F:\\图片\\8180.jpg', 17, '科技', '15613358962', '17695842635@163.com', NULL, '2020-12-28 11:57:59', NULL, '2020-12-28 11:58:04');
 
 SET FOREIGN_KEY_CHECKS = 1;

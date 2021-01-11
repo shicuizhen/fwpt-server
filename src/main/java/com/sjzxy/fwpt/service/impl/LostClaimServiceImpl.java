@@ -6,6 +6,8 @@ import com.sjzxy.fwpt.service.LostClaimService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,6 +19,7 @@ public class LostClaimServiceImpl implements LostClaimService{
 
     @Override
     public LostClaim addLostClaim(LostClaim lostClaim) {
+        lostClaim.setCreateTime(new Date());
         return lostClaimRepository.save(lostClaim);
     }
 

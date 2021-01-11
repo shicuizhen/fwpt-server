@@ -6,6 +6,8 @@ import com.sjzxy.fwpt.service.ApproveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,6 +19,7 @@ public class ApproveServiceImpl implements ApproveService{
 
     @Override
     public Approve addApprove(Approve approve) {
+        approve.setCreateTime(new Date());
         return approveRepository.save(approve);
     }
 

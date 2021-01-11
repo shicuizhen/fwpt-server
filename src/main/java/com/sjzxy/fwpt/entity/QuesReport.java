@@ -35,4 +35,7 @@ public class QuesReport implements Serializable {
     @ApiModelProperty(value = "举报人id" )
     private Integer uid;
 
+    @Column(name = "create_time" )
+    @ApiModelProperty(value = "创建时间" )
+    private Date createTime;
 }

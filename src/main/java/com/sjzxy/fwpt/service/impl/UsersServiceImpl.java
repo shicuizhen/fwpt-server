@@ -6,6 +6,8 @@ import com.sjzxy.fwpt.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,6 +19,7 @@ public class UsersServiceImpl implements UsersService{
 
     @Override
     public Users addUsers(Users users) {
+        users.setCreateTime(new Date());
         return usersRepository.save(users);
     }
 

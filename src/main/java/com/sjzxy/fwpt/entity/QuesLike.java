@@ -35,8 +35,7 @@ public class QuesLike implements Serializable {
     @ApiModelProperty(value = "点赞的用户id" )
     private Integer uid;
 
-    @Column(name = "state" )
-    @ApiModelProperty(value = "点赞状态（当前该信息是否被该用户赞）" )
-    private Integer state;
-
+    @Column(name = "create_time" )
+    @ApiModelProperty(value = "创建时间" )
+    private Date createTime;
 }

@@ -6,6 +6,8 @@ import com.sjzxy.fwpt.service.QuesReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,6 +19,7 @@ public class QuesReportServiceImpl implements QuesReportService{
 
     @Override
     public QuesReport addQuesReport(QuesReport quesReport) {
+        quesReport.setCreateTime(new Date());
         return quesReportRepository.save(quesReport);
     }
 

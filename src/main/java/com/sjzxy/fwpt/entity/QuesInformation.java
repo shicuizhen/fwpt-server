@@ -1,77 +1,46 @@
 package com.sjzxy.fwpt.entity;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
-/**
- * @Description
- * @Author  linmengmeng
- * @Date 2020-12-31 16:25:06
- */
-@Data
-@ApiModel(description= "ques_information-失物/拾遗物品信息表")
+@ApiModel(description= "ques_information")
 @Entity
-@Table(name ="ques_information")
-public class QuesInformation  implements Serializable {
+@Table(name = "ques_information")
+@Data
+public class QuesInformation implements Serializable {
 
-	private static final long serialVersionUID =  2641143636698769956L;
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "id" )
+    @ApiModelProperty(value = "问题id" )
+    private Integer id;
 
-	/**
-	 * 问题id
-	 */
-	@ApiModelProperty(value = "问题id")
-	@Id
-   	@Column(name = "id" )
-	private Long id;
+    @Column(name = "sort_id" )
+    @ApiModelProperty(value = "问题类别id" )
+    private Integer sortId;
 
-	/**
-	 * 问题类别id
-	 */
-	@ApiModelProperty(value = "问题类别id")
-   	@Column(name = "sort_id" )
-	private Long sortId;
+    @Column(name = "create_by" )
+    @ApiModelProperty(value = "创建者" )
+    private Integer createBy;
 
-	/**
-	 * 创建者
-	 */
-	@ApiModelProperty(value = "创建者")
-   	@Column(name = "create_by" )
-	private Long createBy;
+    @Column(name = "create_time" )
+    @ApiModelProperty(value = "创建时间" )
+    private Date createTime;
 
-	/**
-	 * 创建时间
-	 */
-	@ApiModelProperty(value = "创建时间")
-   	@Column(name = "create_time" )
-	private Date createTime;
+    @Column(name = "title" )
+    @ApiModelProperty(value = "问题标题" )
+    private String title;
 
-	/**
-	 * 问题标题
-	 */
-	@ApiModelProperty(value = "问题标题")
-   	@Column(name = "title" )
-	private String title;
+    @Column(name = "content" )
+    @ApiModelProperty(value = "问题具体内容" )
+    private String content;
 
-	/**
-	 * 问题具体内容
-	 */
-	@ApiModelProperty(value = "问题具体内容")
-   	@Column(name = "content" )
-	private String content;
-
-	/**
-	 * 问题是否被解决
-	 */
-	@ApiModelProperty(value = "问题是否被解决")
-   	@Column(name = "is_finish" )
-	private Long isFinish;
+    @Column(name = "is_finish" )
+    @ApiModelProperty(value = "问题是否被解决" )
+    private Integer isFinish;
 
 }

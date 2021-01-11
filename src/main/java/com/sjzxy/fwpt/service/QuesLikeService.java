@@ -33,4 +33,17 @@ public interface QuesLikeService {
      * @return
      */
     List<QuesLike> findAllQuesLike();
+
+
+    /**
+     * 查看当前用户是否点赞当前问题
+     * @param qid
+     * @param uid
+     * @return
+     */
+    Boolean isQuesLike(Integer qid, Integer uid);
+
+    Boolean isReplyLike(Integer rid, Integer uid);
+
+    Boolean isCommentLike(Integer cid, Integer uid);
 }

@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //设置不需要认证的路径
-                .antMatchers("/login","/home","/doc.html","/*","/*/*").permitAll()
+                .antMatchers("/login","/home","/doc.html","/*","/*/*","/*/*/*","/*/*/*/*").permitAll()
                 //设置用户权限，只有该角色才能访问该路径
 //                .and().authorizeRequests().antMatchers("/login").hasRole("vip")
 //                .and().authorizeRequests().antMatchers("/admin").hasRole("admin")

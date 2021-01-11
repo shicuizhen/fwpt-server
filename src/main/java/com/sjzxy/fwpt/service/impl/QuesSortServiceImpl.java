@@ -6,6 +6,8 @@ import com.sjzxy.fwpt.service.QuesSortService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,6 +19,7 @@ public class QuesSortServiceImpl implements QuesSortService{
 
     @Override
     public QuesSort addQuesSort(QuesSort quesSort) {
+        quesSort.setCreateTime(new Date());
         return quesSortRepository.save(quesSort);
     }
 

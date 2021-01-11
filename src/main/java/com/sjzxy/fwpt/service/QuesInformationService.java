@@ -3,6 +3,7 @@ package com.sjzxy.fwpt.service;
 import com.sjzxy.fwpt.entity.QuesInformation;
 
 import java.util.List;
+import java.util.Map;
 
 public interface QuesInformationService {
 
@@ -32,5 +33,19 @@ public interface QuesInformationService {
      * 查询全部数据
      * @return
      */
-    List<QuesInformation> findAllQuesInformation();
+    List findAllQuesInformation();
+
+    /**
+     * 根据qid查询全部回答信息
+     * @param qid
+     * @return
+     */
+    List findAllReplyByQid(Integer qid);
+
+    /**
+     * 根据问题是否解决查找问题信息
+     * @param state
+     * @return
+     */
+    List findAllQuesInfoByFinish(int state);
 }
