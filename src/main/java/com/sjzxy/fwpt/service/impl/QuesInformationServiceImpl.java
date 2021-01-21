@@ -131,7 +131,7 @@ public class QuesInformationServiceImpl implements QuesInformationService{
         for (int i = 0;i<lists.size();i++){
             Map<String,Object> map = new HashMap();
             //遍历每一个lists，将数据取出放入到新的map中
-            //问题id，分类id，创建者id（不需要），创建时间，问题标题，具体内容，评论数，点赞数，用户名，用户头像
+            //问题id，分类id，创建者id（不需要），创建时间，问题标题，具体内容，回答数，点赞数，用户名，用户头像
             map.put("id",lists.get(i).getId());
             map.put("SortId",lists.get(i).getSortId());
             map.put("createTime",lists.get(i).getCreateTime());
