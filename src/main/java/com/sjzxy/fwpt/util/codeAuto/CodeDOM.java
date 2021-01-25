@@ -276,9 +276,9 @@ ques_information
      */
     private String create() {
         List<TableInfo> tableInfo = getTableInfo();
-        createEntity(tableInfo);
-        createRepository(tableInfo);
-        createService(tableInfo);
+//        createEntity(tableInfo);
+//        createRepository(tableInfo);
+//        createService(tableInfo);
         createController(tableInfo);
         System.out.println("生成路径位置：" + basePath);
         return tableName + " 后台代码生成完毕！";
