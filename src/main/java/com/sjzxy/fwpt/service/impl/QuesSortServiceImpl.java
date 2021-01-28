@@ -62,7 +62,7 @@ public class QuesSortServiceImpl implements QuesSortService{
             map.put("createTime",quesSorts.get(i).getCreateTime());
             //获取当前分类id下的所有问题信息
             List<QuesInformation> quesInformations =  quesInformationRepository.findAllBySortId(quesSorts.get(i).getId());
-            map.put("QuesNum",quesInformations.size());
+            map.put("quesNum",quesInformations.size());
             //讨论次数：该类别下有多少回答和评论
             int num = 0;
             for (int j = 0;j<quesInformations.size();j++){

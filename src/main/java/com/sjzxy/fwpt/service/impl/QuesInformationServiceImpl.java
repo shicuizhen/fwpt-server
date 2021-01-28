@@ -1,5 +1,7 @@
 package com.sjzxy.fwpt.service.impl;
 
+import com.sjzxy.fwpt.config.annotation.MyAnnontation;
+import com.sjzxy.fwpt.config.annotation.ResponseInfo;
 import com.sjzxy.fwpt.entity.*;
 import com.sjzxy.fwpt.repository.*;
 import com.sjzxy.fwpt.service.QuesInformationService;
@@ -27,6 +29,9 @@ public class QuesInformationServiceImpl implements QuesInformationService{
     @Autowired
     private UsersRepository usersRepository;
 
+    @Autowired
+    private QuesSortRepository quesSortRepository;
+
     @Override
     public QuesInformation addQuesInformation(QuesInformation quesInformation) {
         quesInformation.setIsFinish(0);
@@ -43,6 +48,18 @@ public class QuesInformationServiceImpl implements QuesInformationService{
     public QuesInformation updateQuesInformation(QuesInformation quesInformation){
         return quesInformationRepository.save(quesInformation);
     }
+
+
+    @MyAnnontation(WayCode = "a",WayName = "测试类1")
+    public ResponseInfo gateWayOne(Map<String, Object> map) {
+        System.out.printf("gateWayOne printf" + map.get("Key1"));
+        ResponseInfo res = new ResponseInfo();
+        res.setTestId("000000");
+        res.setTestName("U get Class gateWayOne");
+        return res;
+    }
+
+
 
     @Override
     public List findAllQuesInformation() {
@@ -133,7 +150,8 @@ public class QuesInformationServiceImpl implements QuesInformationService{
             //遍历每一个lists，将数据取出放入到新的map中
             //问题id，分类id，创建者id（不需要），创建时间，问题标题，具体内容，回答数，点赞数，用户名，用户头像
             map.put("id",lists.get(i).getId());
-            map.put("SortId",lists.get(i).getSortId());
+            map.put("sortName",quesSortRepository.getQuesSortById(lists.get(i).getSortId()).getName());
+//            map.put("sortId",lists.get(i).getSortId());
             map.put("createTime",lists.get(i).getCreateTime());
             map.put("title",lists.get(i).getTitle());
             map.put("content",lists.get(i).getContent());

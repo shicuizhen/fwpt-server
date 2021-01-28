@@ -3,6 +3,9 @@ package com.sjzxy.fwpt.common.response;
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
 import lombok.Data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author tyd
  * @date 2020/12/3
@@ -75,6 +78,29 @@ public class BaseResponse {
      */
     public BaseResponse data(Object data){
         this.setData(data);
+        return this;
+    }
+
+
+    public BaseResponse data(Map<String, Object> data) {
+        this.setData(data);
+        return this;
+    }
+
+    public BaseResponse data(String key, Object value) {
+        Map map = new HashMap();
+        map.put(key,value);
+        this.setData(map);
+        return this;
+    }
+
+    public BaseResponse message(String message) {
+        this.setMessage(message);
+        return this;
+    }
+
+    public BaseResponse code(Integer code) {
+        this.setCode(code);
         return this;
     }
 }

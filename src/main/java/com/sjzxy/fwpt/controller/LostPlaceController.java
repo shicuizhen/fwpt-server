@@ -2,6 +2,7 @@ package com.sjzxy.fwpt.controller;
 
 import com.sjzxy.fwpt.entity.LostPlace;
 import com.sjzxy.fwpt.service.LostPlaceService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.Objects;
 import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
 
+@Api(tags = "失物地点接口", description = "提供日志管理的相关查询接口")
 @RestController
 @RequestMapping("/lostPlace")
 public class LostPlaceController {

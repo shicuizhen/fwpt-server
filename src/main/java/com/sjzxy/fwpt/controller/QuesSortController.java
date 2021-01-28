@@ -1,14 +1,14 @@
 package com.sjzxy.fwpt.controller;
 
+import com.sjzxy.fwpt.entity.QuesInformation;
 import com.sjzxy.fwpt.entity.QuesSort;
 import com.sjzxy.fwpt.service.QuesSortService;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
 import com.sjzxy.fwpt.common.response.BaseResponse;
-import io.swagger.annotations.ApiParam;
+
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +16,7 @@ import java.util.Objects;
 import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
 
+@Api(tags = "问题类别接口", description = "提供日志管理的相关查询接口")
 @RestController
 @RequestMapping("/quesSort")
 public class QuesSortController {
@@ -51,6 +52,7 @@ public class QuesSortController {
         return BaseResponse.ok().data(obj);
     }
 
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesSort.class)})
     @ApiOperation(value = "查询全部数据")
     @GetMapping("/datas")
     public BaseResponse findAllQuesSort(){

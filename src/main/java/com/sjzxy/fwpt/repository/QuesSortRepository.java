@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface QuesSortRepository extends JpaRepository<QuesSort, Long> {
+
+    QuesSort getQuesSortById(int id);
 }

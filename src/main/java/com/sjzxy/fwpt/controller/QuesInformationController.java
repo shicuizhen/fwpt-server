@@ -2,20 +2,20 @@ package com.sjzxy.fwpt.controller;
 
 import com.sjzxy.fwpt.entity.QuesInformation;
 import com.sjzxy.fwpt.service.QuesInformationService;
+import com.sjzxy.fwpt.service.impl.QuesInformationServiceImpl;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
 import com.sjzxy.fwpt.common.response.BaseResponse;
-import io.swagger.annotations.ApiParam;
+
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
 
+@Api(tags = "问题信息接口", description = "提供日志管理的相关查询接口")
 @RestController
 @RequestMapping("/quesInformation")
 public class QuesInformationController {
@@ -51,6 +51,7 @@ public class QuesInformationController {
         return BaseResponse.ok().data(obj);
     }
 
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
     @ApiOperation(value = "查询全部数据")
     @GetMapping("/datas")
     public BaseResponse findAllQuesInformation(){
@@ -60,4 +61,6 @@ public class QuesInformationController {
         }
         return BaseResponse.ok().data(lists);
     }
+
+
 }
