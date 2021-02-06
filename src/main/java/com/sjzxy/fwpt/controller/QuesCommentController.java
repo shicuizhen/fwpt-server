@@ -1,7 +1,10 @@
 package com.sjzxy.fwpt.controller;
 
+import com.sjzxy.fwpt.config.aop.log.ASystemLog;
+import com.sjzxy.fwpt.config.aop.sendMessage.ASendMessage;
 import com.sjzxy.fwpt.entity.QuesComment;
 import com.sjzxy.fwpt.entity.QuesInformation;
+import com.sjzxy.fwpt.entity.Users;
 import com.sjzxy.fwpt.service.QuesCommentService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import com.sjzxy.fwpt.common.response.BaseResponse;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -24,6 +28,7 @@ public class QuesCommentController {
     @Autowired
     private QuesCommentService quesCommentService;
 
+    @ASendMessage("comment")
     @ApiOperation(value = "添加数据")
     @PostMapping
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)

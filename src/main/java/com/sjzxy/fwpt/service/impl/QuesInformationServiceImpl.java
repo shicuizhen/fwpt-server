@@ -1,7 +1,5 @@
 package com.sjzxy.fwpt.service.impl;
 
-import com.sjzxy.fwpt.config.annotation.MyAnnontation;
-import com.sjzxy.fwpt.config.annotation.ResponseInfo;
 import com.sjzxy.fwpt.entity.*;
 import com.sjzxy.fwpt.repository.*;
 import com.sjzxy.fwpt.service.QuesInformationService;
@@ -48,18 +46,6 @@ public class QuesInformationServiceImpl implements QuesInformationService{
     public QuesInformation updateQuesInformation(QuesInformation quesInformation){
         return quesInformationRepository.save(quesInformation);
     }
-
-
-    @MyAnnontation(WayCode = "a",WayName = "测试类1")
-    public ResponseInfo gateWayOne(Map<String, Object> map) {
-        System.out.printf("gateWayOne printf" + map.get("Key1"));
-        ResponseInfo res = new ResponseInfo();
-        res.setTestId("000000");
-        res.setTestName("U get Class gateWayOne");
-        return res;
-    }
-
-
 
     @Override
     public List findAllQuesInformation() {

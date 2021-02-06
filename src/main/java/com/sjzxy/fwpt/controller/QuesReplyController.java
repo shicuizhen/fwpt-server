@@ -1,5 +1,6 @@
 package com.sjzxy.fwpt.controller;
 
+import com.sjzxy.fwpt.config.aop.sendMessage.ASendMessage;
 import com.sjzxy.fwpt.entity.QuesInformation;
 import com.sjzxy.fwpt.entity.QuesReply;
 import com.sjzxy.fwpt.service.QuesReplyService;
@@ -24,6 +25,7 @@ public class QuesReplyController {
     @Autowired
     private QuesReplyService quesReplyService;
 
+    @ASendMessage("reply")
     @ApiOperation(value = "添加数据")
     @PostMapping
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)

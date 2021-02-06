@@ -32,7 +32,10 @@ users
 ques_information
      */
 
-
+    /**
+     * 数据库名
+     */
+    private String sqlRepository = "select_seat";
     /**
      * 表名
      */
@@ -243,9 +246,10 @@ ques_information
         ArrayList<TableInfo> list = new ArrayList<>();
         try {
             conn = DBConnectionUtil.getConnection();
-            String sql = "select column_name,data_type,column_comment,column_key,extra from information_schema.columns where table_name=? and table_schema='fwpt'";
+            String sql = "select column_name,data_type,column_comment,column_key,extra from information_schema.columns where table_name=? and table_schema=?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, tableName);
+            ps.setString(2,sqlRepository);
             rs = ps.executeQuery();
             while (rs.next()) {
                 TableInfo tableInfo = new TableInfo();

@@ -11,7 +11,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @author Administrator
  */
 @Log4j2
-@ServerEndpoint("/webSocketServer")
+@ServerEndpoint("/webSocket/{type}")//co
 public class WebSocketServer {
 
     /**
@@ -96,6 +96,7 @@ public class WebSocketServer {
     /**
      * 群发自定义消息
      * */
+
     public static void sendInfo(String message) throws IOException {
         log.info(message);
         for (WebSocketServer item : webSocketSet) {

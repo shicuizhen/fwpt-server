@@ -1,8 +1,6 @@
 spring:
   application:
     name: fwpt
-  resources:
-    static-locations: classpath:/static/
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     name: fwpt
