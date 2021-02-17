@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 80021
+ Source Server Version : 80022
  Source Host           : localhost:3306
  Source Schema         : fwpt
 
  Target Server Type    : MySQL
- Target Server Version : 80021
+ Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 11/01/2021 17:42:49
+ Date: 17/02/2021 12:53:24
 */
 
 SET NAMES utf8mb4;
@@ -62,7 +62,7 @@ INSERT INTO `lost_claim` VALUES (1, 1, 1, '1', '1', '2020-12-28 19:43:59', 1);
 -- ----------------------------
 DROP TABLE IF EXISTS `lost_information`;
 CREATE TABLE `lost_information`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '物品id',
+  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '启事id',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '物品名称',
   `type` int(0) NULL DEFAULT NULL COMMENT '启事类型（失物0，拾遗1）',
   `kind_id` int(0) NULL DEFAULT NULL COMMENT '物品种类',
@@ -83,6 +83,9 @@ CREATE TABLE `lost_information`  (
 -- Records of lost_information
 -- ----------------------------
 INSERT INTO `lost_information` VALUES (1, '1', 1, 1, '1', '1', 1, '1', '2020-12-28 19:43:32', '1', '1', 1, '2020-12-28 19:43:40', 1);
+INSERT INTO `lost_information` VALUES (2, '书籍', 1, 1, '我丢失了一本书', '张三', 1, '1', '2021-02-24 19:35:26', '12345625214', '12454@11.ss', 1, '2021-02-10 19:36:01', 2);
+INSERT INTO `lost_information` VALUES (3, '笔', 2, 2, '我捡到了一杆笔', '李四', 2, '1', '2021-02-12 19:37:04', '15445612311', '56@546.sq', 2, '2021-02-17 19:37:22', 2);
+INSERT INTO `lost_information` VALUES (4, NULL, NULL, 3, '丢了一个u盘', '王五', 1, '2', '2021-02-11 19:47:46', '15644456225', '2132@11.xx', 3, '2021-02-24 19:48:03', 2);
 
 -- ----------------------------
 -- Table structure for lost_kind
@@ -92,7 +95,7 @@ CREATE TABLE `lost_kind`  (
   `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '物品类型id',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '物品种类名称',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of lost_kind
@@ -114,7 +117,10 @@ CREATE TABLE `lost_place`  (
 -- ----------------------------
 -- Records of lost_place
 -- ----------------------------
-INSERT INTO `lost_place` VALUES (1, '1');
+INSERT INTO `lost_place` VALUES (1, '尚学楼');
+INSERT INTO `lost_place` VALUES (2, '操场');
+INSERT INTO `lost_place` VALUES (3, '尚德楼');
+INSERT INTO `lost_place` VALUES (4, '跑道');
 
 -- ----------------------------
 -- Table structure for ques_comment
@@ -128,12 +134,20 @@ CREATE TABLE `ques_comment`  (
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '具体内容',
   `at` int(0) NULL DEFAULT NULL COMMENT '安特的用户id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ques_comment
 -- ----------------------------
 INSERT INTO `ques_comment` VALUES (1, 1, 5, '2020-12-30 17:13:53', '我是评论的内容', 3);
+INSERT INTO `ques_comment` VALUES (2, 0, 0, '2021-01-29 15:17:35', '', 0);
+INSERT INTO `ques_comment` VALUES (3, 0, 0, '2021-01-29 15:19:11', '', 0);
+INSERT INTO `ques_comment` VALUES (4, 0, 0, '2021-01-30 05:05:11', '', 0);
+INSERT INTO `ques_comment` VALUES (5, 0, 0, '2021-01-30 05:16:25', '', 0);
+INSERT INTO `ques_comment` VALUES (6, 0, 0, '2021-01-30 05:17:30', '', 0);
+INSERT INTO `ques_comment` VALUES (7, 0, 0, '2021-01-30 05:22:20', '', 0);
+INSERT INTO `ques_comment` VALUES (8, 0, 0, '2021-01-30 05:26:11', '', 0);
+INSERT INTO `ques_comment` VALUES (9, 0, 0, '2021-01-30 06:03:11', '', 0);
 
 -- ----------------------------
 -- Table structure for ques_information
@@ -148,7 +162,7 @@ CREATE TABLE `ques_information`  (
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '问题具体内容',
   `is_finish` int(0) NULL DEFAULT NULL COMMENT '问题是否被解决',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ques_information
@@ -158,9 +172,11 @@ INSERT INTO `ques_information` VALUES (2, 4, 2, '2020-12-28 19:42:39', '出二�
 INSERT INTO `ques_information` VALUES (3, 5, 3, '2021-01-07 09:23:22', '解答高数问题', '帮我解答高数题啊', 0);
 INSERT INTO `ques_information` VALUES (4, 4, 1, '2021-01-20 11:56:20', '出二手粉底液', '八成新，可小刀', 0);
 INSERT INTO `ques_information` VALUES (5, 5, 2, '2021-01-08 01:24:18', '离散题', '数学离散问题，求解答', 0);
-INSERT INTO `ques_information` VALUES (11, 4, 2, NULL, '', '这是一个信息', 0);
-INSERT INTO `ques_information` VALUES (12, 4, 2, '2021-01-11 03:17:47', '', '这是一个信息', 0);
-INSERT INTO `ques_information` VALUES (13, 4, 4, '2021-01-11 07:54:33', '', '这是一个问题', 0);
+INSERT INTO `ques_information` VALUES (11, 4, 2, NULL, '1', '这是一个信息', 0);
+INSERT INTO `ques_information` VALUES (12, 4, 2, '2021-01-11 03:17:47', '1', '这是一个信息', 0);
+INSERT INTO `ques_information` VALUES (13, 4, 4, '2021-01-11 07:54:33', '2', '这是一个问题', 0);
+INSERT INTO `ques_information` VALUES (14, 1, 0, '2021-01-28 12:53:37', '3', '', 0);
+INSERT INTO `ques_information` VALUES (15, 1, 0, '2021-01-28 12:54:07', '4', '1111', 0);
 
 -- ----------------------------
 -- Table structure for ques_like
@@ -218,6 +234,7 @@ INSERT INTO `ques_reply` VALUES (3, 2, 4, '2021-01-29 14:25:11', '我想买衣�
 INSERT INTO `ques_reply` VALUES (4, 3, 1, '2021-01-29 14:25:14', '高数题我会');
 INSERT INTO `ques_reply` VALUES (5, 4, 2, '2021-01-07 14:25:17', '刀20可否');
 INSERT INTO `ques_reply` VALUES (6, 5, 3, '2021-01-21 14:25:20', '我会离散题');
+INSERT INTO `ques_reply` VALUES (7, 11, 3, '2021-02-05 10:33:55', '回答你');
 
 -- ----------------------------
 -- Table structure for ques_report
@@ -259,7 +276,7 @@ CREATE TABLE `ques_sort`  (
   `depression` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类别详情介绍',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ques_sort
@@ -269,6 +286,7 @@ INSERT INTO `ques_sort` VALUES (2, 0, '学习', '学习类问题', '2020-12-28 1
 INSERT INTO `ques_sort` VALUES (3, 1, '合租', '找人共同合租', '2020-12-28 19:45:18');
 INSERT INTO `ques_sort` VALUES (4, 1, '出二手物品', '出售二手商品', '2020-12-28 19:45:18');
 INSERT INTO `ques_sort` VALUES (5, 2, '数学题', '求解答数学题', '2020-12-28 19:45:18');
+INSERT INTO `ques_sort` VALUES (6, 3, '新增', '新增', '2021-02-11 23:37:59');
 
 -- ----------------------------
 -- Table structure for users
