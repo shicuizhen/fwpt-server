@@ -48,4 +48,10 @@ public interface QuesInformationService {
      * @return
      */
     List findAllQuesInfoByFinish(int state);
+
+    /**
+     * 查询热门问题的id和内容
+     * @return
+     */
+    List findHotQuesInformation();
 }

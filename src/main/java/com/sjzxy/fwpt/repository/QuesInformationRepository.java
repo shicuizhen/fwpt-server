@@ -14,4 +14,7 @@ public interface QuesInformationRepository extends JpaRepository<QuesInformation
     void deleteById(Integer id);
 
     List<QuesInformation> findAllBySortId(int sortId);
+
+    QuesInformation findAllById(int id);
+
 }

@@ -78,8 +78,25 @@ public class QuesInformationServiceImpl implements QuesInformationService{
         return getQuesInformationData(lists);
     }
 
+    /**
+     * 获取前5位热门问题信息
+     * @return
+     */
+    @Override
+    public List findHotQuesInformation() {
+        List list = new LinkedList();
+        List<List<Integer>> lists = quesReplyRepository.findHotQuestion();
 
-
+        for (int i = 0;i<lists.size();i++){
+            QuesInformation quesInformation = quesInformationRepository.findAllById(lists.get(i).get(0));
+            Map map = new HashMap();
+            map.put("id", lists.get(i).get(0));
+            map.put("title",quesInformation.getTitle());
+            map.put("num",lists.get(i).get(1));
+            list.add(map);
+        }
+        return list;
+    }
 
 
 

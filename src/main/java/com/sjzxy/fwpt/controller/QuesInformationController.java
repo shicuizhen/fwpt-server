@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import com.sjzxy.fwpt.common.response.BaseResponse;
 
 import javax.validation.Valid;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
@@ -61,6 +63,17 @@ public class QuesInformationController {
             throw new BusinessException(ResultCodeEnum.FindDataError);
         }
         return BaseResponse.ok().data(lists);
+    }
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
+    @ApiOperation(value = "查询热门问题数据")
+    @GetMapping("/hotdatas")
+    public BaseResponse findHotQuesInformation(){
+        List list = quesInformationService.findHotQuesInformation();
+        if (Objects.isNull(list)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
+        return BaseResponse.ok().data(list);
     }
 
 
