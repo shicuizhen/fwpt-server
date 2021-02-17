@@ -24,8 +24,8 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-//                .apis(RequestHandlerSelectors.basePackage("com.sjzxy.fwpt.controller"))
-                .apis(RequestHandlerSelectors.basePackage("com.sjzxy.fwpt"))
+                .apis(RequestHandlerSelectors.basePackage("com.sjzxy.fwpt.controller"))
+//                .apis(RequestHandlerSelectors.basePackage("com.sjzxy.fwpt"))
                 //添加ApiOperiation注解的被扫描
                 .paths(PathSelectors.any())
                 .build();

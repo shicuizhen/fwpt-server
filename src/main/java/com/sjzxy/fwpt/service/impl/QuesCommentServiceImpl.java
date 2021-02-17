@@ -38,4 +38,6 @@ public class QuesCommentServiceImpl implements QuesCommentService{
         return quesCommentRepository.findAll();
     }
 
+
+
 }

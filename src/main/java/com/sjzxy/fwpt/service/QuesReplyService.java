@@ -43,4 +43,9 @@ public interface QuesReplyService {
      */
     List<QuesComment> findAllCommentByRid(Integer rid);
 
+    /**
+     * 根据qid查询对应问题下全部评论
+     * @return
+     */
+    List<QuesReply> findQuesReplyByQid(int qid);
 }
