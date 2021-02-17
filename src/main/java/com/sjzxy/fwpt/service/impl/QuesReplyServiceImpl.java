@@ -95,4 +95,13 @@ public class QuesReplyServiceImpl implements QuesReplyService{
         return list;
     }
 
+    @Autowired
+    QuesInformationServiceImpl quesInformationService;
+
+    @Override
+    public List<QuesReply> findQuesReplyByQid(int qid) {
+        List<QuesReply> lists = quesReplyRepository.findAllByQid(qid);
+        return quesInformationService.getQuesReplyData(lists);
+    }
+
 }

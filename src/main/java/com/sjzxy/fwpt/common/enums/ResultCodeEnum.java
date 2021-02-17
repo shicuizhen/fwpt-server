@@ -7,16 +7,16 @@ package com.sjzxy.fwpt.common.enums;
 public enum ResultCodeEnum {
 
     // 1开头的是系统方面的
-    SUCCESS(10000, "操作成功."),
-    ERROR(-10001, "操作失败，请稍后重试."),
+    SUCCESS(200, "操作成功."),
+    ERROR(-101, "操作失败，请稍后重试."),
     // 2数据库增删改查出现的问题
-    AddDataError(-20001, "添加数据异常"),
-    DelDataError(-20002, "删除数据异常"),
-    UpdateDataError(-20003, "更新数据异常"),
-    FindDataError(-20004, "查找数据异常"),
-    InvalidLike(-20005, "点赞无效"),
+    AddDataError(-201, "添加数据异常"),
+    DelDataError(-202, "删除数据异常"),
+    UpdateDataError(-203, "更新数据异常"),
+    FindDataError(-204, "查找数据异常"),
+    InvalidLike(-205, "点赞无效"),
     // 3开头是持久层方面的
-    DATA_ACCESS_EXCEPTION(-30001, "数据访问异常: "),
+    DATA_ACCESS_EXCEPTION(-301, "数据访问异常: "),
     ;
 
     /**

@@ -1,6 +1,7 @@
 package com.sjzxy.fwpt.controller;
 
 import com.sjzxy.fwpt.config.aop.sendMessage.ASendMessage;
+import com.sjzxy.fwpt.entity.QuesComment;
 import com.sjzxy.fwpt.entity.QuesInformation;
 import com.sjzxy.fwpt.entity.QuesReply;
 import com.sjzxy.fwpt.service.QuesReplyService;
@@ -52,6 +53,17 @@ public class QuesReplyController {
             throw new BusinessException(ResultCodeEnum.UpdateDataError);
         }
         return BaseResponse.ok().data(obj);
+    }
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesReply.class)})
+    @ApiOperation(value = "根据问题id查询回答数据")
+    @GetMapping("/datas/{qid}")
+    public BaseResponse findQuesReplyByQid(int qid){
+        List<QuesReply> lists = quesReplyService.findQuesReplyByQid(qid);
+        if (Objects.isNull(lists)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
+        return BaseResponse.ok().data(lists);
     }
 
     @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesReply.class)})

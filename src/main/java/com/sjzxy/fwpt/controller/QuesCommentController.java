@@ -4,8 +4,10 @@ import com.sjzxy.fwpt.config.aop.log.ASystemLog;
 import com.sjzxy.fwpt.config.aop.sendMessage.ASendMessage;
 import com.sjzxy.fwpt.entity.QuesComment;
 import com.sjzxy.fwpt.entity.QuesInformation;
+import com.sjzxy.fwpt.entity.QuesReply;
 import com.sjzxy.fwpt.entity.Users;
 import com.sjzxy.fwpt.service.QuesCommentService;
+import com.sjzxy.fwpt.service.QuesReplyService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +57,20 @@ public class QuesCommentController {
             throw new BusinessException(ResultCodeEnum.UpdateDataError);
         }
         return BaseResponse.ok().data(obj);
+    }
+
+    @Autowired
+    QuesReplyService quesReplyService;
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesReply.class)})
+    @ApiOperation(value = "根据回答id查询评论数据")
+    @GetMapping("/datas/{rid}")
+    public BaseResponse findQuesCommentByRid(int rid){
+        List<QuesComment> lists = quesReplyService.findAllCommentByRid(rid);
+        if (Objects.isNull(lists)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
+        return BaseResponse.ok().data(lists);
     }
 
     @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesComment.class)})

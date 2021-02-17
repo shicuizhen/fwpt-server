@@ -136,7 +136,7 @@ public class QuesInformationServiceImpl implements QuesInformationService{
             //遍历每一个lists，将数据取出放入到新的map中
             //问题id，分类id，创建者id（不需要），创建时间，问题标题，具体内容，回答数，点赞数，用户名，用户头像
             map.put("id",lists.get(i).getId());
-            map.put("sortName",quesSortRepository.getQuesSortById(lists.get(i).getSortId()).getName());
+            map.put("sortName",quesSortRepository.getQuesSortById(lists.get(i).getSortId()).equals(null) ? null : quesSortRepository.getQuesSortById(lists.get(i).getSortId()).getName());
 //            map.put("sortId",lists.get(i).getSortId());
             map.put("createTime",lists.get(i).getCreateTime());
             map.put("title",lists.get(i).getTitle());
@@ -155,9 +155,8 @@ public class QuesInformationServiceImpl implements QuesInformationService{
             //用户名和用户头像
             //根据创建者id即createBy，去user用户表查询用户名和头像
             Users user = usersRepository.findAllById(lists.get(i).getCreateBy());
-            map.put("createBy",user.getName());
-            map.put("photo",user.getPhotoAddress());
-
+            map.put("createBy",user==null||user.equals(null) ? null : user.getName());
+            map.put("photo",user==null||user.equals(null) ? null : user.getPhotoAddress());
             //将封装好的一组list数据存放到map中
             list.add(map);
         }
