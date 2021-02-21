@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import com.sjzxy.fwpt.common.response.BaseResponse;
 
 import javax.validation.Valid;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
 import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
 
@@ -32,6 +31,7 @@ public class QuesLikeController {
         if (Objects.isNull(obj)){
             throw new BusinessException(ResultCodeEnum.AddDataError);
         }
+        System.out.println("-------------------添加数据成功--------------------");
         return BaseResponse.ok().data(obj);
     }
 
@@ -39,6 +39,14 @@ public class QuesLikeController {
     @DeleteMapping("/del/{id}")
     public BaseResponse delQuesLike(@PathVariable int id){
         quesLikeService.delQuesLike(id);
+        return BaseResponse.ok();
+    }
+
+    @ApiOperation(value = "根据rid和uid删除数据")
+    @PostMapping("/delQuesLike")
+    public BaseResponse delQuesLikeByRidAddUid(@ApiParam("实体对象") @Valid @RequestBody QuesLike quesLike){
+        quesLikeService.delQuesLikeByRidAddUid(quesLike.getRid(),quesLike.getUid());
+        System.out.println("-------------------删除数据成功--------------------");
         return BaseResponse.ok();
     }
 
@@ -61,5 +69,14 @@ public class QuesLikeController {
             throw new BusinessException(ResultCodeEnum.FindDataError);
         }
         return BaseResponse.ok().data(lists);
+    }
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK")})
+    @ApiOperation(value = "根据用户id查询回答点赞信息")
+    @GetMapping("/rid/{uid}")
+    public BaseResponse findReplyLikeIds(@RequestParam int uid){
+        ArrayList list = new ArrayList();
+        list = quesLikeService.getReplyLikeIdsByUid(uid);
+        return BaseResponse.ok().data(list);
     }
 }

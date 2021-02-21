@@ -57,7 +57,7 @@ public class QuesReplyController {
 
     @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesReply.class)})
     @ApiOperation(value = "根据问题id查询回答数据")
-    @GetMapping("/datas/{qid}")
+    @GetMapping("/data/{qid}")
     public BaseResponse findQuesReplyByQid(int qid){
         List<QuesReply> lists = quesReplyService.findQuesReplyByQid(qid);
         if (Objects.isNull(lists)){

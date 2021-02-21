@@ -1,12 +1,14 @@
 package com.sjzxy.fwpt.service.impl;
 
 import com.sjzxy.fwpt.entity.QuesLike;
+import com.sjzxy.fwpt.mapper.QuesLikeMapper;
 import com.sjzxy.fwpt.repository.QuesLikeRepository;
 import com.sjzxy.fwpt.service.QuesLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -56,13 +58,26 @@ public class QuesLikeServiceImpl implements QuesLikeService{
         }
     }
 
+    //前端中，回答点赞数组信息初始化，根据用户uid查询对应的回答点赞信息
     @Override
-    public Boolean isCommentLike(Integer cid, Integer uid) {
-        if (quesLikeRepository.findAllByCidAndUid(cid,uid).isEmpty()){
-            return false;
-        }else {
-            return true;
+    public ArrayList getReplyLikeIdsByUid(int uid) {
+        ArrayList list = new ArrayList();
+        List<QuesLike> likes = quesLikeRepository.findAllByUid(uid);
+        for (int i = 0;i<likes.size();i++){
+            if (likes.get(i).getRid() != 0){
+                list.add(likes.get(i).getRid());
+            }
         }
+        return list;
+    }
+
+
+
+    //取消点赞，根据rid和uid删除数据
+    @Override
+    public void delQuesLikeByRidAddUid(Integer rid, Integer uid) {
+        List<QuesLike> likes = quesLikeRepository.deleteQuesLikeByRidAndUid(rid, uid);
+        System.out.println("like:" + likes);
     }
 
 }

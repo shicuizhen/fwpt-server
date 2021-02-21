@@ -35,6 +35,15 @@ public interface QuesInformationService {
      */
     List findAllQuesInformation();
 
+
+    /**
+     * 根据qid查询问题信息
+     * @param qid
+     * @return
+     */
+    Map findQuesInformationByQid(Integer qid);
+
+
     /**
      * 根据qid查询全部回答信息
      * @param qid

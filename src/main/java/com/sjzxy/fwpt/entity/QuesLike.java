@@ -27,10 +27,6 @@ public class QuesLike implements Serializable {
     @ApiModelProperty(value = "回答id" )
     private Integer rid;
 
-    @Column(name = "cid" )
-    @ApiModelProperty(value = "评论id" )
-    private Integer cid;
-
     @Column(name = "uid" )
     @ApiModelProperty(value = "点赞的用户id" )
     private Integer uid;

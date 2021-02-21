@@ -1,6 +1,5 @@
 package com.sjzxy.fwpt.service;
 
-import com.sjzxy.fwpt.entity.QuesComment;
 import com.sjzxy.fwpt.entity.QuesReply;
 
 import java.util.List;
@@ -36,12 +35,12 @@ public interface QuesReplyService {
     List<QuesReply> findAllQuesReply();
 
 
-    /**
-     * 根据rid查询全部评论
-     * @param rid
-     * @return
-     */
-    List<QuesComment> findAllCommentByRid(Integer rid);
+//    /**
+//     * 根据rid查询全部评论
+//     * @param rid
+//     * @return
+//     */
+//    List<QuesComment> findAllCommentByRid(Integer rid);
 
     /**
      * 根据qid查询对应问题下全部评论

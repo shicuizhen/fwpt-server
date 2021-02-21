@@ -10,8 +10,21 @@ spring:
 server:
   port: 8180
 
+#mybatis的相关配置
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.sjzxy.fwpt.entity
+  #开启驼峰命名
+  configuration:
+    map-underscore-to-camel-case: true
+
+
 # 日志配置
 logging:
   level:
     com.monitor.wisdom_monitor: debug
     org.springframework: warn
+
+
+fileUploadPath: "F:\\图片\\"

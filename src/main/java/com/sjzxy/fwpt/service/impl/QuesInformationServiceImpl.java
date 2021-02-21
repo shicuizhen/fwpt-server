@@ -6,6 +6,8 @@ import com.sjzxy.fwpt.service.QuesInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -17,9 +19,6 @@ public class QuesInformationServiceImpl implements QuesInformationService{
 
     @Autowired
     private QuesReplyRepository quesReplyRepository;
-
-    @Autowired
-    private QuesCommentRepository quesCommentRepository;
 
     @Autowired
     private QuesLikeRepository quesLikeRepository;
@@ -49,10 +48,20 @@ public class QuesInformationServiceImpl implements QuesInformationService{
 
     @Override
     public List findAllQuesInformation() {
-
         List<QuesInformation> lists = quesInformationRepository.findAll();
         return getQuesInformationData(lists);
     }
+
+    @Override
+    public Map findQuesInformationByQid(Integer qid) {
+        List<QuesInformation> list = new ArrayList<>();
+        list.add(quesInformationRepository.findAllById(qid));
+        return (Map) getQuesInformationData(list).get(0);
+    }
+
+
+    @Autowired
+    QuesReplyServiceImpl quesReplyService;
 
     /**
      * 根据问题id获取全部回答
@@ -63,7 +72,7 @@ public class QuesInformationServiceImpl implements QuesInformationService{
     @Override
     public List findAllReplyByQid(Integer qid) {
         List<QuesReply> lists = quesReplyRepository.findAllByQid(qid);
-        return getQuesReplyData(lists);
+        return quesReplyService.getQuesReplyData(lists);
     }
 
     /**
@@ -105,39 +114,7 @@ public class QuesInformationServiceImpl implements QuesInformationService{
 
 
 
-    /**
-     * 获得统一QuesReply的返回数据
-     * @param lists
-     * @return
-     */
-    List getQuesReplyData(List<QuesReply> lists){
 
-        ArrayList list = new ArrayList();
-        for (int i = 0;i<lists.size();i++){
-            Map<String,Object> map = new HashMap();
-            map.put("id",lists.get(i).getId());
-
-            //回答的评论数
-            //根据回答id即rid去commoent表中查询评论的数量
-            List<QuesComment> quesComments = quesCommentRepository.findAllByRid(lists.get(i).getId());
-            map.put("commentNum",quesComments.size());
-
-            //创建者
-            Users user = usersRepository.findAllById(lists.get(i).getCreateBy());
-            map.put("createBy",user.getName());
-            map.put("photo",user.getPhotoAddress());
-
-            map.put("createTime",lists.get(i).getCreateTime());
-            map.put("content",lists.get(i).getContent());
-
-            //点赞数
-            //根据问题id即qid去like表中查询点赞的数量
-            List<QuesLike> replyLikes = quesLikeRepository.findAllByRid(lists.get(i).getId());
-            map.put("likeNum",replyLikes.size());
-            list.add(map);
-        }
-        return list;
-    }
 
     /**
      * 获得统一QuesInformation的返回数据
@@ -155,6 +132,7 @@ public class QuesInformationServiceImpl implements QuesInformationService{
             map.put("id",lists.get(i).getId());
             map.put("sortName",quesSortRepository.getQuesSortById(lists.get(i).getSortId()).equals(null) ? null : quesSortRepository.getQuesSortById(lists.get(i).getSortId()).getName());
 //            map.put("sortId",lists.get(i).getSortId());
+//            System.out.println("0000:"+(lists.get(i).getCreateTime()));
             map.put("createTime",lists.get(i).getCreateTime());
             map.put("title",lists.get(i).getTitle());
             map.put("content",lists.get(i).getContent());
@@ -166,8 +144,8 @@ public class QuesInformationServiceImpl implements QuesInformationService{
 
             //点赞数
             //根据问题id即qid去like表中查询点赞的数量
-            List<QuesLike> quesLikes = quesLikeRepository.findAllByQid(lists.get(i).getId());
-            map.put("likeNum",quesLikes.size());
+//            List<QuesLike> quesLikes = quesLikeRepository.findAllByQid(lists.get(i).getId());
+//            map.put("likeNum",quesLikes.size());
 
             //用户名和用户头像
             //根据创建者id即createBy，去user用户表查询用户名和头像

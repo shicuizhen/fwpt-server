@@ -1,7 +1,6 @@
 package com.sjzxy.fwpt.service.impl;
 
 import com.sjzxy.fwpt.entity.*;
-import com.sjzxy.fwpt.repository.QuesCommentRepository;
 import com.sjzxy.fwpt.repository.QuesInformationRepository;
 import com.sjzxy.fwpt.repository.QuesReplyRepository;
 import com.sjzxy.fwpt.repository.QuesSortRepository;
@@ -25,9 +24,6 @@ public class QuesSortServiceImpl implements QuesSortService{
 
     @Autowired
     private QuesReplyRepository quesReplyRepository;
-
-    @Autowired
-    private QuesCommentRepository quesCommentRepository;
 
     @Override
     public QuesSort addQuesSort(QuesSort quesSort) {

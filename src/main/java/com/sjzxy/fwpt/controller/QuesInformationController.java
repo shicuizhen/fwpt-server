@@ -66,6 +66,17 @@ public class QuesInformationController {
     }
 
     @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
+    @ApiOperation(value = "根据qid查询数据")
+    @GetMapping("/data/{qid}")
+    public BaseResponse findQuesInformationByQid(@RequestParam Integer qid){
+        Map map = quesInformationService.findQuesInformationByQid(qid);
+        if (Objects.isNull(map)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
+        return BaseResponse.ok().data(map);
+    }
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
     @ApiOperation(value = "查询热门问题数据")
     @GetMapping("/hotdatas")
     public BaseResponse findHotQuesInformation(){

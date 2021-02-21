@@ -2,6 +2,7 @@ package com.sjzxy.fwpt.service;
 
 import com.sjzxy.fwpt.entity.QuesLike;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface QuesLikeService {
@@ -45,5 +46,7 @@ public interface QuesLikeService {
 
     Boolean isReplyLike(Integer rid, Integer uid);
 
-    Boolean isCommentLike(Integer cid, Integer uid);
+    ArrayList getReplyLikeIdsByUid(int uid);
+
+    void delQuesLikeByRidAddUid(Integer rid, Integer uid);
 }
