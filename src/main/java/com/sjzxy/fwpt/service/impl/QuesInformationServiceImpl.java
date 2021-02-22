@@ -21,9 +21,6 @@ public class QuesInformationServiceImpl implements QuesInformationService{
     private QuesReplyRepository quesReplyRepository;
 
     @Autowired
-    private QuesLikeRepository quesLikeRepository;
-
-    @Autowired
     private UsersRepository usersRepository;
 
     @Autowired
@@ -75,6 +72,13 @@ public class QuesInformationServiceImpl implements QuesInformationService{
         return quesReplyService.getQuesReplyData(lists);
     }
 
+
+    @Override
+    public List<QuesInformation> findQuesInformationBySid(Integer sid) {
+        return getQuesInformationData(quesInformationRepository.findAllBySortId(sid));
+    }
+
+
     /**
      * 根据问题是否被解决获取全部问题信息
      * @param state
@@ -101,19 +105,12 @@ public class QuesInformationServiceImpl implements QuesInformationService{
             Map map = new HashMap();
             map.put("id", lists.get(i).get(0));
             map.put("title",quesInformation.getTitle());
+            map.put("content",quesInformation.getContent());
             map.put("num",lists.get(i).get(1));
             list.add(map);
         }
         return list;
     }
-
-
-
-
-
-
-
-
 
 
     /**

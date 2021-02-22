@@ -76,6 +76,22 @@ public class QuesInformationController {
         return BaseResponse.ok().data(map);
     }
 
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
+    @ApiOperation(value = "根据sid查询数据")
+    @GetMapping("/sort/{sid}")
+    public BaseResponse findQuesInformationBySid(@RequestParam Integer sid){
+        List<QuesInformation> list = quesInformationService.findQuesInformationBySid(sid);
+        if (list.size() <= 0){
+            return BaseResponse.error().code(401);
+        }
+        System.out.println("list:" + list);
+        if (Objects.isNull(list)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
+        return BaseResponse.ok().data(list);
+    }
+
     @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
     @ApiOperation(value = "查询热门问题数据")
     @GetMapping("/hotdatas")

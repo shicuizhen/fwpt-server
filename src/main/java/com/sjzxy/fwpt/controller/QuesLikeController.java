@@ -31,7 +31,6 @@ public class QuesLikeController {
         if (Objects.isNull(obj)){
             throw new BusinessException(ResultCodeEnum.AddDataError);
         }
-        System.out.println("-------------------添加数据成功--------------------");
         return BaseResponse.ok().data(obj);
     }
 
@@ -46,7 +45,6 @@ public class QuesLikeController {
     @PostMapping("/delQuesLike")
     public BaseResponse delQuesLikeByRidAddUid(@ApiParam("实体对象") @Valid @RequestBody QuesLike quesLike){
         quesLikeService.delQuesLikeByRidAddUid(quesLike.getRid(),quesLike.getUid());
-        System.out.println("-------------------删除数据成功--------------------");
         return BaseResponse.ok();
     }
 

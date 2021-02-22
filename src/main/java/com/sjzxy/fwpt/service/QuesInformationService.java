@@ -63,4 +63,12 @@ public interface QuesInformationService {
      * @return
      */
     List findHotQuesInformation();
+
+
+    /**
+     * 根据分类id查询全部问题信息
+     * @param sid
+     * @return
+     */
+    List findQuesInformationBySid(Integer sid);
 }

@@ -123,17 +123,19 @@ public class QuesReplyServiceImpl implements QuesReplyService{
             map.put("createTime",lists.get(i).getCreateTime());
             map.put("content",lists.get(i).getContent());
 
-            map.put("qid",lists.get(i).getQid());
+            map.put("qid", lists.get(i).getQid());
+            if (lists.get(i).getQid()==null){
+                System.out.println("qid为空");
+                map.put("content","===================这条数据不对，qid为空=====================");
+                map.put("likeNum",100001);
+                return list;
+            }
 
             //点赞数
             //根据回答id即rid去like表中查询点赞的数量
-            List<QuesLike> quesLikes = quesLikeRepository.findAllByRid(lists.get(i).getId());
-            map.put("likeNum",quesLikes.size());
-
-            //点赞数
-            //根据问题id即qid去like表中查询点赞的数量
             List<QuesLike> replyLikes = quesLikeRepository.findAllByRid(lists.get(i).getId());
             map.put("likeNum",replyLikes.size());
+
             list.add(map);
         }
         return list;
