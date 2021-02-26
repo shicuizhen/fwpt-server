@@ -17,6 +17,11 @@ public enum ResultCodeEnum {
     InvalidLike(-205, "点赞无效"),
     // 3开头是持久层方面的
     DATA_ACCESS_EXCEPTION(-301, "数据访问异常: "),
+    DATA_NOVALID(-302,"无效的数据类型"),
+    INVALID_VERIFY_CODE(-303,"无效的验证码"),
+    USER_IS_NOT_EXIT(-304,"该用户不存在"),
+    PASSWORD_ERROR(-305,"密码错误"),
+    USER_LOGIN_SUCCESS(201,"登录成功"),
     ;
 
     /**

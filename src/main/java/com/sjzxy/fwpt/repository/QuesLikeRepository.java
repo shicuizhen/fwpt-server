@@ -28,18 +28,4 @@ public interface QuesLikeRepository extends JpaRepository<QuesLike, Long> {
 
     List<QuesLike> deleteQuesLikeByRidAndUid(int rid, int uid);
 
-//    @Modifying
-//    @Transactional
-//    @Query(value = "DELETE FROM ques_like WHERE rid = ?1 and uid = ?2 ",nativeQuery = true)
-//    List<QuesLike> deleteByRidAndUid(int rid,  int uid);
-
-//    @Modifying
-//    @Transactional
-//    @Query(value = "DELETE FROM ques_like WHERE (rid = :rid) and (uid = :uid) ",nativeQuery = true)
-//    List<QuesLike> deleteByRidAndUid(@Param("rid") int rid, @Param("uid") int uid);
-
-//    @Modifying
-//    @Transactional
-//    @Query(value = "delete from 'ques_like' where rid = ?1 and uid = ?2 ",nativeQuery = true)
-//    List<QuesLike> deleteByRidAndUid(int rid, int uid);
 }

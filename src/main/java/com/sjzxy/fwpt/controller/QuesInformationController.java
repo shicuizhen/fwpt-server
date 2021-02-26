@@ -1,5 +1,6 @@
 package com.sjzxy.fwpt.controller;
 
+import com.sjzxy.fwpt.config.aop.sendMessage.ASendMessage;
 import com.sjzxy.fwpt.entity.QuesInformation;
 import com.sjzxy.fwpt.entity.QuesSort;
 import com.sjzxy.fwpt.service.QuesInformationService;
@@ -26,6 +27,7 @@ public class QuesInformationController {
     @Autowired
     private QuesInformationService quesInformationService;
 
+    @ASendMessage
     @ApiOperation(value = "添加数据")
     @PostMapping
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
@@ -85,7 +87,6 @@ public class QuesInformationController {
         if (list.size() <= 0){
             return BaseResponse.error().code(401);
         }
-        System.out.println("list:" + list);
         if (Objects.isNull(list)){
             throw new BusinessException(ResultCodeEnum.FindDataError);
         }

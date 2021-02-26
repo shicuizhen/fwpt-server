@@ -11,7 +11,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @author Administrator
  */
 @Log4j2
-@ServerEndpoint("/webSocket/{type}")//co
+@ServerEndpoint("/webSocket/{type}")
 public class WebSocketServer {
 
     /**

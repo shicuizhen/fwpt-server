@@ -56,12 +56,6 @@
             <version>1.9.6</version>
         </dependency>
 
-        <!--添加spring-security依赖-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
         <!--spring-jpa依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -133,7 +127,6 @@
             <artifactId>reflections</artifactId>
             <version>0.9.11</version>
         </dependency>
-
 
         <dependency>
             <groupId>com.sjzxy</groupId>

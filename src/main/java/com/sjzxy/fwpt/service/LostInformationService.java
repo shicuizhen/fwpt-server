@@ -1,6 +1,7 @@
 package com.sjzxy.fwpt.service;
 
 import com.sjzxy.fwpt.entity.LostInformation;
+import com.sjzxy.fwpt.entity.QuesInformation;
 
 import java.util.List;
 
@@ -33,4 +34,10 @@ public interface LostInformationService {
      * @return
      */
     List<LostInformation> findAllLostInformation();
+
+    /**
+     * 获取前五条数据
+     * @return
+     */
+    List<String> findLunboData();
 }

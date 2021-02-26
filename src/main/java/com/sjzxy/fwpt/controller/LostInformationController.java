@@ -1,15 +1,14 @@
 package com.sjzxy.fwpt.controller;
 
 import com.sjzxy.fwpt.entity.LostInformation;
+import com.sjzxy.fwpt.entity.QuesInformation;
 import com.sjzxy.fwpt.service.LostInformationService;
-import io.swagger.annotations.Api;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
 import com.sjzxy.fwpt.common.response.BaseResponse;
-import io.swagger.annotations.ApiParam;
+
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
@@ -62,4 +61,18 @@ public class LostInformationController {
         }
         return BaseResponse.ok().data(lists);
     }
+
+
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
+    @ApiOperation(value = "查询轮播数据")
+    @GetMapping("/lunbodata")
+    public BaseResponse findLunboData(){
+        List<String> lists = lostInformationService.findLunboData();
+        if (Objects.isNull(lists)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
+        return BaseResponse.ok().data(lists);
+    }
+
 }
