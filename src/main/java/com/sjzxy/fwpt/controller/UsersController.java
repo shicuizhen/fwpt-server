@@ -1,6 +1,7 @@
 package com.sjzxy.fwpt.controller;
 
 import com.sjzxy.fwpt.entity.QuesInformation;
+import com.sjzxy.fwpt.entity.UserLogin;
 import com.sjzxy.fwpt.entity.Users;
 import com.sjzxy.fwpt.repository.UsersRepository;
 import com.sjzxy.fwpt.service.UsersService;
@@ -28,13 +29,8 @@ public class UsersController {
     @ApiOperation(value = "用户登录")
     @PostMapping("/login")
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
-    public BaseResponse login(@RequestParam("sno") String sno,@RequestParam("password") String password){
-        ResultCodeEnum anEnum = usersService.login(sno,password);
-        if (anEnum.getCode() == 201 ){
-            return BaseResponse.ok().data(anEnum.getMessage());
-        }else {
-            return BaseResponse.error().data(anEnum.getMessage());
-        }
+    public BaseResponse login(@ApiParam("实体对象") @Valid @RequestBody UserLogin userLogin){
+        return usersService.login(userLogin.getSno(),userLogin.getPassword());
     }
 
     @ApiOperation(value = "添加数据")

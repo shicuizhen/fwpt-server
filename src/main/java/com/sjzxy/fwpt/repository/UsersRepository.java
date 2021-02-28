@@ -4,6 +4,7 @@ import com.sjzxy.fwpt.entity.Users;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -13,5 +14,5 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
 
     Optional<Users> findAllByName(String username);
 
-    Optional<Users> findAllBySno(String sno);
+    Users findAllBySno(String sno);
 }

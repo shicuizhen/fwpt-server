@@ -1,8 +1,12 @@
 package com.sjzxy.fwpt.service;
 
 import com.sjzxy.fwpt.entity.LostInformation;
-import com.sjzxy.fwpt.entity.QuesInformation;
+import com.sjzxy.fwpt.entity.LostSearch;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 public interface LostInformationService {
@@ -33,11 +37,13 @@ public interface LostInformationService {
      * 查询全部数据
      * @return
      */
-    List<LostInformation> findAllLostInformation();
+    List<LostInformation> findAllLostInformation() throws ParseException;
 
     /**
      * 获取前五条数据
      * @return
      */
     List<String> findLunboData();
+
+    Page getSearch(LostSearch lostSearch, Boolean needPagination);
 }

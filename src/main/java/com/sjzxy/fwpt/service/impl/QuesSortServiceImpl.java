@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -55,7 +56,7 @@ public class QuesSortServiceImpl implements QuesSortService{
             map.put("pid",quesSorts.get(i).getPid());
             map.put("name",quesSorts.get(i).getName());
             map.put("depression",quesSorts.get(i).getDepression());
-            map.put("createTime",quesSorts.get(i).getCreateTime());
+            map.put("createTime",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(quesSorts.get(i).getCreateTime()));
             //获取当前分类id下的所有问题信息
             List<QuesInformation> quesInformations =  quesInformationRepository.findAllBySortId(quesSorts.get(i).getId());
             map.put("quesNum",quesInformations.size());

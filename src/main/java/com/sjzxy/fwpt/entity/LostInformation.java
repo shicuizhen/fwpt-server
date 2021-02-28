@@ -1,11 +1,13 @@
 package com.sjzxy.fwpt.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @ApiModel(description= "lost_information")
 @Entity
@@ -47,6 +49,10 @@ public class LostInformation implements Serializable {
     @ApiModelProperty(value = "丢失/拾遗详细位置" )
     private String position;
 
+//    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+//    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @Column(name = "lost_time" )
     @ApiModelProperty(value = "丢失/拾遗时间" )
     private Date lostTime;

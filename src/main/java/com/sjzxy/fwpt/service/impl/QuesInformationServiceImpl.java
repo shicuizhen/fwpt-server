@@ -129,8 +129,7 @@ public class QuesInformationServiceImpl implements QuesInformationService{
             map.put("id",lists.get(i).getId());
             map.put("sortName", quesSortRepository.getQuesSortById(lists.get(i).getSortId()).getName());
 //            map.put("sortId",lists.get(i).getSortId());
-//            System.out.println("0000:"+(lists.get(i).getCreateTime()));
-            map.put("createTime",lists.get(i).getCreateTime());
+            map.put("createTime",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(lists.get(i).getCreateTime()));
             map.put("title",lists.get(i).getTitle());
             map.put("content",lists.get(i).getContent());
             map.put("is_finish",lists.get(i).getIsFinish());

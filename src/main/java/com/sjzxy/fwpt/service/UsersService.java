@@ -1,6 +1,7 @@
 package com.sjzxy.fwpt.service;
 
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
+import com.sjzxy.fwpt.common.response.BaseResponse;
 import com.sjzxy.fwpt.entity.Users;
 
 import java.util.*;
@@ -39,5 +40,5 @@ public interface UsersService {
     Optional<Users> getUsersByUsername(String username);
 
 
-    ResultCodeEnum login(String sno, String password);
+    BaseResponse login(String sno, String password);
 }

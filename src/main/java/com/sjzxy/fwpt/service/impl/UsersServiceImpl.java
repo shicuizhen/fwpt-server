@@ -2,12 +2,14 @@ package com.sjzxy.fwpt.service.impl;
 
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
 import com.sjzxy.fwpt.common.exception.BusinessException;
+import com.sjzxy.fwpt.common.response.BaseResponse;
 import com.sjzxy.fwpt.entity.Users;
 import com.sjzxy.fwpt.repository.UsersRepository;
 import com.sjzxy.fwpt.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.invoke.empty.Empty;
 
 import java.util.*;
 
@@ -50,15 +52,16 @@ public class UsersServiceImpl implements UsersService{
     }
 
     @Override
-    public ResultCodeEnum login(String sno, String password) {
-        Optional<Users> optional = usersRepository.findAllBySno(sno);
-        if (optional.get().equals(null)){
-            return ResultCodeEnum.USER_IS_NOT_EXIT;
+    public BaseResponse login(String sno, String password) {
+        Users users = usersRepository.findAllBySno(sno);
+        if (users == null){
+            return BaseResponse.error().data(ResultCodeEnum.USER_IS_NOT_EXIT.getMessage());
         }
-        if (!password.equals(optional.get().getPassword())){
-            return ResultCodeEnum.PASSWORD_ERROR;
+        if (!password.equals(users.getPassword())){
+            return BaseResponse.error().data(ResultCodeEnum.PASSWORD_ERROR.getMessage());
         }
-        return ResultCodeEnum.USER_LOGIN_SUCCESS;
+        int uid = users.getId();
+        return BaseResponse.ok().data(uid);
     }
 
 }

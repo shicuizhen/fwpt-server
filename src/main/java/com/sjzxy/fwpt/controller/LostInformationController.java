@@ -1,15 +1,18 @@
 package com.sjzxy.fwpt.controller;
 
 import com.sjzxy.fwpt.entity.LostInformation;
+import com.sjzxy.fwpt.entity.LostSearch;
 import com.sjzxy.fwpt.entity.QuesInformation;
 import com.sjzxy.fwpt.service.LostInformationService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import com.sjzxy.fwpt.common.response.BaseResponse;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -25,9 +28,15 @@ public class LostInformationController {
     private LostInformationService lostInformationService;
 
     @ApiOperation(value = "添加数据")
-    @PostMapping
+    @PostMapping("/add")
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
     public BaseResponse addLostInformation(@ApiParam("实体对象") @Valid @RequestBody LostInformation lostInformation){
+
+        //前端表单提交的时间： Tue Feb 23 2021 00:00:00 GMT+0800 (中国标准时间)
+        //前端转化的时间：    2021-02-23
+        //新创建的date：     Sun Feb 28 21:25:59 CST 2021
+        //存入数据库：       2021-02-28T13:25:59.513+00:00
+
         LostInformation obj = lostInformationService.addLostInformation(lostInformation);
         if (Objects.isNull(obj)){
             throw new BusinessException(ResultCodeEnum.AddDataError);
@@ -52,16 +61,16 @@ public class LostInformationController {
         return BaseResponse.ok().data(obj);
     }
 
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
     @ApiOperation(value = "查询全部数据")
     @GetMapping("/datas")
-    public BaseResponse findAllLostInformation(){
+    public BaseResponse findAllLostInformation() throws ParseException {
         List<LostInformation> lists = lostInformationService.findAllLostInformation();
         if (Objects.isNull(lists)){
             throw new BusinessException(ResultCodeEnum.FindDataError);
         }
         return BaseResponse.ok().data(lists);
     }
-
 
 
     @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
@@ -74,5 +83,24 @@ public class LostInformationController {
         }
         return BaseResponse.ok().data(lists);
     }
+
+
+
+    @ApiOperation(value = "多条件查询")
+    @PostMapping("/getSearch")
+    public BaseResponse findLostInformation(@RequestBody LostSearch lostSearch) {
+        boolean needPagination = lostSearch.getPageNo() > 0 && lostSearch.getPageSize() > 0;
+        System.out.println("needPagination:" + needPagination);
+        System.out.println("lostSearch:" + lostSearch);
+        Page<LostInformation> informationPage = lostInformationService.getSearch(lostSearch, needPagination);
+        System.out.println("lists:" + informationPage);
+        if (Objects.isNull(informationPage)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
+        return BaseResponse.ok().data(informationPage.getContent());
+    }
+
+
+
 
 }
