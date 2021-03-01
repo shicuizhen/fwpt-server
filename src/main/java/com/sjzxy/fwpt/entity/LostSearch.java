@@ -47,4 +47,8 @@ public class LostSearch implements Serializable {
     @ApiModelProperty(value = "当前页面量" )
     Integer pageSize;
 
+    @Column(name = "search_key" )
+    @ApiModelProperty(value = "搜索框中的字段" )
+    String search_key;
+
 }

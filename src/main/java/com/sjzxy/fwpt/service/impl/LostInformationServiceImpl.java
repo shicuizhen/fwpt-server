@@ -7,6 +7,7 @@ import com.sjzxy.fwpt.repository.LostKindRepository;
 import com.sjzxy.fwpt.repository.LostPlaceRepository;
 import com.sjzxy.fwpt.repository.UsersRepository;
 import com.sjzxy.fwpt.service.LostInformationService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -47,8 +48,9 @@ public class LostInformationServiceImpl implements LostInformationService{
         return lostInformationRepository.save(lostInformation);
     }
 
+    @SneakyThrows
     @Override
-    public List<LostInformation> findAllLostInformation() throws ParseException {
+    public List<LostInformation> findAllLostInformation(){
         List<LostInformation> lostInformations = lostInformationRepository.findAll();
         return getLostInformationData(lostInformations);
     }
@@ -109,59 +111,64 @@ public class LostInformationServiceImpl implements LostInformationService{
     }
 
 
-
-    public Page getSearch(LostSearch lostSearch, Boolean needPagination) {
+    @SneakyThrows
+    public Page getSearch(LostSearch lostSearch, Boolean needPagination){
 
 //        System.out.println("impl:type:" + lostSearch.getType());
 //        System.out.println("impl:kind_id:" + lostSearch.getKind_id());
 
         Specification<LostInformation> specification = (Specification<LostInformation>) (root, criteriaQuery, criteriaBuilder) -> {
 
-            List<Predicate> list = new ArrayList<>();
+            List<Predicate> listAnd = new ArrayList<>();
+            List<Predicate> listOr = new ArrayList<>();
+
+            if (lostSearch.getSearch_key() != null) {
+                System.out.println("Search_key:" + lostSearch.getSearch_key());
+                listOr.add(criteriaBuilder.like(root.get("description"),"%" + lostSearch.getSearch_key()));
+                listOr.add(criteriaBuilder.like(root.get("name"),"%" + lostSearch.getSearch_key()));
+            }
 
             if (lostSearch.getType() != null && lostSearch.getType() >= 0) {
                 System.out.println("type:" + lostSearch.getType() );
-                list.add(criteriaBuilder.equal(root.get("type").as(Integer.class), lostSearch.getType() ));
+                listAnd.add(criteriaBuilder.equal(root.get("type").as(Integer.class), lostSearch.getType() ));
             }
 
             if (lostSearch.getKind_id() != null && lostSearch.getKind_id() > 0) {
                 System.out.println("kind_id:" + lostSearch.getKind_id());
-                list.add(criteriaBuilder.equal(root.get("kindId").as(Integer.class), lostSearch.getKind_id()));
+                listAnd.add(criteriaBuilder.equal(root.get("kindId").as(Integer.class), lostSearch.getKind_id()));
             }
 
             if (lostSearch.getPlace_id() != null && lostSearch.getPlace_id() > 0) {
                 System.out.println("placeId:" + lostSearch.getPlace_id());
-                list.add(criteriaBuilder.equal(root.get("placeId").as(Integer.class), lostSearch.getPlace_id()));
+                listAnd.add(criteriaBuilder.equal(root.get("placeId").as(Integer.class), lostSearch.getPlace_id()));
             }
 
-            System.out.println("时间：" + lostSearch.getLost_time1());
             if (lostSearch.getLost_time1() != null && !lostSearch.getLost_time1().equals("")) {
-                list.add(criteriaBuilder.greaterThanOrEqualTo(root.get("lostTime"),
-                        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(lostSearch.getLost_time1())));
+                listAnd.add(criteriaBuilder.greaterThanOrEqualTo(root.get("lostTime"),
+                        lostSearch.getLost_time1()));
             }
             if (lostSearch.getLost_time2() != null && !lostSearch.getLost_time2().equals("")) {
-                list.add(criteriaBuilder.lessThanOrEqualTo(root.get("lostTime"),
-                        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(lostSearch.getLost_time2())));
+                listAnd.add(criteriaBuilder.lessThanOrEqualTo(root.get("lostTime"),
+                        lostSearch.getLost_time2()));
             }
 
-//                cb.and    “and”表示这几个条件并且的关系   Predicate and(Predicate... var1);
-//            return cb.and(list.toArray(p));
-
             // 组装and查询语句
-            Predicate predicateAnd = criteriaBuilder.and(list.toArray(new Predicate[0]));
-            System.out.println("predicateAnd:" + predicateAnd.toString());
-            return criteriaQuery.where(predicateAnd).getRestriction();
+            Predicate predicateAnd = criteriaBuilder.and(listAnd.toArray(new Predicate[0]));
 
-//            return list.size() == 0 ?
-//                    criteriaQuery.where(predicateAnd).getRestriction() :
-//                    criteriaQuery.where(predicateAnd, predicateOr).getRestriction();
+            Predicate predicateOr = criteriaBuilder.or(listOr.toArray(new Predicate[0]));
+
+            return listOr.size() == 0 ?
+                    criteriaQuery.where(predicateAnd).getRestriction() :
+                    criteriaQuery.where(predicateAnd, predicateOr).getRestriction();
         };
 //        if (needPagination) {
 //            Pageable pageable = PageRequest.of(lostSearch.getPageNo(), lostSearch.getPageSize());
 //            return lostInformationRepository.findAll(specification, pageable);
 //        }
         // 查询结果不分页
-        return new PageImpl(lostInformationRepository.findAll(specification));
+        List<LostInformation> lists = lostInformationRepository.findAll(specification);
+        List<LostInformation> result = getLostInformationData(lists);
+        return new PageImpl(result);
     }
 
 }

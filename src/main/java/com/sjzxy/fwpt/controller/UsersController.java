@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import com.sjzxy.fwpt.common.response.BaseResponse;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.sjzxy.fwpt.common.exception.BusinessException;
@@ -78,11 +79,20 @@ public class UsersController {
 
     @ApiResponses({@ApiResponse(code = 200,message = "OK",response = Users.class)})
     @ApiOperation(value = "通过名字查询数据")
-    @GetMapping("/datas/username")
-    public BaseResponse findAllByUsername(){
-        String username = "张三";
+    @PostMapping("/datas/username")
+    public BaseResponse findAllByUsername(@RequestParam String username){
+        username = "张三";
         Optional<Users> users = usersRepository.findAllByName(username);
         System.out.println("users:" + users);
         return BaseResponse.ok().data(users);
+    }
+
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = Users.class)})
+    @ApiOperation(value = "通过用户id查询数据")
+    @PostMapping("/datas/uid")
+    public BaseResponse findAllByUid(@RequestParam int uid){
+        Map map = usersService.findByUid(uid);
+        return BaseResponse.ok().data(map);
     }
 }

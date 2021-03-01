@@ -45,5 +45,5 @@ public interface LostInformationService {
      */
     List<String> findLunboData();
 
-    Page getSearch(LostSearch lostSearch, Boolean needPagination);
+    Page getSearch(LostSearch lostSearch, Boolean needPagination) throws ParseException;
 }

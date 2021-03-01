@@ -19,6 +19,7 @@ public interface QuesReplyRepository extends JpaRepository<QuesReply, Long> {
     List<QuesReply> findAllByQid(Integer qid);
 
     /**
+     * 查找回答数多的前五个问题的qid和回答数
      * select classid,count(*) as abc from user group by classid order by count(*) desc
      * @return
      */

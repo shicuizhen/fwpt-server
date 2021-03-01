@@ -1,6 +1,7 @@
 package com.sjzxy.fwpt.service;
 
 import com.sjzxy.fwpt.entity.QuesInformation;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -51,12 +52,7 @@ public interface QuesInformationService {
      */
     List findAllReplyByQid(Integer qid);
 
-    /**
-     * 根据问题是否解决查找问题信息
-     * @param state
-     * @return
-     */
-    List findAllQuesInfoByFinish(int state);
+
 
     /**
      * 查询热门问题的id和内容
@@ -73,4 +69,17 @@ public interface QuesInformationService {
     List findQuesInformationBySid(Integer sid);
 
 
+    Page findQuesInformationByKey(String key, Boolean needPagination) ;
+
+    /**
+     * 根据问题是否解决查找问题信息
+     * @param finish
+     * @return
+     */
+    List<QuesInformation> findQuesByFinish(int finish);
+
+    List<QuesInformation> findQuesByFinishAndSort(int finish, Integer sid);
+
+
+    List<QuesInformation> findQuesByFinishAndSortAndKey(Integer finish, Integer sid, String key);
 }

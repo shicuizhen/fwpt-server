@@ -4,9 +4,14 @@ import com.sjzxy.fwpt.entity.*;
 import com.sjzxy.fwpt.repository.*;
 import com.sjzxy.fwpt.service.QuesInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.Predicate;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -78,18 +83,59 @@ public class QuesInformationServiceImpl implements QuesInformationService{
         return getQuesInformationData(quesInformationRepository.findAllBySortId(sid));
     }
 
-
     /**
-     * 根据问题是否被解决获取全部问题信息
-     * @param state
+     * 根据关键字查找问题
+     * @param key
+     * @param needPagination
      * @return
      */
     @Override
-    public List findAllQuesInfoByFinish(int state) {
+    public Page findQuesInformationByKey(String key, Boolean needPagination) {
 
-        List<QuesInformation> lists = quesInformationRepository.findAllByIsFinish(state);
-        return getQuesInformationData(lists);
+        Specification<QuesInformation> specification = (Specification<QuesInformation>) (root, criteriaQuery, criteriaBuilder) -> {
+
+            List<Predicate> listOr = new ArrayList<>();
+
+            if (key != null) {
+                System.out.println("Search_key:" + key);
+                listOr.add(criteriaBuilder.like(root.get("content"),"%" + key));
+                listOr.add(criteriaBuilder.like(root.get("title"),"%" + key));
+            }
+
+            Predicate predicateOr = criteriaBuilder.or(listOr.toArray(new Predicate[0]));
+
+            return criteriaQuery.where(predicateOr).getRestriction();
+        };
+        // 查询结果不分页
+        List<QuesInformation> lists = quesInformationRepository.findAll(specification);
+        System.out.println("关键字key-lists:" + lists);
+        List<QuesInformation> result = getQuesInformationData(lists);
+        return new PageImpl(result);
     }
+
+    /**
+     * 根据问题是否被解决获取全部问题信息
+     * @param finish
+     * @return
+     */
+    @Override
+    public List<QuesInformation> findQuesByFinish(int finish) {
+        // 0 未解决
+        return getQuesInformationData(quesInformationRepository.findAllByIsFinish(finish));
+    }
+
+    /**
+     * 根据分类查询已解决或未解决的问题
+     * @param finish
+     * @param sid
+     * @return
+     */
+    @Override
+    public List<QuesInformation> findQuesByFinishAndSort(int finish, Integer sid) {
+        return getQuesInformationData(quesInformationRepository.findAllByIsFinishAndSortId(finish,sid));
+    }
+
+
 
     /**
      * 获取前5位热门问题信息
@@ -102,6 +148,9 @@ public class QuesInformationServiceImpl implements QuesInformationService{
 
         for (int i = 0;i<lists.size();i++){
             QuesInformation quesInformation = quesInformationRepository.findAllById(lists.get(i).get(0));
+            if (quesInformation == null){
+                break;
+            }
             Map map = new HashMap();
             map.put("id", lists.get(i).get(0));
             map.put("title",quesInformation.getTitle());
@@ -111,6 +160,43 @@ public class QuesInformationServiceImpl implements QuesInformationService{
         }
         return list;
     }
+
+
+
+    @Override
+    public List<QuesInformation> findQuesByFinishAndSortAndKey(Integer finish, Integer sid, String key) {
+
+        Specification<QuesInformation> specification = (Specification<QuesInformation>) (root, criteriaQuery, criteriaBuilder) -> {
+
+            List<Predicate> listAnd = new ArrayList<>();
+            List<Predicate> listOr = new ArrayList<>();
+
+            if (key != null) {
+                listOr.add(criteriaBuilder.like(root.get("content"),"%" + key));
+                listOr.add(criteriaBuilder.like(root.get("title"),"%" + key));
+            }
+
+            if (finish != null && finish>0) {
+                listAnd.add(criteriaBuilder.equal(root.get("isFinish").as(Integer.class),finish));
+            }
+
+            if (sid != null && sid>0) {
+                listAnd.add(criteriaBuilder.equal(root.get("sortId").as(Integer.class),sid));
+            }
+
+            Predicate predicateAnd = criteriaBuilder.and(listAnd.toArray(new Predicate[0]));
+            Predicate predicateOr = criteriaBuilder.or(listOr.toArray(new Predicate[0]));
+
+//            return criteriaQuery.where(predicateAnd, predicateOr).getRestriction();
+            return listAnd.size() == 0 ?
+                    criteriaQuery.where(predicateOr).getRestriction() :
+                    criteriaQuery.where(predicateOr, predicateAnd).getRestriction();
+        };
+        List<QuesInformation> lists = quesInformationRepository.findAll(specification);
+        return getQuesInformationData(lists);
+    }
+
+
 
 
     /**

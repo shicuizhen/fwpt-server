@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import com.sjzxy.fwpt.common.response.BaseResponse;
 
 import javax.validation.Valid;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -37,6 +39,7 @@ public class LostInformationController {
         //新创建的date：     Sun Feb 28 21:25:59 CST 2021
         //存入数据库：       2021-02-28T13:25:59.513+00:00
 
+        System.out.println("losttime:"+lostInformation.getLostTime());
         LostInformation obj = lostInformationService.addLostInformation(lostInformation);
         if (Objects.isNull(obj)){
             throw new BusinessException(ResultCodeEnum.AddDataError);
@@ -88,10 +91,8 @@ public class LostInformationController {
 
     @ApiOperation(value = "多条件查询")
     @PostMapping("/getSearch")
-    public BaseResponse findLostInformation(@RequestBody LostSearch lostSearch) {
+    public BaseResponse findLostInformation(@RequestBody LostSearch lostSearch) throws ParseException {
         boolean needPagination = lostSearch.getPageNo() > 0 && lostSearch.getPageSize() > 0;
-        System.out.println("needPagination:" + needPagination);
-        System.out.println("lostSearch:" + lostSearch);
         Page<LostInformation> informationPage = lostInformationService.getSearch(lostSearch, needPagination);
         System.out.println("lists:" + informationPage);
         if (Objects.isNull(informationPage)){
