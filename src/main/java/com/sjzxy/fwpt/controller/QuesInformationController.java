@@ -81,6 +81,18 @@ public class QuesInformationController {
 
 
     @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
+    @ApiOperation(value = "根据uid查询数据")
+    @GetMapping("/data/{uid}")
+    public BaseResponse findQuesInformationByUid(@RequestParam Integer uid){
+        List<QuesInformation> list = quesInformationService.findQuesInformationByUid(uid);
+        if (Objects.isNull(list)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
+        return BaseResponse.ok().data(list);
+    }
+
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
     @ApiOperation(value = "根据sid查询数据")
     @GetMapping("/datas/{sid}")
     public BaseResponse findQuesInformationBySid(@RequestParam Integer sid){

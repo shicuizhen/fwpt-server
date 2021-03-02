@@ -1,5 +1,6 @@
 package com.sjzxy.fwpt.controller;
 
+import com.sjzxy.fwpt.config.websocket.WebSocketServer;
 import com.sjzxy.fwpt.entity.LostInformation;
 import com.sjzxy.fwpt.entity.LostSearch;
 import com.sjzxy.fwpt.entity.QuesInformation;
@@ -29,6 +30,8 @@ public class LostInformationController {
     @Autowired
     private LostInformationService lostInformationService;
 
+    private WebSocketServer webSocketServer;
+
     @ApiOperation(value = "添加数据")
     @PostMapping("/add")
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
@@ -41,9 +44,6 @@ public class LostInformationController {
 
         System.out.println("losttime:"+lostInformation.getLostTime());
         LostInformation obj = lostInformationService.addLostInformation(lostInformation);
-        if (Objects.isNull(obj)){
-            throw new BusinessException(ResultCodeEnum.AddDataError);
-        }
         return BaseResponse.ok().data(obj);
     }
 

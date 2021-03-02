@@ -42,6 +42,9 @@ public class SendMessageAspect {
     public void pointcut() {
     }
 
+    @Resource
+    WebSocketServer webSocketServer;
+
     /**
      * 切面方法,将参数信息发送到websocket中
      */
@@ -73,12 +76,8 @@ public class SendMessageAspect {
         Object result = joinPoint.proceed();
         //通过线程池执行日志保存
         Runnable runnable = () -> {
-            try {
-                System.out.println("map.toString():"+JSON.toJSONString(map));
-                WebSocketServer.sendInfo( JSON.toJSONString(map));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            System.out.println("map.toString():"+JSON.toJSONString(map));
+            webSocketServer.sendInfo( JSON.toJSONString(map));
         };
         taskExecutor.execute(runnable);
         return result;

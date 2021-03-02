@@ -1,5 +1,8 @@
 package com.sjzxy.fwpt.service.impl;
 
+import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
+import com.sjzxy.fwpt.common.exception.BusinessException;
+import com.sjzxy.fwpt.config.websocket.WebSocketServer;
 import com.sjzxy.fwpt.entity.LostInformation;
 import com.sjzxy.fwpt.entity.LostSearch;
 import com.sjzxy.fwpt.repository.LostInformationRepository;
@@ -8,6 +11,8 @@ import com.sjzxy.fwpt.repository.LostPlaceRepository;
 import com.sjzxy.fwpt.repository.UsersRepository;
 import com.sjzxy.fwpt.service.LostInformationService;
 import lombok.SneakyThrows;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,7 +21,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Pageable;
+
+import javax.annotation.Resource;
 import javax.persistence.criteria.*;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -28,11 +36,23 @@ public class LostInformationServiceImpl implements LostInformationService{
     @Autowired
     private LostInformationRepository lostInformationRepository;
 
+    @Resource
+    private WebSocketServer webSocketServer;
+
 
     @Override
     public LostInformation addLostInformation(LostInformation lostInformation) {
 
         lostInformation.setCreateTime(new Date());
+
+        String username = ((lostInformation.getUsername() == null)||lostInformation.getUsername().equals("")) ? "某用户" : lostInformation.getUsername();
+        String type =  lostInformation.getType() == 0 ? "丢失了 " : "捡到了";
+        String str = username + type + lostInformation.getName();
+        webSocketServer.sendInfo(str);
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("data",str);
+//        JSONObject jsonResult = new JSONObject(map);
+//        webSocketServer.sendInfo(jsonResult.toString());
         return lostInformationRepository.save(lostInformation);
     }
 

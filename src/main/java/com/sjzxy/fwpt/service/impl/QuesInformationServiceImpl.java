@@ -61,6 +61,12 @@ public class QuesInformationServiceImpl implements QuesInformationService{
         return (Map) getQuesInformationData(list).get(0);
     }
 
+    @Override
+    public List<QuesInformation> findQuesInformationByUid(Integer uid) {
+        return getQuesInformationData(quesInformationRepository.findAllByCreateBy(uid));
+    }
+
+
 
     @Autowired
     QuesReplyServiceImpl quesReplyService;
@@ -198,7 +204,6 @@ public class QuesInformationServiceImpl implements QuesInformationService{
 
 
 
-
     /**
      * 获得统一QuesInformation的返回数据
      * @param lists
@@ -219,6 +224,7 @@ public class QuesInformationServiceImpl implements QuesInformationService{
             map.put("title",lists.get(i).getTitle());
             map.put("content",lists.get(i).getContent());
             map.put("is_finish",lists.get(i).getIsFinish());
+            map.put("is_finish2",lists.get(i).getIsFinish() == 1 ? "已解决" : "未解决");
             //回答数
             //根据问题id即qid去reply表中查询回答的数量
             List<QuesReply> quesReplys = quesReplyRepository.findAllByQid(lists.get(i).getId());

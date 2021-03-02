@@ -29,4 +29,6 @@ public interface QuesInformationRepository
 
     QuesInformation findAllById(int id);
 
+    List<QuesInformation> findAllByCreateBy(int createby);
+
 }

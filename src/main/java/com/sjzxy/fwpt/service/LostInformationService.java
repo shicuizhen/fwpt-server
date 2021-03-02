@@ -5,6 +5,7 @@ import com.sjzxy.fwpt.entity.LostSearch;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
