@@ -105,8 +105,8 @@ public class QuesInformationServiceImpl implements QuesInformationService{
 
             if (key != null) {
                 System.out.println("Search_key:" + key);
-                listOr.add(criteriaBuilder.like(root.get("content"),"%" + key));
-                listOr.add(criteriaBuilder.like(root.get("title"),"%" + key));
+                listOr.add(criteriaBuilder.like(root.get("content"),"%" + key + "%"));
+                listOr.add(criteriaBuilder.like(root.get("title"),"%" + key+ "%"));
             }
 
             Predicate predicateOr = criteriaBuilder.or(listOr.toArray(new Predicate[0]));
@@ -179,8 +179,8 @@ public class QuesInformationServiceImpl implements QuesInformationService{
             List<Predicate> listOr = new ArrayList<>();
 
             if (key != null) {
-                listOr.add(criteriaBuilder.like(root.get("content"),"%" + key));
-                listOr.add(criteriaBuilder.like(root.get("title"),"%" + key));
+                listOr.add(criteriaBuilder.like(root.get("content"),"%" + key + "%"));
+                listOr.add(criteriaBuilder.like(root.get("title"),"%" + key + "%"));
             }
 
             if (finish != null && finish>0) {

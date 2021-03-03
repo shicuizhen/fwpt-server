@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sjzxy.fwpt.dao.LostInformationMapper">
-<!--    parameterType="com.sjzxy.fwpt.entity.LostSearch"-->
     <select id="findLostInfoBySearch" resultMap="LostInfoResult" parameterType="com.sjzxy.fwpt.entity.LostSearch">
         select * from lost_information
         <where>
@@ -15,7 +14,11 @@
                 and place_id = #{place_id}
             </if>
             <if test="search_key != null and search_key != ''">
-                and description like CONCAT('%',#{search_key},'%')
+                and (
+                description like CONCAT('%',#{search_key},'%')
+                or name like CONCAT('%',#{search_key},'%')
+                or position like CONCAT('%',#{search_key},'%')
+                )
             </if>
             <if test="lost_time1 != null">
                 and lost_time1 &gt;= #{lost_time1}
@@ -44,43 +47,6 @@
         <result column="create_time" property="createTime"/>
         <result column="state_id" property="stateId"/>
     </resultMap>
-    <!--写了参数类型会报错,反正他会自动识别参数类型，我就去掉了,parameterType="Article"-->
-<!--    <update id="updateArticleWithId" >-->
-<!--        update t_article-->
-<!--        <set>-->
-<!--            <if test="title != null">-->
-<!--                title = #{title},-->
-<!--            </if>-->
-<!--            <if test="created != null">-->
-<!--                created = #{created},-->
-<!--            </if>-->
-<!--            <if test="modified != null">-->
-<!--                modified = #{modified},-->
-<!--            </if>-->
-<!--            <if test="tags != null">-->
-<!--                tags = #{tags},-->
-<!--            </if>-->
-<!--            <if test="categories != null">-->
-<!--                categories = #{categories},-->
-<!--            </if>-->
-<!--            <if test="hits != null">-->
-<!--                hits = #{hits},-->
-<!--            </if>-->
-<!--            <if test="commentsNum != null">-->
-<!--                comments_num = #{commentsNum},-->
-<!--            </if>-->
-<!--            <if test="allowComment != null">-->
-<!--                allow_comment = #{allowComment},-->
-<!--            </if>-->
-<!--            <if test="thumbnail != null">-->
-<!--                thumbnail = #{thumbnail},-->
-<!--            </if>-->
-<!--            <if test="content != null">-->
-<!--                content = #{content},-->
-<!--            </if>-->
-<!--        </set>-->
-<!--        where id = #{id}-->
-<!--    </update>-->
 </mapper>
 
 

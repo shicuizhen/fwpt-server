@@ -146,8 +146,9 @@ public class LostInformationServiceImpl implements LostInformationService{
 
             if (lostSearch.getSearch_key() != null) {
                 System.out.println("Search_key:" + lostSearch.getSearch_key());
-                listOr.add(criteriaBuilder.like(root.get("description"),"%" + lostSearch.getSearch_key()));
-                listOr.add(criteriaBuilder.like(root.get("name"),"%" + lostSearch.getSearch_key()));
+                listOr.add(criteriaBuilder.like(root.get("description"),"%" + lostSearch.getSearch_key() + "%"));
+                listOr.add(criteriaBuilder.like(root.get("name"),"%" + lostSearch.getSearch_key() + "%"));
+                listOr.add(criteriaBuilder.like(root.get("position"),"%" + lostSearch.getSearch_key() + "%"));
             }
 
             if (lostSearch.getType() != null && lostSearch.getType() >= 0) {
@@ -197,9 +198,10 @@ public class LostInformationServiceImpl implements LostInformationService{
     @Autowired
     LostInformationMapper lostInformationMapper;
 
+    @SneakyThrows
     public Page getMybatisSearch(LostSearch lostSearch, Boolean needPagination){
         List<LostInformation> lostInformations = lostInformationMapper.findLostInfoBySearch(lostSearch);
-        return new PageImpl(lostInformations);
+        return new PageImpl(getLostInformationData(lostInformations));
     }
 
     @SneakyThrows
