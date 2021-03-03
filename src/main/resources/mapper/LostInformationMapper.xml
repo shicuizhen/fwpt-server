@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sjzxy.fwpt.dao.LostInformationMapper">
+<!--    parameterType="com.sjzxy.fwpt.entity.LostSearch"-->
+    <select id="findLostInfoBySearch" resultMap="LostInfoResult" parameterType="com.sjzxy.fwpt.entity.LostSearch">
+        select * from lost_information
+        <where>
+            <if test="type != null and type >= 0">
+                and type = #{type}
+            </if>
+            <if test="kind_id != null and kind_id > 0">
+                and kind_id = #{kind_id}
+            </if>
+            <if test="place_id != null and place_id > 0">
+                and place_id = #{place_id}
+            </if>
+            <if test="search_key != null and search_key != ''">
+                and description like CONCAT('%',#{search_key},'%')
+            </if>
+            <if test="lost_time1 != null">
+                and lost_time1 &gt;= #{lost_time1}
+            </if>
+            <if test="lost_time2 != null">
+                and lost_time2 &lt;= #{lost_time2}
+            </if>
+        </where>
+    </select>
+    <resultMap id="LostInfoResult" type="com.sjzxy.fwpt.entity.LostInformation">
+        <!-- id定义主键列 -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <!-- result 定义一个列和属性的映射 -->
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <!-- lock.id 和  lock.name 叫级联属性映射 -->
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="kind_id" property="kindId"/>
+        <result column="description" property="description"/>
+        <result column="username" property="username"/>
+        <result column="place_id" property="placeId"/>
+        <result column="position" property="position"/>
+        <result column="lost_time" property="lostTime"/>
+        <result column="telephone" property="telephone"/>
+        <result column="email" property="email"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="state_id" property="stateId"/>
+    </resultMap>
+    <!--写了参数类型会报错,反正他会自动识别参数类型，我就去掉了,parameterType="Article"-->
+<!--    <update id="updateArticleWithId" >-->
+<!--        update t_article-->
+<!--        <set>-->
+<!--            <if test="title != null">-->
+<!--                title = #{title},-->
+<!--            </if>-->
+<!--            <if test="created != null">-->
+<!--                created = #{created},-->
+<!--            </if>-->
+<!--            <if test="modified != null">-->
+<!--                modified = #{modified},-->
+<!--            </if>-->
+<!--            <if test="tags != null">-->
+<!--                tags = #{tags},-->
+<!--            </if>-->
+<!--            <if test="categories != null">-->
+<!--                categories = #{categories},-->
+<!--            </if>-->
+<!--            <if test="hits != null">-->
+<!--                hits = #{hits},-->
+<!--            </if>-->
+<!--            <if test="commentsNum != null">-->
+<!--                comments_num = #{commentsNum},-->
+<!--            </if>-->
+<!--            <if test="allowComment != null">-->
+<!--                allow_comment = #{allowComment},-->
+<!--            </if>-->
+<!--            <if test="thumbnail != null">-->
+<!--                thumbnail = #{thumbnail},-->
+<!--            </if>-->
+<!--            <if test="content != null">-->
+<!--                content = #{content},-->
+<!--            </if>-->
+<!--        </set>-->
+<!--        where id = #{id}-->
+<!--    </update>-->
+</mapper>
+
+

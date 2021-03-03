@@ -50,4 +50,6 @@ public interface LostInformationService {
     Page getSearch(LostSearch lostSearch, Boolean needPagination) throws ParseException;
 
     List<LostInformation> findLostInfoByUid(Integer uid,Integer type);
+
+    Page getMybatisSearch(LostSearch lostSearch,Boolean needPagination);
 }

@@ -1,9 +1,9 @@
 package com.sjzxy.fwpt.controller;
 
 import com.sjzxy.fwpt.config.websocket.WebSocketServer;
+import com.sjzxy.fwpt.dao.LostInformationMapper;
 import com.sjzxy.fwpt.entity.LostInformation;
 import com.sjzxy.fwpt.entity.LostSearch;
-import com.sjzxy.fwpt.entity.QuesInformation;
 import com.sjzxy.fwpt.service.LostInformationService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import com.sjzxy.fwpt.common.response.BaseResponse;
 
 import javax.validation.Valid;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import com.sjzxy.fwpt.common.exception.BusinessException;
@@ -125,6 +122,19 @@ public class LostInformationController {
         return BaseResponse.ok().data(list);
     }
 
+
+
+    @Autowired
+    LostInformationMapper lostInfoMapper;
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = LostInformation.class)})
+    @ApiOperation(value = "mybatis")
+    @PostMapping("/mybatisSearch")
+    public BaseResponse testMyBatis(@RequestBody LostSearch lostSearch){
+        Page lostInformations = lostInformationService.getMybatisSearch(lostSearch,true);
+        System.out.println("lostInformations:" +lostInformations);
+        return BaseResponse.ok().data(lostInformations);
+    }
 
 
 

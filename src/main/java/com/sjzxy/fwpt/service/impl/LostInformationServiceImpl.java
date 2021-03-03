@@ -3,6 +3,7 @@ package com.sjzxy.fwpt.service.impl;
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
 import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.config.websocket.WebSocketServer;
+import com.sjzxy.fwpt.dao.LostInformationMapper;
 import com.sjzxy.fwpt.entity.LostInformation;
 import com.sjzxy.fwpt.entity.LostSearch;
 import com.sjzxy.fwpt.entity.QuesInformation;
@@ -190,6 +191,15 @@ public class LostInformationServiceImpl implements LostInformationService{
         List<LostInformation> lists = lostInformationRepository.findAll(specification);
         List<LostInformation> result = getLostInformationData(lists);
         return new PageImpl(result);
+    }
+
+
+    @Autowired
+    LostInformationMapper lostInformationMapper;
+
+    public Page getMybatisSearch(LostSearch lostSearch, Boolean needPagination){
+        List<LostInformation> lostInformations = lostInformationMapper.findLostInfoBySearch(lostSearch);
+        return new PageImpl(lostInformations);
     }
 
     @SneakyThrows

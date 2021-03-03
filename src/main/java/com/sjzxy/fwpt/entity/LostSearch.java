@@ -19,6 +19,42 @@ public class LostSearch implements Serializable {
     @ApiModelProperty(value = "id" )
     public Integer id;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public Integer getKind_id() {
+        return kind_id;
+    }
+
+    public Integer getPlace_id() {
+        return place_id;
+    }
+
+    public Date getLost_time1() {
+        return lost_time1;
+    }
+
+    public Date getLost_time2() {
+        return lost_time2;
+    }
+
+    public Integer getPageNo() {
+        return pageNo;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public String getSearch_key() {
+        return search_key;
+    }
+
     @Column(name = "type" )
     @ApiModelProperty(value = "类型" )
     public Integer type;
