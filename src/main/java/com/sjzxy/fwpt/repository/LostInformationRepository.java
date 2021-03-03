@@ -20,4 +20,8 @@ public interface LostInformationRepository
 
     @Query(value = "SELECT * FROM `lost_information` order by create_time DESC LIMIT 5",nativeQuery = true)
     List<LostInformation> findFiveByCreateTime();
+
+    void deleteById(Integer id);
+
+    List<LostInformation> findAllByCreateByAndType(int create_by,int type);
 }

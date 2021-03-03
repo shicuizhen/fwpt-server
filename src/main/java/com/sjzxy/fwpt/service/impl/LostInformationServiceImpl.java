@@ -5,6 +5,7 @@ import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.config.websocket.WebSocketServer;
 import com.sjzxy.fwpt.entity.LostInformation;
 import com.sjzxy.fwpt.entity.LostSearch;
+import com.sjzxy.fwpt.entity.QuesInformation;
 import com.sjzxy.fwpt.repository.LostInformationRepository;
 import com.sjzxy.fwpt.repository.LostKindRepository;
 import com.sjzxy.fwpt.repository.LostPlaceRepository;
@@ -60,7 +61,7 @@ public class LostInformationServiceImpl implements LostInformationService{
 
     @Override
     public void delLostInformation(int id) {
-        lostInformationRepository.deleteById((long) id);
+        lostInformationRepository.deleteById(id);
     }
 
     @Override
@@ -189,6 +190,13 @@ public class LostInformationServiceImpl implements LostInformationService{
         List<LostInformation> lists = lostInformationRepository.findAll(specification);
         List<LostInformation> result = getLostInformationData(lists);
         return new PageImpl(result);
+    }
+
+    @SneakyThrows
+    @Override
+    public List<LostInformation> findLostInfoByUid(Integer uid,Integer type) {
+        List<LostInformation> list = lostInformationRepository.findAllByCreateByAndType(uid,type);
+        return getLostInformationData(list);
     }
 
 }

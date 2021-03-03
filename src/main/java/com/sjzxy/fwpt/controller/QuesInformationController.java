@@ -40,10 +40,10 @@ public class QuesInformationController {
         return BaseResponse.ok().data(obj);
     }
 
-    @ApiOperation(value = "根据id删除数据")
-    @DeleteMapping("/del/{id}")
-    public BaseResponse delQuesInformation(@PathVariable int id){
-        quesInformationService.delQuesInformation(id);
+    @ApiOperation(value = "根据qid删除数据")
+    @DeleteMapping("/del/{qid}")
+    public BaseResponse delQuesInformation(@RequestParam int qid){
+        quesInformationService.delQuesInformation(qid);
         return BaseResponse.ok();
     }
 

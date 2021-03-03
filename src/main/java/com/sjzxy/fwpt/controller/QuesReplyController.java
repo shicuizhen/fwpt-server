@@ -38,12 +38,13 @@ public class QuesReplyController {
         return BaseResponse.ok().data(obj);
     }
 
-    @ApiOperation(value = "根据id删除数据")
-    @DeleteMapping("/del/{id}")
-    public BaseResponse delQuesReply(@PathVariable int id){
-        quesReplyService.delQuesReply(id);
+    @ApiOperation(value = "根据rid删除数据")
+    @DeleteMapping("/del/{rid}")
+    public BaseResponse delQuesReply(@RequestParam int rid){
+        quesReplyService.delQuesReply(rid);
         return BaseResponse.ok();
     }
+
 
     @ApiOperation(value = "更新数据")
     @PutMapping
@@ -58,13 +59,25 @@ public class QuesReplyController {
     @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesReply.class)})
     @ApiOperation(value = "根据问题id查询回答数据")
     @GetMapping("/data/{qid}")
-    public BaseResponse findQuesReplyByQid(int qid){
+    public BaseResponse findQuesReplyByQid(@RequestParam int qid){
         List<QuesReply> lists = quesReplyService.findQuesReplyByQid(qid);
         if (Objects.isNull(lists)){
             throw new BusinessException(ResultCodeEnum.FindDataError);
         }
         return BaseResponse.ok().data(lists);
     }
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
+    @ApiOperation(value = "根据uid查询数据")
+    @GetMapping("/data/{uid}")
+    public BaseResponse findQuesReplyByUid(@RequestParam int uid){
+        List<QuesInformation> list = quesReplyService.findQuesReplyByUid(uid);
+        if (Objects.isNull(list)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
+        return BaseResponse.ok().data(list);
+    }
+
 
     @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesReply.class)})
     @ApiOperation(value = "查询全部数据")

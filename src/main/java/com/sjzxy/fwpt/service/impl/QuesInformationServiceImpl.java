@@ -39,8 +39,9 @@ public class QuesInformationServiceImpl implements QuesInformationService{
     }
 
     @Override
-    public void delQuesInformation(int id) {
-        quesInformationRepository.deleteById(id);
+    public void delQuesInformation(int qid) {
+        quesInformationRepository.deleteById(qid);
+        quesReplyRepository.deleteByQid(qid);
     }
 
     @Override

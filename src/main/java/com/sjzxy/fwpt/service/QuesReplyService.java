@@ -1,5 +1,6 @@
 package com.sjzxy.fwpt.service;
 
+import com.sjzxy.fwpt.entity.QuesInformation;
 import com.sjzxy.fwpt.entity.QuesReply;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public interface QuesReplyService {
      * @return
      */
     void delQuesReply(int id);
+
 
     /**
      * 更新数据
@@ -47,4 +49,6 @@ public interface QuesReplyService {
      * @return
      */
     List<QuesReply> findQuesReplyByQid(int qid);
+
+    List<QuesInformation> findQuesReplyByUid(int uid);
 }

@@ -1,5 +1,6 @@
 package com.sjzxy.fwpt.service.impl;
 
+import com.sjzxy.fwpt.entity.QuesInformation;
 import com.sjzxy.fwpt.entity.QuesLike;
 import com.sjzxy.fwpt.entity.QuesReply;
 import com.sjzxy.fwpt.entity.Users;
@@ -35,7 +36,7 @@ public class QuesReplyServiceImpl implements QuesReplyService{
 
     @Override
     public void delQuesReply(int id) {
-        quesReplyRepository.deleteById((long) id);
+        quesReplyRepository.deleteById(id);
     }
 
     @Override
@@ -55,6 +56,12 @@ public class QuesReplyServiceImpl implements QuesReplyService{
     @Override
     public List<QuesReply> findQuesReplyByQid(int qid) {
         List<QuesReply> lists = quesReplyRepository.findAllByQid(qid);
+        return getQuesReplyData(lists);
+    }
+
+    @Override
+    public List<QuesInformation> findQuesReplyByUid(int uid) {
+        List<QuesReply> lists = quesReplyRepository.findAllByCreateBy(uid);
         return getQuesReplyData(lists);
     }
 

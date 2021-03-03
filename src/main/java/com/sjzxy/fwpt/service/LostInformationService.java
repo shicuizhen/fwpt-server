@@ -2,6 +2,7 @@ package com.sjzxy.fwpt.service;
 
 import com.sjzxy.fwpt.entity.LostInformation;
 import com.sjzxy.fwpt.entity.LostSearch;
+import com.sjzxy.fwpt.entity.QuesInformation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -47,4 +48,6 @@ public interface LostInformationService {
     List<String> findLunboData();
 
     Page getSearch(LostSearch lostSearch, Boolean needPagination) throws ParseException;
+
+    List<LostInformation> findLostInfoByUid(Integer uid,Integer type);
 }

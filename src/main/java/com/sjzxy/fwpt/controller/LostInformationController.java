@@ -49,10 +49,11 @@ public class LostInformationController {
 
     @ApiOperation(value = "根据id删除数据")
     @DeleteMapping("/del/{id}")
-    public BaseResponse delLostInformation(@PathVariable int id){
+    public BaseResponse delLostInformation(@RequestParam int id){
         lostInformationService.delLostInformation(id);
         return BaseResponse.ok();
     }
+
 
     @ApiOperation(value = "更新数据")
     @PutMapping
@@ -64,7 +65,7 @@ public class LostInformationController {
         return BaseResponse.ok().data(obj);
     }
 
-    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = LostInformation.class)})
     @ApiOperation(value = "查询全部数据")
     @GetMapping("/datas")
     public BaseResponse findAllLostInformation() throws ParseException {
@@ -76,7 +77,7 @@ public class LostInformationController {
     }
 
 
-    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = LostInformation.class)})
     @ApiOperation(value = "查询轮播数据")
     @GetMapping("/lunbodata")
     public BaseResponse findLunboData(){
@@ -99,6 +100,29 @@ public class LostInformationController {
             throw new BusinessException(ResultCodeEnum.FindDataError);
         }
         return BaseResponse.ok().data(informationPage.getContent());
+    }
+
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = LostInformation.class)})
+    @ApiOperation(value = "根据uid查询失物数据")
+    @GetMapping("/lost/{uid}")
+    public BaseResponse findLostInfoByUid(@RequestParam Integer uid){
+        List<LostInformation> list = lostInformationService.findLostInfoByUid(uid,0);
+        if (Objects.isNull(list)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
+        return BaseResponse.ok().data(list);
+    }
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = LostInformation.class)})
+    @ApiOperation(value = "根据uid查询招领数据")
+    @GetMapping("/get/{uid}")
+    public BaseResponse findGetInfoByUid(@RequestParam Integer uid){
+        List<LostInformation> list = lostInformationService.findLostInfoByUid(uid,1);
+        if (Objects.isNull(list)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
+        return BaseResponse.ok().data(list);
     }
 
 
