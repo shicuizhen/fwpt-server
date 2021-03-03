@@ -71,13 +71,4 @@ public class Users implements Serializable {
     @Column(name = "create_time" )
     @ApiModelProperty(value = "创建时间" )
     private Date createTime;
-
-    @Column(name = "update_by" )
-    @ApiModelProperty(value = "更新者" )
-    private Integer updateBy;
-
-    @Column(name = "update_time" )
-    @ApiModelProperty(value = "更新时间" )
-    private Date updateTime;
-
 }

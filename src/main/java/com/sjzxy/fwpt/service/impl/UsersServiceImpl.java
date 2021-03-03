@@ -23,12 +23,12 @@ public class UsersServiceImpl implements UsersService{
     private UsersRepository usersRepository;
 
     @Override
-    public Users addUsers(Users users) {
+    public BaseResponse addUsers(Users users) {
         if (usersRepository.findAllBySno(users.getSno()) == null || usersRepository.findAllBySno(users.getSno()).equals(null)){
             users.setCreateTime(new Date());
-            return usersRepository.save(users);
+            return BaseResponse.ok().data(usersRepository.save(users));
         }else {
-            return null;
+            return BaseResponse.error();
         }
     }
 

@@ -13,7 +13,7 @@ public interface UsersService {
      * @param users
      * @return
      */
-    Users addUsers(Users users);
+    BaseResponse addUsers(Users users);
 
     /**
      * 删除数据

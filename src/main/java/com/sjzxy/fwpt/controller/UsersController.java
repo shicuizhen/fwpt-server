@@ -38,12 +38,7 @@ public class UsersController {
     @PostMapping
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
     public BaseResponse addUsers(@ApiParam("实体对象") @Valid @RequestBody Users users){
-        System.out.println("要添加的用户："+users);
-        Users obj = usersService.addUsers(users);
-        if (Objects.isNull(obj)){
-            throw new BusinessException(ResultCodeEnum.AddDataError);
-        }
-        return BaseResponse.ok().data(obj);
+        return usersService.addUsers(users);
     }
 
     @ApiOperation(value = "根据id删除数据")
