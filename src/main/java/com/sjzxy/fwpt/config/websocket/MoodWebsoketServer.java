@@ -1,26 +1,18 @@
 package com.sjzxy.fwpt.config.websocket;
 
-import com.alibaba.fastjson.JSON;
 import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
-import java.io.IOException;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * @author Administrator
- */
 @Component
 @Log4j2
-@ServerEndpoint("/webSocket/{uid}")
-public class WebSocketServer {
+@ServerEndpoint("/mood/{uid}")
+public class MoodWebsoketServer {
 //    ws://127.0.0.1:8180/webSocket/{uid}
 
 
@@ -32,7 +24,7 @@ public class WebSocketServer {
     /**
      * 存放客户端对应的WebSocketServer对象
      */
-    private static ConcurrentHashMap<String, WebSocketServer> webSocketServerMap = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<String, MoodWebsoketServer> webSocketServerMap = new ConcurrentHashMap<>();
 
     /**
      * 同客户端的连接会话，给客户端发送数据
@@ -90,7 +82,7 @@ public class WebSocketServer {
     public void sendInfo(String message) {
 
         try {
-            for (WebSocketServer webSocketServer : webSocketServerMap.values()){
+            for (MoodWebsoketServer webSocketServer : webSocketServerMap.values()){
 //                webSocketServer.session.getBasicRemote().sendText(message);
                 webSocketServer.session.getBasicRemote().sendText(message);
             }
@@ -101,5 +93,6 @@ public class WebSocketServer {
     }
 
 }
+
 
 

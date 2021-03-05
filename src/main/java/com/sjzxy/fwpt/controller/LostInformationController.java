@@ -27,7 +27,6 @@ public class LostInformationController {
     @Autowired
     private LostInformationService lostInformationService;
 
-    private WebSocketServer webSocketServer;
 
     @ApiOperation(value = "添加数据")
     @PostMapping("/add")

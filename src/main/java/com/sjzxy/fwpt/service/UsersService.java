@@ -43,4 +43,6 @@ public interface UsersService {
     BaseResponse login(String sno, String password);
 
     Map findByUid(int uid);
+
+    String getUsersById(Integer uid);
 }

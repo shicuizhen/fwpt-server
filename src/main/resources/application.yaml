@@ -7,6 +7,11 @@ spring:
     url: jdbc:mysql://localhost:3306/fwpt?serverTimezone=UTC
     username: root
     password: 123456
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
 server:
   port: 8180
 
@@ -28,6 +33,14 @@ logging:
 
 fileUploadPath: "F:\\图片\\"
 
+
+#pagehelper分页设置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
 ## Redis服务器地址，另外注意要开启Redis服务
 #spring.redis.host:127.0.0.1
 ## Redis服务器连接端口
@@ -40,3 +53,4 @@ fileUploadPath: "F:\\图片\\"
 #spring.redis.jedis.pool.max-wait:-1
 ## 连接池中最大空闲连接
 #spring.redis.jedis.pool.max-idle:8
+

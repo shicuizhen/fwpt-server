@@ -2,28 +2,16 @@ package com.sjzxy.fwpt.config.aop.sendMessage;
 
 import com.alibaba.fastjson.JSON;
 import com.sjzxy.fwpt.config.websocket.WebSocketServer;
-import com.sjzxy.fwpt.entity.QuesComment;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.hibernate.sql.Alias;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.sql.SQLException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -77,7 +65,8 @@ public class SendMessageAspect {
         //通过线程池执行日志保存
         Runnable runnable = () -> {
             System.out.println("map.toString():"+JSON.toJSONString(map));
-            webSocketServer.sendInfo( JSON.toJSONString(map));
+//            SocketObj socketObj = new SocketObj("===",map);
+//            webSocketServer.sendInfo(socketObj);
         };
         taskExecutor.execute(runnable);
         return result;

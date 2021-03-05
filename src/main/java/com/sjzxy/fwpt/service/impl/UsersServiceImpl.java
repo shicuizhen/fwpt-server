@@ -75,6 +75,11 @@ public class UsersServiceImpl implements UsersService{
         return (Map) getUserData(list).get(0);
     }
 
+    @Override
+    public String getUsersById(Integer uid) {
+        return usersRepository.findUsersById(uid).getNick();
+    }
+
     List getUserData(List<Users> list){
         List list1 = new ArrayList();
         for (int i = 0;i<list.size();i++){
