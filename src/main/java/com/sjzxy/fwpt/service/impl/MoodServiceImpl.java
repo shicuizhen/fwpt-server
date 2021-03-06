@@ -5,6 +5,7 @@ import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.response.BaseResponse;
 import com.sjzxy.fwpt.config.websocket.WebSocketServer;
 import com.sjzxy.fwpt.entity.Mood;
+import com.sjzxy.fwpt.entity.QuesInformation;
 import com.sjzxy.fwpt.repository.MoodRepository;
 import com.sjzxy.fwpt.service.MoodService;
 import org.springframework.amqp.rabbit.annotation.*;
@@ -14,8 +15,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Date;
-import java.util.Objects;
+
+import java.util.*;
 
 @Service
 @Transactional
@@ -37,6 +38,11 @@ public class MoodServiceImpl implements MoodService {
         rabbitTemplate.convertAndSend("mood",mood.getNick()+":"+mood.getContent());
 
         return BaseResponse.ok();
+    }
+
+    @Override
+    public List<Mood> findTenMood() {
+        return moodRepository.findTenMood();
     }
 
 

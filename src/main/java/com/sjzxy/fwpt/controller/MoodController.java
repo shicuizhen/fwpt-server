@@ -1,5 +1,7 @@
 package com.sjzxy.fwpt.controller;
 
+import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
+import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.response.BaseResponse;
 import com.sjzxy.fwpt.config.websocket.MoodWebsoketServer;
 import com.sjzxy.fwpt.entity.Mood;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Objects;
 
 
 @EnableRabbit
@@ -36,15 +40,15 @@ public class MoodController {
         return moodService.addMood(mood);
     }
 
-//    @ApiOperation(value = "查询全部数据")
-//    @GetMapping("/datas")
-//    public BaseResponse findAllMood(){
-//        List<Approve> lists = moodService.findAllMood();
-//        if (Objects.isNull(lists)){
-//            throw new BusinessException(ResultCodeEnum.FindDataError);
-//        }
-//        return BaseResponse.ok().data(lists);
-//    }
+    @ApiOperation(value = "查询最新10条数据")
+    @GetMapping("/datas")
+    public BaseResponse findAllMood(){
+        List<Mood> lists = moodService.findTenMood();
+        if (Objects.isNull(lists)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
+        return BaseResponse.ok().data(lists);
+    }
 
     @Resource
     MoodWebsoketServer moodWebsoket;
