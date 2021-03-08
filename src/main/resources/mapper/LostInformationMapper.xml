@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sjzxy.fwpt.dao.LostInformationMapper">
+<!--    int type, Date now, Date startDate-->
+    <select id="findNumByTypeAndTime" resultType="INTEGER">
+        select count(*) from lost_information
+        <where>
+            <if test="type != null and type >= 0">
+                and type = #{type}
+            </if>
+            <if test="startDate != null">
+                and lost_time &gt;= #{startDate}
+            </if>
+            <if test="now != null">
+                and lost_time &lt;= #{now}
+            </if>
+        </where>
+    </select>
     <select id="findLostInfoBySearch" resultMap="LostInfoResult" parameterType="com.sjzxy.fwpt.entity.LostSearch">
         select * from lost_information
         <where>
@@ -21,10 +36,10 @@
                 )
             </if>
             <if test="lost_time1 != null">
-                and lost_time1 &gt;= #{lost_time1}
+                and lost_time &gt;= #{lost_time1}
             </if>
             <if test="lost_time2 != null">
-                and lost_time2 &lt;= #{lost_time2}
+                and lost_time &lt;= #{lost_time2}
             </if>
         </where>
     </select>

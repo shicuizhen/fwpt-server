@@ -28,6 +28,19 @@ public class QuesInformationController {
     @Autowired
     private QuesInformationService quesInformationService;
 
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
+    @ApiOperation(value = "查询问题总数，回答总数，本月问题总数，本月回答总数")
+    @GetMapping("/num")
+    public BaseResponse findAllQuesNum(){
+        Map map = quesInformationService.getQuesNum();
+        if (Objects.isNull(map)){
+            throw new BusinessException(ResultCodeEnum.UpdateDataError);
+        }
+        return BaseResponse.ok().data(map);
+    }
+
+
     @ASendMessage
     @ApiOperation(value = "添加数据")
     @PostMapping

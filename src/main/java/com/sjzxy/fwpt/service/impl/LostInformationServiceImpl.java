@@ -22,6 +22,7 @@ import javax.persistence.criteria.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import org.apache.commons.lang3.time.DateUtils;
 
 @Service
 @Transactional
@@ -194,6 +195,24 @@ public class LostInformationServiceImpl implements LostInformationService{
     public Page getMybatisSearch(LostSearch lostSearch, Boolean needPagination){
         List<LostInformation> lostInformations = lostInformationMapper.findLostInfoBySearch(lostSearch);
         return new PageImpl(getLostInformationData(lostInformations));
+    }
+
+    /**
+     * 查询失物招领总数，本月失物数，本月招领数
+     * @return
+     */
+    @Override
+    public Map getLostNum() {
+        Date now = new Date();
+        Date startDate = DateUtils.addDays(now, -30);
+        Map map = new HashMap();
+        int num = lostInformationRepository.findAll().size();
+        int currentLostNum = lostInformationMapper.findNumByTypeAndTime(0,now,startDate);
+        int currentGetNum = lostInformationMapper.findNumByTypeAndTime(1,now,startDate);
+        map.put("num",num);
+        map.put("currentLostNum",currentLostNum);
+        map.put("currentGetNum",currentGetNum);
+        return map;
     }
 
     @SneakyThrows

@@ -4,6 +4,7 @@ import com.sjzxy.fwpt.config.websocket.WebSocketServer;
 import com.sjzxy.fwpt.dao.LostInformationMapper;
 import com.sjzxy.fwpt.entity.LostInformation;
 import com.sjzxy.fwpt.entity.LostSearch;
+import com.sjzxy.fwpt.entity.QuesInformation;
 import com.sjzxy.fwpt.service.LostInformationService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import com.sjzxy.fwpt.common.response.BaseResponse;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
@@ -26,6 +28,18 @@ public class LostInformationController {
 
     @Autowired
     private LostInformationService lostInformationService;
+
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
+    @ApiOperation(value = "查询失物招领总数，本月失物数，本月招领数")
+    @GetMapping("/num")
+    public BaseResponse findAllLostNum(){
+        Map map = lostInformationService.getLostNum();
+        if (Objects.isNull(map)){
+            throw new BusinessException(ResultCodeEnum.UpdateDataError);
+        }
+        return BaseResponse.ok().data(map);
+    }
 
 
     @ApiOperation(value = "添加数据")

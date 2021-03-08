@@ -84,4 +84,6 @@ public interface QuesInformationService {
     List<QuesInformation> findQuesByFinishAndSortAndKey(Integer finish, Integer sid, String key);
 
     List<QuesInformation> findQuesInformationByUid(Integer uid);
+
+    Map getQuesNum();
 }

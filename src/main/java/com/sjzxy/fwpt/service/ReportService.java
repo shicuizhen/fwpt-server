@@ -1,17 +1,17 @@
 package com.sjzxy.fwpt.service;
 
-import com.sjzxy.fwpt.entity.QuesReport;
+import com.sjzxy.fwpt.entity.Report;
 
 import java.util.List;
 
-public interface QuesReportService {
+public interface ReportService {
 
     /**
      * 添加数据
-     * @param quesReport
+     * @param report
      * @return
      */
-    QuesReport addQuesReport(QuesReport quesReport);
+    Report addQuesReport(Report report);
 
     /**
      * 删除数据
@@ -22,15 +22,15 @@ public interface QuesReportService {
 
     /**
      * 更新数据
-     * @param quesReport
+     * @param report
      * @return
      */
-    QuesReport updateQuesReport(QuesReport quesReport);
+    Report updateQuesReport(Report report);
 
 
     /**
      * 查询全部数据
      * @return
      */
-    List<QuesReport> findAllQuesReport();
+    List<Report> findAllQuesReport();
 }

@@ -1,8 +1,11 @@
 package com.sjzxy.fwpt.service.impl;
 
+import com.sjzxy.fwpt.dao.QuesInformationMapper;
+import com.sjzxy.fwpt.dao.QuesReplyMapper;
 import com.sjzxy.fwpt.entity.*;
 import com.sjzxy.fwpt.repository.*;
 import com.sjzxy.fwpt.service.QuesInformationService;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -67,6 +70,24 @@ public class QuesInformationServiceImpl implements QuesInformationService{
         return getQuesInformationData(quesInformationRepository.findAllByCreateBy(uid));
     }
 
+    @Autowired
+    QuesInformationMapper quesInformationMapper;
+
+    @Autowired
+    QuesReplyMapper quesReplyMapper;
+
+//    查询问题总数，回答总数，本月问题总数，本月回答总数
+    @Override
+    public Map getQuesNum() {
+        Map map = new HashMap();
+        Date now = new Date();
+        Date startDate = DateUtils.addDays(now, -30);
+        map.put("quesNum", quesInformationRepository.findAll().size());
+        map.put("replyNum", quesReplyRepository.findAll().size());
+        map.put("currentQuesNum", quesInformationMapper.findNumByTime(now,startDate));
+        map.put("currentReplyNum", quesReplyMapper.findNumByTime(now,startDate));
+        return map;
+    }
 
 
     @Autowired

@@ -1,7 +1,6 @@
 package com.sjzxy.fwpt.service.impl;
 
 import com.sjzxy.fwpt.entity.QuesLike;
-import com.sjzxy.fwpt.mapper.QuesLikeMapper;
 import com.sjzxy.fwpt.repository.QuesLikeRepository;
 import com.sjzxy.fwpt.service.QuesLikeService;
 import org.springframework.beans.factory.annotation.Autowired;

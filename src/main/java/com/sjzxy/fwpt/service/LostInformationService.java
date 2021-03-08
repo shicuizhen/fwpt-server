@@ -2,14 +2,11 @@ package com.sjzxy.fwpt.service;
 
 import com.sjzxy.fwpt.entity.LostInformation;
 import com.sjzxy.fwpt.entity.LostSearch;
-import com.sjzxy.fwpt.entity.QuesInformation;
 import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.domain.Specification;
 
-import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface LostInformationService {
 
@@ -52,4 +49,6 @@ public interface LostInformationService {
     List<LostInformation> findLostInfoByUid(Integer uid,Integer type);
 
     Page getMybatisSearch(LostSearch lostSearch,Boolean needPagination);
+
+    Map getLostNum();
 }

@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
 @Entity
 @Table(name = "ques_report")
 @Data
-public class QuesReport implements Serializable {
+public class Report implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -19,17 +19,9 @@ public class QuesReport implements Serializable {
     @ApiModelProperty(value = "举报信息id" )
     private Integer id;
 
-    @Column(name = "qid" )
-    @ApiModelProperty(value = "问题id" )
-    private Integer qid;
-
-    @Column(name = "rid" )
-    @ApiModelProperty(value = "回答id" )
-    private Integer rid;
-
-    @Column(name = "cid" )
-    @ApiModelProperty(value = "评论id" )
-    private Integer cid;
+    @Column(name = "content" )
+    @ApiModelProperty(value = "content" )
+    private String content;
 
     @Column(name = "uid" )
     @ApiModelProperty(value = "举报人id" )

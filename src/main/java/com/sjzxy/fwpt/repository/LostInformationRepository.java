@@ -9,6 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -24,4 +25,5 @@ public interface LostInformationRepository
     void deleteById(Integer id);
 
     List<LostInformation> findAllByCreateByAndType(int create_by,int type);
+
 }

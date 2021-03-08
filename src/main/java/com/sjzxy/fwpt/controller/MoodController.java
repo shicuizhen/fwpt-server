@@ -5,11 +5,9 @@ import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.response.BaseResponse;
 import com.sjzxy.fwpt.config.websocket.MoodWebsoketServer;
 import com.sjzxy.fwpt.entity.Mood;
+import com.sjzxy.fwpt.entity.QuesInformation;
 import com.sjzxy.fwpt.service.MoodService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.*;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -31,6 +30,18 @@ public class MoodController {
 
     @Autowired
     private MoodService moodService;
+
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
+    @ApiOperation(value = "心情话板总数，本月数目")
+    @GetMapping("/num")
+    public BaseResponse findAllMoodNum(){
+        Map map = moodService.getMoodNum();
+        if (Objects.isNull(map)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
+        return BaseResponse.ok().data(map);
+    }
 
 
     @ApiOperation(value = "添加数据")
