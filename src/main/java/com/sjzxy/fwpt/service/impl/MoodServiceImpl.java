@@ -62,5 +62,16 @@ public class MoodServiceImpl implements MoodService {
         return map;
     }
 
+    @Override
+    public List<Mood> findMoodByUid(Integer uid) {
+        return moodRepository.findAllByUid(uid);
+    }
+
+    @Override
+    public void delMoodInformation(int id) {
+        moodRepository.deleteById(id);
+    }
+
+
 
 }

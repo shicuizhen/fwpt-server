@@ -4,6 +4,7 @@ import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
 import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.response.BaseResponse;
 import com.sjzxy.fwpt.config.websocket.MoodWebsoketServer;
+import com.sjzxy.fwpt.entity.LostInformation;
 import com.sjzxy.fwpt.entity.Mood;
 import com.sjzxy.fwpt.entity.QuesInformation;
 import com.sjzxy.fwpt.service.MoodService;
@@ -60,6 +61,27 @@ public class MoodController {
         }
         return BaseResponse.ok().data(lists);
     }
+
+
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = Mood.class)})
+    @ApiOperation(value = "根据uid查询数据")
+    @GetMapping("/{uid}")
+    public BaseResponse findMoodByUid(@RequestParam Integer uid){
+        List<Mood> list = moodService.findMoodByUid(uid);
+        if (Objects.isNull(list)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
+        return BaseResponse.ok().data(list);
+    }
+
+    @ApiOperation(value = "根据id删除数据")
+    @DeleteMapping("/del/{id}")
+    public BaseResponse delMoodInformation(@RequestParam int id){
+        moodService.delMoodInformation(id);
+        return BaseResponse.ok();
+    }
+
 
     @Resource
     MoodWebsoketServer moodWebsoket;

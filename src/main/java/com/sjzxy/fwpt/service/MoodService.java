@@ -12,4 +12,8 @@ public interface MoodService {
     List<Mood> findTenMood();
 
     Map getMoodNum();
+
+    List<Mood> findMoodByUid(Integer uid);
+
+    void delMoodInformation(int id);
 }
