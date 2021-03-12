@@ -259,7 +259,7 @@ public class QuesInformationServiceImpl implements QuesInformationService{
             //用户名和用户头像
             //根据创建者id即createBy，去user用户表查询用户名和头像
             Users user = usersRepository.findAllById(lists.get(i).getCreateBy());
-            map.put("createBy",user==null||user.equals(null) ? null : user.getName());
+            map.put("createBy",user==null||user.equals(null) ? null : user.getNick());
             map.put("photo",user==null||user.equals(null) ? null : user.getPhotoAddress());
             //将封装好的一组list数据存放到map中
             list.add(map);

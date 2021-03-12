@@ -21,6 +21,7 @@ public enum ResultCodeEnum {
     INVALID_VERIFY_CODE(-303,"无效的验证码"),
     USER_IS_NOT_EXIT(-304,"该用户不存在"),
     PASSWORD_ERROR(-305,"密码错误"),
+    FILE_FOLDER_NOT_EXIST(-306,"文件夹不存在")
     ;
 
     /**

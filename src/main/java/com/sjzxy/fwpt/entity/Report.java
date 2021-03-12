@@ -7,9 +7,9 @@ import java.util.Date;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description= "ques_report")
+@ApiModel(description= "report")
 @Entity
-@Table(name = "ques_report")
+@Table(name = "report")
 @Data
 public class Report implements Serializable {
 

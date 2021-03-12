@@ -80,19 +80,13 @@ public class QuesReplyServiceImpl implements QuesReplyService{
 
             //创建者
             Users user = usersRepository.findAllById(lists.get(i).getCreateBy());
-            map.put("createBy",user==null||user.equals(null) ? null : user.getName());
+            map.put("createBy",user==null||user.equals(null) ? null : user.getNick());
             map.put("photo",user==null||user.equals(null) ? null : user.getPhotoAddress());
 
             map.put("createTime",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(lists.get(i).getCreateTime()));
             map.put("content",lists.get(i).getContent());
 
             map.put("qid", lists.get(i).getQid());
-            if (lists.get(i).getQid()==null){
-                System.out.println("qid为空");
-                map.put("content","===================这条数据不对，qid为空=====================");
-                map.put("likeNum",100001);
-                return list;
-            }
 
             //点赞数
             //根据回答id即rid去like表中查询点赞的数量

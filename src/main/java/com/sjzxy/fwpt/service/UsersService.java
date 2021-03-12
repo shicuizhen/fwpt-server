@@ -3,7 +3,11 @@ package com.sjzxy.fwpt.service;
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
 import com.sjzxy.fwpt.common.response.BaseResponse;
 import com.sjzxy.fwpt.entity.Users;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 public interface UsersService {
@@ -45,4 +49,6 @@ public interface UsersService {
     Map findByUid(int uid);
 
     String getUsersById(Integer uid);
+
+    String getImg(String img);
 }

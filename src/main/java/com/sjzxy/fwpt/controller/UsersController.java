@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import com.sjzxy.fwpt.common.response.BaseResponse;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
+import org.springframework.web.multipart.MultipartFile;
 
 @Api(tags = "用户信息相关接口", description = "提供日志管理的相关查询接口")
 @RestController
@@ -26,6 +29,18 @@ public class UsersController {
 
     @Autowired
     private UsersService usersService;
+
+    @ApiOperation(value = "图片")
+    @PostMapping("/img")
+    @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
+    public BaseResponse getImg(@ApiParam("base64编码") @Valid @RequestBody String baseData) {
+        String path = usersService.getImg(baseData);
+        if (Objects.isNull(path)){
+            throw new BusinessException(ResultCodeEnum.UpdateDataError);
+        }
+        return BaseResponse.ok().data(path);
+    }
+
 
     @ApiOperation(value = "用户登录")
     @PostMapping("/login")
