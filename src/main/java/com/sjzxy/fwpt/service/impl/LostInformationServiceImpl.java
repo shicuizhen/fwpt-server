@@ -43,6 +43,7 @@ public class LostInformationServiceImpl implements LostInformationService{
         String username = ((lostInformation.getUsername() == null)||lostInformation.getUsername().equals("")) ? "某用户" : lostInformation.getUsername();
         String type =  lostInformation.getType() == 0 ? "丢失了 " : "捡到了";
         String str = username + type + lostInformation.getName();
+        System.out.println("str:" + str);
         webSocketServer.sendInfo(str);
 //        Map<String, Object> map = new HashMap<>();
 //        map.put("data",str);

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +44,11 @@ public class QuesInformationServiceImpl implements QuesInformationService{
 
     @Override
     public void delQuesInformation(int qid) {
+        redisTemplate.delete("ques_" + qid);
+
+
+
+        redisTemplate.delete("reply_" + qid);
         quesInformationRepository.deleteById(qid);
         quesReplyRepository.deleteByQid(qid);
     }
@@ -58,12 +64,38 @@ public class QuesInformationServiceImpl implements QuesInformationService{
         return getQuesInformationData(lists);
     }
 
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @Override
     public Map findQuesInformationByQid(Integer qid) {
-        List<QuesInformation> list = new ArrayList<>();
-        list.add(quesInformationRepository.findAllById(qid));
-        return (Map) getQuesInformationData(list).get(0);
+        Map map = null;
+        Map redis = (Map) redisTemplate.opsForValue().get("ques_" + qid);
+        if(redis != null){
+            System.out.println("从缓存中查询到数据");
+            System.out.println(redis);
+            map = redis;
+        }else{
+            List<QuesInformation> list = new ArrayList<>();
+            list.add(quesInformationRepository.findAllById(qid));
+            map = (Map) getQuesInformationData(list).get(0);
+            System.out.println("从数据库查询到数据");
+            System.out.println(map);
+            if(map != null){
+                redisTemplate.opsForValue().set("ques_" + qid,map);
+            }
+        }
+        return map;
     }
+
+
+//    @Override
+//    public Map findQuesInformationByQid(Integer qid) {
+//        List<QuesInformation> list = new ArrayList<>();
+//        list.add(quesInformationRepository.findAllById(qid));
+//        return (Map) getQuesInformationData(list).get(0);
+//    }
 
     @Override
     public List<QuesInformation> findQuesInformationByUid(Integer uid) {

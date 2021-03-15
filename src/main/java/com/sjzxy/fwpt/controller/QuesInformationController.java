@@ -10,6 +10,7 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.data.domain.Page;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import com.sjzxy.fwpt.common.response.BaseResponse;
@@ -81,16 +82,34 @@ public class QuesInformationController {
         return BaseResponse.ok().data(lists);
     }
 
+
+
+
+
     @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
     @ApiOperation(value = "根据qid查询数据")
     @GetMapping("/data/{qid}")
-    public BaseResponse findQuesInformationByQid(@RequestParam Integer qid){
+    public BaseResponse findQuesByQidInRedis(@RequestParam Integer qid){
+
         Map map = quesInformationService.findQuesInformationByQid(qid);
         if (Objects.isNull(map)){
             throw new BusinessException(ResultCodeEnum.FindDataError);
         }
         return BaseResponse.ok().data(map);
     }
+
+
+
+//    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
+//    @ApiOperation(value = "根据qid查询数据")
+//    @GetMapping("/data/{qid}")
+//    public BaseResponse findQuesInformationByQid(@RequestParam Integer qid){
+//        Map map = quesInformationService.findQuesInformationByQid(qid);
+//        if (Objects.isNull(map)){
+//            throw new BusinessException(ResultCodeEnum.FindDataError);
+//        }
+//        return BaseResponse.ok().data(map);
+//    }
 
 
     @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})

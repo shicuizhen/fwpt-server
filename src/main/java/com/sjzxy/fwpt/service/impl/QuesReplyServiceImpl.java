@@ -53,6 +53,7 @@ public class QuesReplyServiceImpl implements QuesReplyService{
     @Autowired
     QuesInformationServiceImpl quesInformationService;
 
+
     @Override
     public List<QuesReply> findQuesReplyByQid(int qid) {
         List<QuesReply> lists = quesReplyRepository.findAllByQid(qid);
@@ -64,6 +65,19 @@ public class QuesReplyServiceImpl implements QuesReplyService{
         List<QuesReply> lists = quesReplyRepository.findAllByCreateBy(uid);
         return getQuesReplyData(lists);
     }
+
+
+//    @Override
+//    public List<QuesReply> findQuesReplyByQid(int qid) {
+//        List<QuesReply> lists = quesReplyRepository.findAllByQid(qid);
+//        return getQuesReplyData(lists);
+//    }
+//
+//    @Override
+//    public List<QuesInformation> findQuesReplyByUid(int uid) {
+//        List<QuesReply> lists = quesReplyRepository.findAllByCreateBy(uid);
+//        return getQuesReplyData(lists);
+//    }
 
 
     /**
