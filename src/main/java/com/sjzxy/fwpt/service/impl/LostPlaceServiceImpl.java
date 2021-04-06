@@ -1,6 +1,7 @@
 package com.sjzxy.fwpt.service.impl;
 
 import com.sjzxy.fwpt.entity.LostPlace;
+import com.sjzxy.fwpt.entity.QuesInformation;
 import com.sjzxy.fwpt.repository.LostPlaceRepository;
 import com.sjzxy.fwpt.service.LostPlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,13 @@ import java.util.List;
 @Service
 @Transactional
 public class LostPlaceServiceImpl implements LostPlaceService{
+
+    @Override
+    public LostPlace findPlaceByPid(int pid) {
+        return lostPlaceRepository.findAllById(pid);
+    }
+
+
 
     @Autowired
     private LostPlaceRepository lostPlaceRepository;

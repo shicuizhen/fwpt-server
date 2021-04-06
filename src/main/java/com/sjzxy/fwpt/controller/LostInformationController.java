@@ -91,7 +91,7 @@ public class LostInformationController {
     @ApiOperation(value = "查询轮播数据")
     @GetMapping("/lunbodata")
     public BaseResponse findLunboData(){
-        List<String> lists = lostInformationService.findLunboData();
+        List lists = lostInformationService.findLunboData();
         if (Objects.isNull(lists)){
             throw new BusinessException(ResultCodeEnum.FindDataError);
         }

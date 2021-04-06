@@ -43,7 +43,6 @@ public class LostInformationServiceImpl implements LostInformationService{
         String username = ((lostInformation.getUsername() == null)||lostInformation.getUsername().equals("")) ? "某用户" : lostInformation.getUsername();
         String type =  lostInformation.getType() == 0 ? "丢失了 " : "捡到了";
         String str = username + type + lostInformation.getName();
-        System.out.println("str:" + str);
         webSocketServer.sendInfo(str);
 //        Map<String, Object> map = new HashMap<>();
 //        map.put("data",str);
@@ -102,26 +101,35 @@ public class LostInformationServiceImpl implements LostInformationService{
             map.put("lostTime",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(lists.get(i).getLostTime()));
             map.put("telephone",lists.get(i).getTelephone());
             map.put("email",lists.get(i).getEmail());
-            map.put("createBy",usersRepository.findAllById(lists.get(i).getCreateBy()).getName());
+            map.put("createBy",usersRepository.findAllById(lists.get(i).getCreateBy()).getNick());
             map.put("createTime",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(lists.get(i).getCreateTime()));
             map.put("stateId",lists.get(i).getStateId());
 
-            //将封装好的一组list数据存放到map中
+            //将封装好的一组list数据存放到map中,再将全部map都放进list
             list.add(map);
         }
         return list;
     }
 
+
+    @SneakyThrows
     @Override
-    public List<String> findLunboData() {
-        List<String> lunbo = new ArrayList<>();
+    public List findLunboData() {
+        List<Map> lunbo = new ArrayList<>();
         List<LostInformation> list = lostInformationRepository.findFiveByCreateTime();
         for (int i =0; i < list.size();i++){
+            Map map = new HashMap();
+
             LostInformation data = list.get(i);
             String username = ((data.getUsername() == null)||data.getUsername().equals("")) ? "某用户" : data.getUsername();
-            String type =  data.getType() == 0 ? "丢失了 " : "捡到了";
+            String type =  data.getType() == 0 ? "丢失了" : "捡到了";
             String str = username + type + data.getName();
-            lunbo.add(str);
+
+            map.put("str",str);
+            map.put("place",lostPlaceRepository.findAllById(data.getPlaceId()).getName());
+            map.put("time",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(data.getCreateTime()));
+
+            lunbo.add(map);
         }
         return lunbo;
     }

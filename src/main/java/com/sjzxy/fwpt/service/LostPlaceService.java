@@ -33,4 +33,11 @@ public interface LostPlaceService {
      * @return
      */
     List<LostPlace> findAllLostPlace();
+
+    /**
+     * 根据位置id查询位置名称
+     * @param pid
+     * @return
+     */
+    LostPlace findPlaceByPid(int pid);
 }
