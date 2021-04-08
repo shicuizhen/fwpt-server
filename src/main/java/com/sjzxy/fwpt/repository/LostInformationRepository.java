@@ -24,6 +24,8 @@ public interface LostInformationRepository
 
     void deleteById(Integer id);
 
+    LostInformation findAllById(int id);
+
     List<LostInformation> findAllByCreateByAndType(int create_by,int type);
 
 }

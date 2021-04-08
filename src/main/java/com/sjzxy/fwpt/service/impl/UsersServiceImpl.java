@@ -3,7 +3,10 @@ package com.sjzxy.fwpt.service.impl;
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
 import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.response.BaseResponse;
+import com.sjzxy.fwpt.entity.Major;
 import com.sjzxy.fwpt.entity.Users;
+import com.sjzxy.fwpt.repository.CollegeRepository;
+import com.sjzxy.fwpt.repository.MajorRepository;
 import com.sjzxy.fwpt.repository.UsersRepository;
 import com.sjzxy.fwpt.service.UsersService;
 import com.sjzxy.fwpt.util.ImgBase64ToImgFile;
@@ -34,12 +37,16 @@ public class UsersServiceImpl implements UsersService{
 
     @Override
     public BaseResponse addUsers(Users users) {
-        if (usersRepository.findAllBySno(users.getSno()) != null || !usersRepository.findAllBySno(users.getSno()).equals(null)){
+        System.out.println("users=============>");
+        System.out.println(users);
+        System.out.println(usersRepository.findAllBySno(users.getSno()));
+        System.out.println(usersRepository.findAllBySno(users.getSno()) != null);
+        if (usersRepository.findAllBySno(users.getSno()) != null){
+            return BaseResponse.error();
+        }else {
             users.setCreateTime(new Date());
             usersRepository.save(users);
             return BaseResponse.ok();
-        }else {
-            return BaseResponse.error();
         }
     }
 
@@ -114,6 +121,12 @@ public class UsersServiceImpl implements UsersService{
         return null;
     }
 
+    @Autowired
+    MajorRepository majorRepository;
+
+    @Autowired
+    CollegeRepository collegeRepository;
+
     List getUserData(List<Users> list){
         List list1 = new ArrayList();
         for (int i = 0;i<list.size();i++){
@@ -127,7 +140,12 @@ public class UsersServiceImpl implements UsersService{
             map.put("birthday",new SimpleDateFormat("yyyy-MM-dd").format(list.get(i).getBirthday()));
             map.put("photoAddress",list.get(i).getPhotoAddress());
             map.put("grade",list.get(i).getGrade());
-            map.put("major",list.get(i).getMajor());
+
+            Major major = majorRepository.findAllById(list.get(i).getMajor());
+
+            map.put("college",collegeRepository.findAllById(major.getCollege()).getCollege());
+            map.put("major",major.getMajor());
+
             map.put("phone",list.get(i).getPhone());
             map.put("email",list.get(i).getEmail());
             list1.add(map);

@@ -100,30 +100,10 @@ public class UsersController {
 
     @ApiResponses({@ApiResponse(code = 200,message = "OK",response = Users.class)})
     @ApiOperation(value = "通过用户id查询数据")
-    @PostMapping("/datas/uid")
+    @PostMapping("/datas/{uid}")
     public BaseResponse findAllByUid(@RequestParam int uid){
         Map map = usersService.findByUid(uid);
         return BaseResponse.ok().data(map);
     }
 
-
-    public void get(){
-
-        List lists = new ArrayList();
-
-        Map map1 = new HashMap();
-        map1.put("excelStudentName","张三");
-        map1.put("excelStudentCode","202012");
-        lists.add(map1);
-
-        Map map2 = new HashMap();
-        map2.put("excelStudentName","张三");
-        map2.put("excelStudentCode","202012");
-
-        lists.add(map2);
-
-//        [
-//                {"excelStudentName":"张三","excelStudentCode":202012}
-//                ,{"excelStudentName":"李四","excelStudentCode":202013}]
-    }
 }

@@ -94,6 +94,7 @@ public class QuesReplyServiceImpl implements QuesReplyService{
 
             //创建者
             Users user = usersRepository.findAllById(lists.get(i).getCreateBy());
+
             map.put("createBy",user==null||user.equals(null) ? null : user.getNick());
             map.put("photo",user==null||user.equals(null) ? null : user.getPhotoAddress());
 

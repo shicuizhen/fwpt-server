@@ -104,6 +104,7 @@ public class LostInformationServiceImpl implements LostInformationService{
             map.put("createBy",usersRepository.findAllById(lists.get(i).getCreateBy()).getNick());
             map.put("createTime",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(lists.get(i).getCreateTime()));
             map.put("stateId",lists.get(i).getStateId());
+            map.put("stateName",lists.get(i).getStateId() == 1 ? "已完成" : "待完成");
 
             //将封装好的一组list数据存放到map中,再将全部map都放进list
             list.add(map);
@@ -222,6 +223,41 @@ public class LostInformationServiceImpl implements LostInformationService{
         map.put("currentLostNum",currentLostNum);
         map.put("currentGetNum",currentGetNum);
         return map;
+    }
+
+    @SneakyThrows
+    @Override
+    public List findById(Integer lid) {
+        List list = new ArrayList();
+        list.add(lostInformationRepository.findAllById(lid));
+        return getLostInformationData(list);
+    }
+
+    /**
+     * @param l
+     * @return
+     */
+
+    @Override
+    public LostInformation editLostInformation(LostInformation l) {
+        System.out.println(l);
+        System.out.println(l.getUsername());
+        System.out.println(l.getUsername() == "");
+
+        LostInformation info = lostInformationRepository.findAllById(l.getId());
+        //type和id一定有
+        info.setKindId(l.getKindId() != null ? l.getKindId() : info.getKindId());
+        info.setName(l.getName() != "" ? l.getName() : info.getName());
+        info.setDescription(l.getDescription() != "" ? l.getDescription() : info.getDescription());
+        info.setUsername(l.getUsername() != "" ? l.getUsername() : info.getUsername());
+        info.setPlaceId(l.getPlaceId() != null ? l.getPlaceId() : info.getPlaceId());
+        info.setPosition(l.getPosition() != "" ? l.getPosition() : info.getPosition());
+        info.setLostTime(l.getLostTime() != null ? l.getLostTime() : info.getLostTime());
+        info.setTelephone(l.getTelephone() != "" ? l.getTelephone() : info.getTelephone());
+        info.setEmail(l.getEmail() != "" ? l.getEmail() : info.getEmail());
+        info.setStateId(l.getStateId() != null ? l.getStateId() :info.getStateId());
+
+        return lostInformationRepository.save(info);
     }
 
     @SneakyThrows

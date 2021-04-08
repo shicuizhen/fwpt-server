@@ -51,4 +51,8 @@ public interface LostInformationService {
     Page getMybatisSearch(LostSearch lostSearch,Boolean needPagination);
 
     Map getLostNum();
+
+    List findById(Integer lid);
+
+    LostInformation editLostInformation(LostInformation lostInformation);
 }

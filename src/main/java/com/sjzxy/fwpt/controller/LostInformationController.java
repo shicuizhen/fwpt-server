@@ -30,7 +30,7 @@ public class LostInformationController {
     private LostInformationService lostInformationService;
 
 
-    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesInformation.class)})
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = LostInformation.class)})
     @ApiOperation(value = "查询失物招领总数，本月失物数，本月招领数")
     @GetMapping("/num")
     public BaseResponse findAllLostNum(){
@@ -39,6 +39,17 @@ public class LostInformationController {
             throw new BusinessException(ResultCodeEnum.UpdateDataError);
         }
         return BaseResponse.ok().data(map);
+    }
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = LostInformation.class)})
+    @ApiOperation(value = "根据id查询失物详情")
+    @GetMapping("/desc")
+    public BaseResponse findById(@RequestParam Integer lid){
+        List lostInformation = lostInformationService.findById(lid);
+        if (Objects.isNull(lostInformation)){
+            throw new BusinessException(ResultCodeEnum.UpdateDataError);
+        }
+        return BaseResponse.ok().data(lostInformation);
     }
 
 
@@ -57,6 +68,16 @@ public class LostInformationController {
         return BaseResponse.ok().data(obj);
     }
 
+
+    @ApiOperation(value = "修改数据")
+    @PostMapping("/edit")
+    @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
+    public BaseResponse editLostInformation(@ApiParam("实体对象") @Valid @RequestBody LostInformation lostInformation){
+
+        LostInformation obj = lostInformationService.editLostInformation(lostInformation);
+        return BaseResponse.ok().data(obj);
+    }
+
     @ApiOperation(value = "根据id删除数据")
     @DeleteMapping("/del/{id}")
     public BaseResponse delLostInformation(@RequestParam int id){
@@ -68,6 +89,16 @@ public class LostInformationController {
     @ApiOperation(value = "更新数据")
     @PutMapping
     public BaseResponse updateLostInformation(@RequestBody LostInformation lostInformation){
+        LostInformation obj = lostInformationService.updateLostInformation(lostInformation);
+        if (Objects.isNull(obj)){
+            throw new BusinessException(ResultCodeEnum.UpdateDataError);
+        }
+        return BaseResponse.ok().data(obj);
+    }
+
+    @ApiOperation(value = "设置是否找回")
+    @PutMapping("state")
+    public BaseResponse setLostInformationState(@RequestBody LostInformation lostInformation){
         LostInformation obj = lostInformationService.updateLostInformation(lostInformation);
         if (Objects.isNull(obj)){
             throw new BusinessException(ResultCodeEnum.UpdateDataError);
@@ -148,6 +179,9 @@ public class LostInformationController {
         System.out.println("lostInformations:" +lostInformations);
         return BaseResponse.ok().data(lostInformations);
     }
+
+
+
 
 
 

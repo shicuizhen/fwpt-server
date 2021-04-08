@@ -54,7 +54,7 @@ public class Users implements Serializable {
 
     @Column(name = "major" )
     @ApiModelProperty(value = "专业" )
-    private String major;
+    private Integer major;
 
     @Column(name = "phone" )
     @ApiModelProperty(value = "手机号" )
