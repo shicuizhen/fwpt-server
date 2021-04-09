@@ -34,4 +34,6 @@ public interface CollegeService {
      * @return
      */
     List<College> findAllCollege();
+
+    College findCollegeByMajor(int mid);
 }

@@ -26,9 +26,9 @@ public class ImgBase64ToImgFile {
 
         BASE64Decoder decoder = new BASE64Decoder();
         Path path = Paths.get(imgPath);
-        System.out.println("path:" + path);
         byte[] imageContents = decoder.decodeBuffer(imgBase64);
         try {
+            // 将图片写入指定的路径
             Files.write(path, imageContents, StandardOpenOption.CREATE);
         } catch (IOException e) {
             e.printStackTrace();

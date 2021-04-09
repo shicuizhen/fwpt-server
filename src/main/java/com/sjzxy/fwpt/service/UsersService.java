@@ -51,4 +51,6 @@ public interface UsersService {
     String getUsersById(Integer uid);
 
     String getImg(String img);
+
+    BaseResponse editUsers(Users users);
 }

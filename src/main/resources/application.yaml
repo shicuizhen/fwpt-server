@@ -33,6 +33,9 @@ logging:
 
 fileUploadPath: "G:\\img"
 
+folderPath: "F:\\bishe\\fwpt\\src\\assets\\usersImg"
+
+defaultImg: "F:\\bishe\\fwpt\\src\\assets\\usersImg/default.jpg"
 
 #pagehelper分页设置
 pagehelper:

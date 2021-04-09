@@ -4,6 +4,7 @@ import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
 import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.response.BaseResponse;
 import com.sjzxy.fwpt.entity.College;
+import com.sjzxy.fwpt.entity.Major;
 import com.sjzxy.fwpt.service.CollegeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -60,5 +61,15 @@ public class CollegeController {
             throw new BusinessException(ResultCodeEnum.FindDataError);
         }
         return BaseResponse.ok().data(lists);
+    }
+
+    @ApiOperation(value = "根据major查询college")
+    @GetMapping("/datas/{mid}")
+    public BaseResponse findAllMajorByCollege(@RequestParam("mid") int mid){
+       College college = collegeService.findCollegeByMajor(mid);
+        if (Objects.isNull(college)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
+        return BaseResponse.ok().data(college);
     }
 }

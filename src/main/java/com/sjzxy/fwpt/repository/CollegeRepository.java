@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface CollegeRepository extends JpaRepository<College, Long> {
 
     College findAllById(int id);
+
 }

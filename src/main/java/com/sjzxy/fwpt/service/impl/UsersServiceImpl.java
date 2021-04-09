@@ -11,20 +11,12 @@ import com.sjzxy.fwpt.repository.UsersRepository;
 import com.sjzxy.fwpt.service.UsersService;
 import com.sjzxy.fwpt.util.ImgBase64ToImgFile;
 import lombok.SneakyThrows;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-import sun.invoke.empty.Empty;
-import sun.misc.BASE64Decoder;
 
 import java.io.*;
-import java.net.URLDecoder;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -35,12 +27,14 @@ public class UsersServiceImpl implements UsersService{
     @Autowired
     private UsersRepository usersRepository;
 
+    @Value("${defaultImg}")
+    private String defaultImg;
+
     @Override
     public BaseResponse addUsers(Users users) {
-        System.out.println("users=============>");
-        System.out.println(users);
-        System.out.println(usersRepository.findAllBySno(users.getSno()));
-        System.out.println(usersRepository.findAllBySno(users.getSno()) != null);
+        if (users.getPhotoAddress() == ""){
+            users.setPhotoAddress(defaultImg);
+        }
         if (usersRepository.findAllBySno(users.getSno()) != null){
             return BaseResponse.error();
         }else {
@@ -48,6 +42,15 @@ public class UsersServiceImpl implements UsersService{
             usersRepository.save(users);
             return BaseResponse.ok();
         }
+    }
+
+    @Override
+    public BaseResponse editUsers(Users users) {
+        if (users.getPhotoAddress() == ""){
+            users.setPhotoAddress(defaultImg);
+        }
+        usersRepository.save(users);
+        return BaseResponse.ok();
     }
 
     @Override
@@ -98,13 +101,14 @@ public class UsersServiceImpl implements UsersService{
         return usersRepository.findUsersById(uid).getNick();
     }
 
-    String folderPath = "F:\\bishe\\fwpt\\src\\assets\\usersImg";
+    @Value("${folderPath}")
+    private String folderPath;
 
     @SneakyThrows
     @Override
     public String getImg(String img) {
 
-        //指定存放图片的文件夹目录
+        //指定存放头像图片的文件夹目录
         String imgPath = folderPath + "/" + Math.round(Math.random() * 100000) + ".jpg";
 
         File folder = new File(folderPath);
@@ -120,6 +124,8 @@ public class UsersServiceImpl implements UsersService{
         }
         return null;
     }
+
+
 
     @Autowired
     MajorRepository majorRepository;
@@ -140,11 +146,11 @@ public class UsersServiceImpl implements UsersService{
             map.put("birthday",new SimpleDateFormat("yyyy-MM-dd").format(list.get(i).getBirthday()));
             map.put("photoAddress",list.get(i).getPhotoAddress());
             map.put("grade",list.get(i).getGrade());
+            map.put("createTime",list.get(i).getCreateTime());
 
             Major major = majorRepository.findAllById(list.get(i).getMajor());
 
-            map.put("college",collegeRepository.findAllById(major.getCollege()).getCollege());
-            map.put("major",major.getMajor());
+            map.put("major",major);
 
             map.put("phone",list.get(i).getPhone());
             map.put("email",list.get(i).getEmail());

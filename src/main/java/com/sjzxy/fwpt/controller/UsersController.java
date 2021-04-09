@@ -56,6 +56,13 @@ public class UsersController {
         return usersService.addUsers(users);
     }
 
+    @ApiOperation(value = "修改数据")
+    @PostMapping("/edit")
+    @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
+    public BaseResponse editUsers(@ApiParam("实体对象") @Valid @RequestBody Users users){
+        return usersService.editUsers(users);
+    }
+
     @ApiOperation(value = "根据id删除数据")
     @DeleteMapping("/del/{id}")
     public BaseResponse delUsers(@PathVariable int id){
