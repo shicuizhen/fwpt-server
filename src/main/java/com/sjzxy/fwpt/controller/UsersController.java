@@ -6,6 +6,7 @@ import com.sjzxy.fwpt.entity.Users;
 import com.sjzxy.fwpt.repository.UsersRepository;
 import com.sjzxy.fwpt.service.UsersService;
 import io.swagger.annotations.*;
+import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
@@ -65,7 +66,7 @@ public class UsersController {
 
     @ApiOperation(value = "根据id删除数据")
     @DeleteMapping("/del/{id}")
-    public BaseResponse delUsers(@PathVariable int id){
+    public BaseResponse delUsers(@RequestParam int id){
         usersService.delUsers(id);
         return BaseResponse.ok();
     }

@@ -7,6 +7,7 @@ import com.sjzxy.fwpt.config.websocket.MoodWebsoketServer;
 import com.sjzxy.fwpt.entity.LostInformation;
 import com.sjzxy.fwpt.entity.Mood;
 import com.sjzxy.fwpt.entity.QuesInformation;
+import com.sjzxy.fwpt.entity.QuesReply;
 import com.sjzxy.fwpt.service.MoodService;
 import io.swagger.annotations.*;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
@@ -54,7 +55,7 @@ public class MoodController {
 
     @ApiOperation(value = "查询最新10条数据")
     @GetMapping("/datas")
-    public BaseResponse findAllMood(){
+    public BaseResponse findTenMood(){
         List<Mood> lists = moodService.findTenMood();
         if (Objects.isNull(lists)){
             throw new BusinessException(ResultCodeEnum.FindDataError);
@@ -82,6 +83,17 @@ public class MoodController {
         return BaseResponse.ok();
     }
 
+
+    @ApiResponses({@ApiResponse(code = 200,message = "OK",response = QuesReply.class)})
+    @ApiOperation(value = "查询全部数据")
+    @GetMapping("/all")
+    public BaseResponse findAllMood(){
+        List<Mood> lists = moodService.findAllMood();
+        if (Objects.isNull(lists)){
+            throw new BusinessException(ResultCodeEnum.FindDataError);
+        }
+        return BaseResponse.ok().data(lists);
+    }
 
     @Resource
     MoodWebsoketServer moodWebsoket;

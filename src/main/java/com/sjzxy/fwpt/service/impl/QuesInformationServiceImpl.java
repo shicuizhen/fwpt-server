@@ -37,7 +37,6 @@ public class QuesInformationServiceImpl implements QuesInformationService{
 
     @Override
     public QuesInformation addQuesInformation(QuesInformation quesInformation) {
-        quesInformation.setIsFinish(0);
         quesInformation.setCreateTime(new Date());
         return quesInformationRepository.save(quesInformation);
     }
@@ -235,7 +234,7 @@ public class QuesInformationServiceImpl implements QuesInformationService{
                 listOr.add(criteriaBuilder.like(root.get("title"),"%" + key + "%"));
             }
 
-            if (finish != null && finish>0) {
+            if (finish != null && finish>=0) {
                 listAnd.add(criteriaBuilder.equal(root.get("isFinish").as(Integer.class),finish));
             }
 
@@ -272,7 +271,7 @@ public class QuesInformationServiceImpl implements QuesInformationService{
             //问题id，分类id，创建者id（不需要），创建时间，问题标题，具体内容，回答数，点赞数，用户名，用户头像
             map.put("id",lists.get(i).getId());
             map.put("sortName", quesSortRepository.getQuesSortById(lists.get(i).getSortId()).getName());
-//            map.put("sortId",lists.get(i).getSortId());
+            map.put("sortId",lists.get(i).getSortId());
             map.put("createTime",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(lists.get(i).getCreateTime()));
             map.put("title",lists.get(i).getTitle());
             map.put("content",lists.get(i).getContent());
@@ -291,6 +290,7 @@ public class QuesInformationServiceImpl implements QuesInformationService{
             //用户名和用户头像
             //根据创建者id即createBy，去user用户表查询用户名和头像
             Users user = usersRepository.findAllById(lists.get(i).getCreateBy());
+            map.put("createById",lists.get(i).getCreateBy() );
             map.put("createBy",user==null||user.equals(null) ? null : user.getNick());
             map.put("photo",user==null||user.equals(null) ? null : user.getPhotoAddress());
             //将封装好的一组list数据存放到map中

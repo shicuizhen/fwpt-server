@@ -25,7 +25,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public void delQuesReport(int id) {
-        reportRepository.deleteById((long) id);
+        reportRepository.deleteById(id);
     }
 
     @Override

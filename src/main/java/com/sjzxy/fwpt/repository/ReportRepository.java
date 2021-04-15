@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface ReportRepository extends JpaRepository<Report, Long> {
+    void deleteById(Integer id);
 }

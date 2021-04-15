@@ -5,6 +5,7 @@ import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.response.BaseResponse;
 import com.sjzxy.fwpt.dao.MoodMapper;
 import com.sjzxy.fwpt.entity.Mood;
+import com.sjzxy.fwpt.entity.QuesInformation;
 import com.sjzxy.fwpt.repository.MoodRepository;
 import com.sjzxy.fwpt.service.MoodService;
 import org.apache.commons.lang3.time.DateUtils;
@@ -72,6 +73,11 @@ public class MoodServiceImpl implements MoodService {
         moodRepository.deleteById(id);
     }
 
+    @Override
+    public List<Mood> findAllMood() {
+        List<Mood> lists = moodRepository.findAll();
+        return lists;
+    }
 
 
 }

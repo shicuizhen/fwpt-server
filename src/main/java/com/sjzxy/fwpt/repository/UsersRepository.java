@@ -17,4 +17,6 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     Users findAllBySno(String sno);
 
     Users findUsersById(Integer uid);
+
+    void deleteById(Integer id);
 }

@@ -36,7 +36,7 @@ public class ReportController {
 
     @ApiOperation(value = "根据id删除数据")
     @DeleteMapping("/del/{id}")
-    public BaseResponse delQuesReport(@PathVariable int id){
+    public BaseResponse delQuesReport(@RequestParam int id){
         reportService.delQuesReport(id);
         return BaseResponse.ok();
     }
