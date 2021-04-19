@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 @Transactional
@@ -35,7 +35,17 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public List<Report> findAllQuesReport() {
-        return reportRepository.findAll();
+        List<Report> report = reportRepository.findAll();
+        List list = new ArrayList();
+        for (int i = 0;i<report.size();i++){
+            Map map = new HashMap();
+            map.put("id",report.get(i).getId());
+            map.put("content",report.get(i).getContent());
+            map.put("uid",report.get(i).getUid());
+            map.put("createTime",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(report.get(i).getCreateTime()));
+            list.add(map);
+        }
+        return list;
     }
 
 }

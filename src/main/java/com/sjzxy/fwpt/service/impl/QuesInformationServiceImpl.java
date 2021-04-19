@@ -224,28 +224,22 @@ public class QuesInformationServiceImpl implements QuesInformationService{
     @Override
     public List<QuesInformation> findQuesByFinishAndSortAndKey(Integer finish, Integer sid, String key) {
 
-        Specification<QuesInformation> specification = (Specification<QuesInformation>) (root, criteriaQuery, criteriaBuilder) -> {
-
+        Specification<QuesInformation> specification =
+                (Specification<QuesInformation>) (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> listAnd = new ArrayList<>();
             List<Predicate> listOr = new ArrayList<>();
-
             if (key != null) {
                 listOr.add(criteriaBuilder.like(root.get("content"),"%" + key + "%"));
                 listOr.add(criteriaBuilder.like(root.get("title"),"%" + key + "%"));
             }
-
             if (finish != null && finish>=0) {
                 listAnd.add(criteriaBuilder.equal(root.get("isFinish").as(Integer.class),finish));
             }
-
             if (sid != null && sid>0) {
                 listAnd.add(criteriaBuilder.equal(root.get("sortId").as(Integer.class),sid));
             }
-
             Predicate predicateAnd = criteriaBuilder.and(listAnd.toArray(new Predicate[0]));
             Predicate predicateOr = criteriaBuilder.or(listOr.toArray(new Predicate[0]));
-
-//            return criteriaQuery.where(predicateAnd, predicateOr).getRestriction();
             return listAnd.size() == 0 ?
                     criteriaQuery.where(predicateOr).getRestriction() :
                     criteriaQuery.where(predicateOr, predicateAnd).getRestriction();

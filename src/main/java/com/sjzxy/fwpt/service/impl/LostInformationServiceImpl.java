@@ -139,9 +139,6 @@ public class LostInformationServiceImpl implements LostInformationService{
     @SneakyThrows
     public Page getSearch(LostSearch lostSearch, Boolean needPagination){
 
-//        System.out.println("impl:type:" + lostSearch.getType());
-//        System.out.println("impl:kind_id:" + lostSearch.getKind_id());
-
         Specification<LostInformation> specification = (Specification<LostInformation>) (root, criteriaQuery, criteriaBuilder) -> {
 
             List<Predicate> listAnd = new ArrayList<>();
@@ -217,11 +214,15 @@ public class LostInformationServiceImpl implements LostInformationService{
         Date startDate = DateUtils.addDays(now, -30);
         Map map = new HashMap();
         int num = lostInformationRepository.findAll().size();
+        int LostNum = lostInformationMapper.findNumByTypeAndTime(0,null,null);
+        int GetNum = lostInformationMapper.findNumByTypeAndTime(1,null,null);
         int currentLostNum = lostInformationMapper.findNumByTypeAndTime(0,now,startDate);
         int currentGetNum = lostInformationMapper.findNumByTypeAndTime(1,now,startDate);
         map.put("num",num);
         map.put("currentLostNum",currentLostNum);
         map.put("currentGetNum",currentGetNum);
+        map.put("LostNum",LostNum);
+        map.put("GetNum",GetNum);
         return map;
     }
 

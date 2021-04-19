@@ -65,7 +65,7 @@ public class UsersServiceImpl implements UsersService{
 
     @Override
     public List<Users> findAllUsers() {
-        return usersRepository.findAll();
+        return getUserData(usersRepository.findAll());
     }
 
     // TODO 查询用户信息
@@ -143,10 +143,11 @@ public class UsersServiceImpl implements UsersService{
             map.put("password",list.get(i).getPassword());
             map.put("nick",list.get(i).getNick());
             map.put("sex",list.get(i).getSex());
+            map.put("sexName",list.get(i).getSex() == 0 ? "男" : "女");
             map.put("birthday",new SimpleDateFormat("yyyy-MM-dd").format(list.get(i).getBirthday()));
             map.put("photoAddress",list.get(i).getPhotoAddress());
             map.put("grade",list.get(i).getGrade());
-            map.put("createTime",list.get(i).getCreateTime());
+            map.put("createTime",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(list.get(i).getCreateTime()));
 
             Major major = majorRepository.findAllById(list.get(i).getMajor());
 
