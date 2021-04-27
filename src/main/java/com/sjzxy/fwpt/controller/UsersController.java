@@ -1,27 +1,20 @@
 package com.sjzxy.fwpt.controller;
-
 import com.sjzxy.fwpt.entity.QuesInformation;
 import com.sjzxy.fwpt.entity.UserLogin;
 import com.sjzxy.fwpt.entity.Users;
 import com.sjzxy.fwpt.repository.UsersRepository;
 import com.sjzxy.fwpt.service.UsersService;
 import io.swagger.annotations.*;
-import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import com.sjzxy.fwpt.common.response.BaseResponse;
 
 import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.sjzxy.fwpt.common.exception.BusinessException;
 import com.sjzxy.fwpt.common.enums.ResultCodeEnum;
-import org.springframework.web.multipart.MultipartFile;
 
 @Api(tags = "用户信息相关接口", description = "提供日志管理的相关查询接口")
 @RestController
@@ -61,6 +54,8 @@ public class UsersController {
     @PostMapping("/edit")
     @ApiResponse(code = 200, message = "ok", response = BaseResponse.class)
     public BaseResponse editUsers(@ApiParam("实体对象") @Valid @RequestBody Users users){
+        System.out.println("controller-user");
+        System.out.println(users);
         return usersService.editUsers(users);
     }
 
@@ -111,7 +106,13 @@ public class UsersController {
     @PostMapping("/datas/{uid}")
     public BaseResponse findAllByUid(@RequestParam int uid){
         Map map = usersService.findByUid(uid);
+        System.out.println("map");
+        System.out.println(map);
         return BaseResponse.ok().data(map);
     }
+
+
+
+
 
 }

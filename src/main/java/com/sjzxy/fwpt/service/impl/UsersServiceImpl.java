@@ -49,6 +49,12 @@ public class UsersServiceImpl implements UsersService{
         if (users.getPhotoAddress() == ""){
             users.setPhotoAddress(defaultImg);
         }
+        System.out.println("users.getCreateTime()");
+        System.out.println(users.getCreateTime());
+//        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(users.getCreateTime());
+        users.setCreateTime(new Date());
+        System.out.println("users:");
+        System.out.println(users);
         usersRepository.save(users);
         return BaseResponse.ok();
     }
